@@ -1,0 +1,3 @@
+@extends('user.show')
+
+
