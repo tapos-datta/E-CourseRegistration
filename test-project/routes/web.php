@@ -70,6 +70,16 @@ Route::get('/profile/{id}',function($id){
 
 })->name('profile');
 
+Route::get('/settings',function(){
+
+    if(session()->get('success')!=null){
+        return view('admin.setting');
+    }
+    else
+        return view('admin.error');
+
+})->name('user_settings');
+
 
 
 Route::get('/user',function(){
@@ -78,14 +88,14 @@ Route::get('/user',function(){
 
 })->name('user_home');
 
-Route::get('/logout',function(){
+/*Route::get('/logout',function(){
 
      session()->flush();
      return \view('user.loginForm');
 
-})->name('user_logout');
+})->name('user_logout');*/
 
-
+Route::get('/logout', 'Auth\LoginController@logout')->name('user_logout');
 
 
 Route::get('/user/{id}', ['uses' =>'SessionCheckController@invoke', 'as'=>'check']);

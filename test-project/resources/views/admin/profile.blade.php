@@ -30,6 +30,7 @@
 
     <!-- Custom Theme Style -->
     <link href="{{URL::to('vendors/build/css/custom.min.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ URL::to('CSS/w3.css') }}">
 </head>
 
 <body class="nav-md">
@@ -55,19 +56,19 @@
                         <br>
 
                         <ul class="nav side-menu">
-                            <li><a href="{{route('user_home')}}"><i class="fa fa-home"></i> Home </a>
+                            <li><a href="{{route('user_home')}}" ><i class="fa fa-home"></i> Home </a>
 
                             </li>
-                            <li><a href="{{route('user_profile')}}"><i class="fa fa-user"></i> Profile </a>
+                            <li><a href="{{route('user_profile')}}" ><i class="fa fa-user"></i> Profile </a>
 
                             </li>
-                            <li><a><i class="fa fa-inbox"></i> Notification </a>
+                            <li><a ><i class="fa fa-inbox"></i> Notification </a>
 
                             </li>
-                            <li><a><i class="fa fa-wrench"></i> Setting </a>
+                            <li><a href="{{route('user_settings')}}"><i class="fa fa-wrench"></i> Setting </a>
 
                             </li>
-                            <li><a><i class="fa fa-sign-out"></i> Log Out </a>
+                            <li><a href="{{route('user_logout')}}"><i class="fa fa-sign-out"></i> Log Out </a>
 
                             </li>
 

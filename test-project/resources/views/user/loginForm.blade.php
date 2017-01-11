@@ -79,6 +79,7 @@
         </form>--}}
 
         {!!   Form::open(array('url'=>'login','method' => 'post', 'class' => 'login-form')) !!}
+        {{ csrf_field() }}
 
         {{ Form::text('email','',array('id'=>'','placeholder' => 'Email')) }}
             {{Form::password('password',array('placeholder'=>'password'))}}
