@@ -84,9 +84,7 @@
 <!-- Header with full-height image -->
 <header class="bgimg-1 w3-display-container w3-grayscale-min" id="home">
     <div align="right" class="w3-display-right w3-padding-xxlarge w3-text-blue-indigo">
-        <br>
-        <br>
-        <br>
+
 
 
         <span class="w3-jumbo w3-hide-small">E - COURSE REGISTRATION</span><br>

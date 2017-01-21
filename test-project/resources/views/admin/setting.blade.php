@@ -126,7 +126,7 @@ $image_path= URL::to('images/default_image.png');
             <div class="">
                 <div class="page-title">
                     <div class="title_left">
-                        <h3>User Settings</h3>
+                        <h3>Settings</h3>
                     </div>
 
 
@@ -216,11 +216,11 @@ $image_path= URL::to('images/default_image.png');
                                                     <div class="x_panel">
                                                         <div class="x_title">
                                                             <h2>Constraint <small>Add to syllabus</small></h2>
-                                                           {{-- <ul class="nav navbar-right panel_toolbox">
+                                                            <ul class="nav navbar-right panel_toolbox">
                                                                 <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                                                 </li>
 
-                                                            </ul>--}}
+                                                            </ul>
                                                             <div class="clearfix"></div>
                                                         </div>
                                                         <div class="x_content">
@@ -421,7 +421,7 @@ $image_path= URL::to('images/default_image.png');
                                                     <div class="col-md-12 col-sm-12 col-xs-12">
                                                         <div class="x_panel">
                                                             <div class="x_title">
-                                                                <h2>Course <small>Add to syllabus</small></h2>
+                                                                <h2>Department <small>Add to syllabus</small></h2>
 
                                                                 <div class="clearfix"></div>
                                                             </div>
@@ -430,7 +430,7 @@ $image_path= URL::to('images/default_image.png');
                                                                 <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
 
                                                                     <div class="form-group">
-                                                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Session <span class="required"></span>
+                                                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Department Code <span class="required"></span>
                                                                         </label>
                                                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                                                             {{ Form::text('session_year','',array('class'=>'form-control col-md-7 col-xs-12','required'=>'required','id'=>'')) }}
@@ -438,7 +438,7 @@ $image_path= URL::to('images/default_image.png');
                                                                         </div>
                                                                     </div>
                                                                     <div class="form-group">
-                                                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Department <span class="required"></span>
+                                                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Department Name <span class="required"></span>
                                                                         </label>
                                                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                                                             {{ Form::text('department','',array('class'=>'form-control col-md-7 col-xs-12','required'=>'required','id'=>'')) }}
@@ -446,26 +446,13 @@ $image_path= URL::to('images/default_image.png');
                                                                         </div>
                                                                     </div>
                                                                     <div class="form-group">
-                                                                        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Course Code</label>
+                                                                        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">School </label>
                                                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                                                             {{ Form::text('course_code','',array('class'=>'form-control col-md-7 col-xs-12','required'=>'required','id'=>'')) }}
                                                                             {{--<input id="middle-name" class="form-control col-md-7 col-xs-12" type="text" name="middle-name">--}}
                                                                         </div>
                                                                     </div>
-                                                                    <div class="form-group">
-                                                                        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Course Title</label>
-                                                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                            {{ Form::text('course_title','',array('class'=>'form-control col-md-7 col-xs-12','required'=>'required','id'=>'')) }}
-                                                                            {{--<input id="middle-name" class="form-control col-md-7 col-xs-12" type="text" name="middle-name">--}}
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Course Credit</label>
-                                                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                            {{ Form::text('course_credit','',array('class'=>'form-control col-md-7 col-xs-12','required'=>'required','id'=>'')) }}
-                                                                            {{--<input id="middle-name" class="form-control col-md-7 col-xs-12" type="text" name="middle-name">--}}
-                                                                        </div>
-                                                                    </div>
+
 
 
                                                                     <div class="ln_solid"></div>
@@ -498,9 +485,9 @@ $image_path= URL::to('images/default_image.png');
         <!-- footer content -->
         <footer>
             <div class="pull-right">
-                Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+                {{--Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>--}}
             </div>
-            <div class="clearfix"></div>
+            {{--<div class="clearfix"></div>--}}
         </footer>
         <!-- /footer content -->
     </div>

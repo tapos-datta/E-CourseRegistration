@@ -7,7 +7,7 @@
     <title></title>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="{{ URL::to('CSS/Stylesheet.css') }}" media="print">
-
+    <link rel="stylesheet" type="text/css" href="{{ URL::to('CSS/registrationScreen.css') }}" media="screen">
     <style type="text/css" media="print">
         #table_col{
             border:1px solid black;

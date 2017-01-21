@@ -19,7 +19,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Gentellela Alela! | </title>
+    <title>Profile | </title>
 
     <!-- Bootstrap -->
     <link href="{{ URL::to('vendors/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -114,7 +114,7 @@
             <div class="">
                 <div class="page-title">
                     <div class="title_left">
-                        <h3>User Profile</h3>
+                        <h3>Profile</h3>
                     </div>
 
 
@@ -134,14 +134,14 @@
                                             <img class="img-responsive avatar-view" src={{$image_path}} alt="Avatar" title="Change the avatar">
                                         </div>
                                     </div>
-                                    <h3>Samuel Doe</h3>
+                                    <h3>Tapos Datta</h3>
 
                                     <ul class="list-unstyled user_data">
-                                        <li><i class="fa fa-map-marker user-profile-icon"></i> San Francisco, California, USA
+                                        <li><i class="fa fa-map-marker user-profile-icon"></i>Sylhet,Bangladesh
                                         </li>
 
                                         <li>
-                                            <i class="fa fa-briefcase user-profile-icon"></i> Software Engineer
+                                            <i class="fa fa-briefcase user-profile-icon"></i> Student
                                         </li>
 
 
@@ -319,10 +319,10 @@
 
         <!-- footer content -->
         <footer>
-            <div class="pull-right">
+          {{-- --}}{{-- <div class="pull-right">
                 Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
             </div>
-            <div class="clearfix"></div>
+            <div c--}}{{--lass="clearfix"></div>--}}
         </footer>
         <!-- /footer content -->
     </div>
