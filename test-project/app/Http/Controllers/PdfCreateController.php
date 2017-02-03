@@ -6,7 +6,6 @@
  * Time: 12:33 AM
  */
 namespace App\Http\Controllers;
-use App\Http\Requests\Request;
 use PDF;
 use Illuminate\Support\Facades\App;
 

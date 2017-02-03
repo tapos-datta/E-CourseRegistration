@@ -70,7 +70,9 @@ Route::get('/profile/{id}',function($id){
 
 })->name('profile');
 
-Route::get('/settings',function(){
+
+
+/*Route::get('/settings',function(){
 
     if(session()->get('success')!=null){
         return view('admin.setting');
@@ -78,8 +80,9 @@ Route::get('/settings',function(){
     else
         return view('admin.error');
 
-})->name('user_settings');
+})->name('user_settings');*/
 
+Route::get('/settings',array('as'=>'user_settings','uses'=>'SettingsController@index'));
 
 
 Route::get('/user',function(){
@@ -110,5 +113,18 @@ Route::get('/profile', ['uses' =>'profileController@showInfo', 'as'=>'user_profi
 Route::get('htmltopdfview',array('as'=>'htmltopdfview','uses'=>'ProductController@htmltopdfview'));
 
 
+Route::post('/add_department',['uses'=>'OperationController@addDepartment']);
 
+Route::post('/add_course',['uses'=>'OperationController@addCourse']);
 
+Route::post('/add_curriculum',['uses'=>'OperationController@addCurriculum']);
+
+Route::get('/show_curriculum/{year}',['as'=>'show.curriculum','uses'=>'ShowCurriculumController@index']);
+
+Route::get('/show_curriculum/',['uses'=>'ShowCurriculumController@_empty']);
+
+Route::get('/show_curriculum/{year}',['as'=>'show.curriculum','uses'=>'ShowCurriculumController@index']);
+
+Route::get('/show_curriculum={year}/department={code}',['as'=>'show.curriculum.dept','uses'=>'ShowCurriculumController@department']);
+
+Route::get('/show_curriculum={year}/department={code}/add={semester}',['as'=>'addCourseToCurriculum','uses'=>'AddCurriculumController@index']);
