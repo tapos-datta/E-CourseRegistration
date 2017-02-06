@@ -25,14 +25,17 @@ class SettingsController extends Controller
 
             $courseLists=DB::table('courses')->orderBy('DEPT_CODE', 'asc')->
             orderBy('COURSE_LEVEL','asc')->orderBy('SEMESTER_NAME','asc')->get();
-
             $curriculumYear=DB::table('syllabus')->select('SYLLABUS_YEAR')->get();
+            $offeredList=DB::table('offered_courses')->select('EXAM_YEAR','SESSION_MONTH')->get();
+
+
 
 
 
             Session::put('departmentCodeList', $departmentCodeList);
             Session::put('courseLists',$courseLists);
             Session::put('curriculumYearList',$curriculumYear);
+            Session::put('offeredExamList',$offeredList);
 
             return view('admin.setting');
         }

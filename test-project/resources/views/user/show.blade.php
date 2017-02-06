@@ -60,7 +60,7 @@
             <a href="{{route('loginform')}}"><i class="fa fa-user"></i> LOG IN</a>
             <a href="{{route('registration')}}"><i class="fa fa-th"></i> REG. FORM</a>
             <a href="{{route('print')}}"><i class="fa fa-usd"></i> print</a>
-            <a href="#contact"><i class="fa fa-envelope"></i> CONTACT</a>
+            <a href="{{route('pdfview')}}"><i class="fa fa-envelope"></i> CONTACT</a>
         </li>
         <!-- Hide right-floated links on small screens and replace them with a menu icon -->
         <li>

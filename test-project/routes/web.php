@@ -91,6 +91,8 @@ Route::get('/user',function(){
 
 })->name('user_home');
 
+Route::get('pdfview',array('as'=>'pdfview','uses'=>'ItemController@pdfview'));
+
 /*Route::get('/logout',function(){
 
      session()->flush();
@@ -128,3 +130,30 @@ Route::get('/show_curriculum/{year}',['as'=>'show.curriculum','uses'=>'ShowCurri
 Route::get('/show_curriculum={year}/department={code}',['as'=>'show.curriculum.dept','uses'=>'ShowCurriculumController@department']);
 
 Route::get('/show_curriculum={year}/department={code}/add={semester}',['as'=>'addCourseToCurriculum','uses'=>'AddCurriculumController@index']);
+
+Route::post('/add_course_curriculum',['uses'=>'OperationController@addCourseList']);
+
+Route::post('/delete_course_from_curriculum',['as'=>'delete_course_curriculum' ,'uses'=>'ShowCurriculumController@deleteCourseFromCurriculum']);
+
+Route::get('/list_of_departments',['as'=>'show.departments' ,'uses'=>'ShowCurriculumController@showDepartments']);
+
+Route::post('/edit_department_info',['uses'=>'showCurriculumController@editDepartments']);
+
+Route::post('/delete_department',['uses'=>'ShowCurriculumController@deleteDepartments']);
+
+Route::post('/edited_info',['uses'=>'OperationController@editDeptInformation']);
+
+Route::get('/add_department_info',['as'=>'add.department' ,'uses'=>'OperationController@addDepartmentInfo']);
+
+Route::get('/add_course_info',['as'=>'add.course' ,'uses'=>'OperationController@addCourseInfo']);
+
+Route::get('/list_of_courses',['as'=>'show.courses' ,'uses'=>'ShowCurriculumController@showCourses']);
+
+Route::post('/edit_course_info',['uses'=>'showCurriculumController@editCourses']);
+
+Route::post('/edited_course_info',['uses'=>'OperationController@editCourseInformation']);
+
+Route::get('/add_offered_courses',[ 'as'=>'add.offered_course','uses'=>'OperationController@addOfferedCourse']);
+
+
+

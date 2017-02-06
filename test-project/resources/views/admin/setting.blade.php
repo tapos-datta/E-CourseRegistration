@@ -10,6 +10,8 @@ $image_path= URL::to('images/default_image.png');
     $courseLists=session()->get('courseLists');
     $curriculumYearList=session()->get('curriculumYearList');
     $checkStatus=0;
+    $offeredList=Session::get('offeredExamList');
+
   if(session()->get('SetSettings')!=null){
        $checkStatus=session()->get('SetSettings');
   }
@@ -27,7 +29,7 @@ $image_path= URL::to('images/default_image.png');
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Gentellela Alela! | </title>
+    <title>Settings</title>
 
     <!-- Bootstrap -->
     <link href="{{ URL::to('vendors/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -60,8 +62,25 @@ $image_path= URL::to('images/default_image.png');
             appearance:none;
             cursor:pointer;
         }
+        #addButton {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 5px 5px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 12px;
+        }
         table.jambo_table thead{
             background-color: #1b809e;
+        }
+        .textSize{
+            font-size: 16px;
+
         }
 
     </style>
@@ -84,61 +103,12 @@ $image_path= URL::to('images/default_image.png');
                 <br />
 
                 <!-- sidebar menu -->
-                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-                    <div class="menu_section">
-                        <br>
-                        <br>
-
-                        <ul class="nav side-menu">
-                            <li><a href="{{route('user_home')}}" ><i class="fa fa-home"></i> Home </a>
-
-                            </li>
-                            <li><a href="{{route('user_profile')}}" ><i class="fa fa-user"></i> Profile </a>
-
-                            </li>
-                            <li><a ><i class="fa fa-inbox"></i> Notification </a>
-
-                            </li>
-                            <li><a href="{{route('user_settings')}}"><i class="fa fa-wrench"></i> Setting </a>
-
-                            </li>
-                            <li><a href="{{route('user_logout')}}"><i class="fa fa-sign-out"></i> Log Out </a>
-
-                            </li>
-
-
-                        </ul>
-                    </div>
-
-
-                </div>
+                @include('admin.sidebar')
             </div>
         </div>
 
         <!-- top navigation -->
-        <div class="top_nav">
-            <div class="nav_menu">
-                <nav>
-                    <div class="nav toggle">
-                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-                    </div>
-
-                    <ul class="nav navbar-nav navbar-right">
-                        <li class="">
-                            <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                <img src="images/img.jpg" alt="">John Doe
-                                <span class=" fa fa-angle-down"></span>
-                            </a>
-                            <ul class="dropdown-menu dropdown-usermenu pull-right">
-                                <li><a href="javascript:;"> Profile</a></li>
-
-                                <li><a href="{{route('user_logout')}}"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
+       @include('admin.topNavigation')
         <!-- /top navigation -->
 
         <!-- page content -->
@@ -172,17 +142,16 @@ $image_path= URL::to('images/default_image.png');
 
                                     <div class="" role="tabpanel" data-example-id="togglable-tabs">
                                         <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
-                                            <li role="presentation" class="@if($checkStatus==0 || $checkStatus==1){{'active'}} <?php $checkStatus=0;?> @endif w3-light-green"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">View Syllabus</a>
+                                            <li role="presentation" class="@if($checkStatus==0 || $checkStatus==1){{'active'}} <?php $checkStatus=0;?> @endif w3-light-green"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Curriculum</a>
                                             </li>
-                                            <li role="presentation" class="@if($checkStatus==2){{'active'}}@endif  w3-light-green"><a href="#tab_content2" role="tab" id="profile-tab"  data-toggle="tab" aria-expanded="false">Add Syllabus</a>
+                                            <li role="presentation" class="@if($checkStatus==2){{'active'}}@endif  w3-light-green"><a href="#tab_content2" role="tab" id="profile-tab"  data-toggle="tab" aria-expanded="false">Add syllabus</a>
                                             </li>
-                                            <li role="presentation" class="@if($checkStatus==3){{'active'}}@endif w3-light-green"><a href="#tab_content3" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">Edit Syllabus</a>
+                                            <li role="presentation" class="@if($checkStatus==3){{'active'}}@endif w3-light-green"><a href="#tab_content4" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Offered Courses</a>
                                             </li>
-                                            <li role="presentation" class="@if($checkStatus==4){{'active'}}@endif w3-light-green"><a href="#tab_content3" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">Offered Course</a>
+                                            <li role="presentation" class="@if($checkStatus==5){{'active'}}@endif w3-light-green"><a href="#tab_content5" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Department</a>
                                             </li>
-                                            <li role="presentation" class="@if($checkStatus==5){{'active'}}@endif w3-light-green"><a href="#tab_content5" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Add Department</a>
-                                            </li>
-                                            <li role="presentation" class="@if($checkStatus==6){{'active'}}@endif w3-light-green"><a href="#tab_content6" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Add Course</a>
+
+                                            <li role="presentation" class="@if($checkStatus==6){{'active'}}@endif w3-light-green"><a href="#tab_content6" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Course</a>
                                             </li>
                                         </ul>
                                         <div id="myTabContent" class="tab-content">
@@ -198,7 +167,7 @@ $image_path= URL::to('images/default_image.png');
                                                     <tbody>
                                                     @foreach($curriculumYearList as $curriculum)
                                                     <tr>
-                                                        <td>+</td>
+                                                        <td></td>
                                                         <td><a href="{!! route('show.curriculum', array('year'=> $curriculum->SYLLABUS_YEAR )) !!}">Curriculum Year of {{$curriculum->SYLLABUS_YEAR}}</a></td>
                                                     </tr>
                                                     </tbody>
@@ -320,175 +289,113 @@ $image_path= URL::to('images/default_image.png');
 
 
                                             </div>
-                                            <div role="tabpanel" class="tab-pane fade @if($checkStatus==3){{'active in'}}@endif " id="tab_content3 " aria-labelledby="profile-tab">
-                                                <p>xxFood truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui
-                                                    photo booth letterpress, commodo enim craft beer mlkshk </p>
-                                            </div>
+                                            <div role="tabpanel" class="tab-pane fade @if($checkStatus==4){{'active in'}}@endif" id="tab_content4" aria-labelledby="profile-tab">
+                                                <!-- add department name -->
 
-                                            <div role="tabpanel" class="tab-pane fade @if($checkStatus==5){{'active in'}}@endif" id="tab_content5" aria-labelledby="profile-tab">
-                                               <!-- add department name -->
+
+
                                                 <div class="row">
-                                                    {!!  Form::open(array('url'=>'/add_department', 'method' => 'POST', 'class' => 'form-horizontal')) !!}
-                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
                                                     <div class="col-md-12 col-sm-12 col-xs-12">
                                                         <div class="x_panel">
                                                             <div class="x_title">
-                                                                <h2>Department <small>Add to Database</small></h2>
+                                                                <h3>List Of Exam Session</h3>
+                                                                <div align="right">
+                                                                    <a href="{{route('add.offered_course')}}" id="addButton">+ New List </a>
+                                                                </div>
 
                                                                 <div class="clearfix"></div>
                                                             </div>
+
                                                             <div class="x_content">
                                                                 <br />
+                                                                <table class="data table jambo_table table-striped no-margin">
+                                                                    <tbody>
+                                                                    {{--@foreach($offeredList as $offered)--}}
+                                                                    <tr>
 
+                                                                        <td ><a class="textSize" href="">Exam Session (Jan-Jun) Of 2012</a></td>
+                                                                        <td align="right"><button type="submit" class="btn btn-danger" name="submit"> Delete</button></td>
 
-                                                                    <div class="form-group">
-                                                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Department Code <span class="required"></span>
-                                                                        </label>
-                                                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                            {{ Form::text('departmentCode','',array('class'=>'form-control col-md-7 col-xs-12','required'=>'required','id'=>'')) }}
-                                                                            {{--<input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">--}}
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Department Name <span class="required"></span>
-                                                                        </label>
-                                                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                            {{ Form::text('departmentName','',array('class'=>'form-control col-md-7 col-xs-12','required'=>'required','id'=>'')) }}
-                                                                            {{--<input type="text" id="last-name" name="last-name" required="required" class="form-control col-md-7 col-xs-12">--}}
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Department Name(short form) <span class="required"></span>
-                                                                        </label>
-                                                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                            {{ Form::text('departmentNameShortForm','',array('class'=>'form-control col-md-7 col-xs-12','required'=>'required','id'=>'')) }}
-                                                                            {{--<input type="text" id="last-name" name="last-name" required="required" class="form-control col-md-7 col-xs-12">--}}
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">School </label>
-                                                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                            <select name="departmentSchool" class="form-control col-md-7 col-xs-12">
-                                                                                <option value="Agriculture & mineral Sciences" selected="selected" >Agriculture & mineral Sciences</option>
-                                                                                <option value="Applied Sciences & Technology" >Applied Sciences & Technology</option>
-                                                                                <option value="Life Sciences" >Life Sciences</option>
-                                                                                <option value="Management & Buisness Administration" >Management & Buisness Administration</option>
-                                                                                <option value="Physical Sciences" >Physical Sciences</option>
-                                                                                <option value="Social Sciences" >Social Sciences</option>
-                                                                            </select>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="ln_solid"></div>
-                                                                    <div class="form-group">
-                                                                        <div align="right" class="col-md-3 col-sm-3 col-xs-12 col-md-offset-6">
-
-                                                                            {{--<button type="submit" class="btn btn-success">Submit</button>--}}
-                                                                            {{ Form::submit('SUBMIT',array('id'=>'submitButton', 'class'=>'btn btn-success')) }}
-                                                                        </div>
-                                                                    </div>
-
-                                                                   {!! Form::close() !!}
+                                                                    </tr>
+                                                                    {{--@endforeach--}}
+                                                                    </tbody>
+                                                                </table>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
+
+                                            </div>
+
+                                            <div role="tabpanel" class="tab-pane fade @if($checkStatus==5){{'active in'}}@endif" id="tab_content5" aria-labelledby="profile-tab">
+                                               <!-- add department name -->
+
+
+
+                                                <div class="row">
+
+                                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                                        <div class="x_panel">
+                                                            <div class="x_title">
+                                                                {{--<h3><a ">List Of Departments</a></h3>--}}
+
+                                                                <div class="clearfix"></div>
+                                                            </div>
+
+                                                            <div class="x_content">
+                                                                <br />
+                                                                <table class="data table jambo_table table-striped no-margin">
+                                                                    <tbody>
+
+                                                                        <tr>
+
+                                                                            <td align="center"><a href="{{route('show.departments')}}"><h3>View Department</h3></a></td>
+                                                                        <tr>
+                                                                            <td align="center"><a href="{{route('add.department')}}"><h3>Add Department</h3></a></td>
+                                                                        </tr>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                             </div>
 
                                             <div role="tabpanel" class="tab-pane fade @if($checkStatus==6){{'active in'}}@endif " id="tab_content6" aria-labelledby="profile-tab">
                                                 <!-- add course to database-->
                                                 <div class="row">
-                                                    {!!  Form::open(array('url'=>'/add_course','method'=>'post', 'class' => 'form-horizontal ')) !!}
-                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
                                                     <div class="col-md-12 col-sm-12 col-xs-12">
                                                         <div class="x_panel">
                                                             <div class="x_title">
-                                                                <h2>Course <small>Add to Database</small></h2>
+                                                                {{--<h3><a ">List Of Departments</a></h3>--}}
 
                                                                 <div class="clearfix"></div>
                                                             </div>
+
                                                             <div class="x_content">
                                                                 <br />
+                                                                <table class="data table jambo_table table-striped no-margin">
+                                                                    <tbody>
 
+                                                                    <tr>
 
-                                                                    <div class="form-group">
-                                                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Course Code <span class="required"></span>
-                                                                        </label>
-                                                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                            {{ Form::text('courseCode','',array('class'=>'form-control col-md-7 col-xs-12','required'=>'required','id'=>'')) }}
-                                                                            {{--<input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">--}}
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Course Name <span class="required"></span>
-                                                                        </label>
-                                                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                            {{ Form::text('courseName','',array('class'=>'form-control col-md-7 col-xs-12','required'=>'required','id'=>'')) }}
-                                                                            {{--<input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">--}}
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Course Credit <span class="required"></span>
-                                                                        </label>
-                                                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                            <select name="courseCredit" class="form-control col-md-7 col-xs-12">
-                                                                                @for($k=0.5;$k<=4.0;$k=$k+0.5)
-                                                                                    <option value="{{ $k }}">{{$k}}</option>
-                                                                                @endfor
-                                                                            </select>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Course Level <span class="required"></span>
-                                                                        </label>
-                                                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                            <select name="courseLevel" class="form-control col-md-7 col-xs-12">
-                                                                                @for($k=1;$k<=4;$k++)
-                                                                                    <option value="{{ $k }}">{{$k}}</option>
-                                                                                @endfor
-                                                                            </select>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="form-group">
-                                                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Semester Name <span class="required"></span>
-                                                                        </label>
-                                                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                            <select name="semesterName" class="form-control col-md-7 col-xs-12">
-                                                                                @for($k=1;$k<=8;$k++)
-                                                                                    <option value="{{ $k }}">{{$k}}</option>
-                                                                                @endfor
-                                                                            </select>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Department Code</label>
-                                                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                            <select name="departmentCode" class="form-control col-md-7 col-xs-12">
-                                                                                @foreach($departmentCodeLists as $code)
-                                                                                <option value="{{  $code->DEPT_CODE }}">{{$code->DEPT_NAME_SHORT."-".$code->DEPT_CODE}}</option>
-                                                                                @endforeach
-                                                                            </select>
-                                                                            </div>
-                                                                    </div>
-
-
-
-                                                                    <div class="ln_solid"></div>
-                                                                    <div class="form-group">
-                                                                        <div align="right" class="col-md-3 col-sm-3 col-xs-12 col-md-offset-6">
-
-                                                                            {{--<button type="submit" class="btn btn-success">Submit</button>--}}
-                                                                            {{ Form::submit('SUBMIT',array('id'=>'submitButton', 'class'=>'btn btn-success')) }}
-                                                                        </div>
-                                                                    </div>
-
-                                                                  {!! Form::close() !!}
+                                                                        <td align="center"><a href="{{route('show.courses')}}"><h3>View Courses</h3></a></td>
+                                                                    <tr>
+                                                                        <td align="center"><a href="{{route('add.course')}}"><h3>Add Course</h3></a></td>
+                                                                    </tr>
+                                                                    </tr>
+                                                                    </tbody>
+                                                                </table>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <!-- End of adding course !-->
                                             </div>
-                                            <!-- End of adding course !-->
 
                                         </div>
                                     </div>
@@ -541,6 +448,8 @@ $image_path= URL::to('images/default_image.png');
 
 <!-- Custom Theme Scripts -->
 <script src="{{URL::to('vendors/build/js/custom.min.js')}}"></script>
+
+
 
 <!-- Datatables -->
 <script>
@@ -628,6 +537,10 @@ $image_path= URL::to('images/default_image.png');
 <!-- /Datatables -->
 </body>
 </html>
+
+
+
+
 
 <?php
     session()->forget('SetSettings');

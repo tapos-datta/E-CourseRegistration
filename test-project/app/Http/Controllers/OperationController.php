@@ -23,12 +23,13 @@ class OperationController extends Controller
         $deptName=$request->input('departmentName');
         $deptNameShort=$request->input('departmentNameShortForm');
         $deptSchocl=$request->input('departmentSchool');
-        $deptId=0;
-        $deptId = DB::table('department')->insertGetId(
-            ['DEPT_CODE' => $deptCode, 'DEPT_NAME' => $deptName, 'DEPT_NAME_SHORT'=> $deptNameShort, 'SCHOOL'=> $deptSchocl]
-        );
 
-        if($deptId!=0){
+        $deptId = DB::table('department')->select('DEPT_CODE')->where(['DEPT_CODE' => $deptCode])->get();
+
+        if( sizeof($deptId) < 1 ){
+            DB::table('department')->insert(
+                ['DEPT_CODE' => $deptCode, 'DEPT_NAME' => $deptName, 'DEPT_NAME_SHORT'=> $deptNameShort, 'SCHOOL'=> $deptSchocl]
+            );
             Session::put('SetSettings', 5);
         }
         else{
@@ -81,5 +82,71 @@ class OperationController extends Controller
 
          return redirect()->route('user_settings');
      }
+
+     public function addCourseList(Request $request){
+         $curriculumYear=$request->input('curriculumYear');
+         $deptCode=$request->input('departmentCode');
+         $semesterName=$request->input('semesterNo');
+         $courseList=$request->input('check_list');
+
+        try {
+            foreach ($courseList as $courseno) {
+                DB::table('course_list')->insert([
+                    'COURSE_ID' => $courseno, 'SYLLABUS_YEAR' => $curriculumYear, 'DEPT_CODE' => $deptCode, 'SEMESTER_NAME' =>$semesterName
+                ]);
+            }
+        }catch(Exception $e){
+            echo $e->getMessage();
+        }
+         return redirect()->route('show.curriculum.dept', array($curriculumYear,$deptCode));
+     }
+
+    public function editDeptInformation(Request $request){
+
+        $deptCode=$request->input('departmentCode');
+        $deptName=$request->input('departmentName');
+        $deptNameShort=$request->input('departmentNameShortForm');
+        $deptSchocl=$request->input('departmentSchool');
+
+        DB::table('department')->where('DEPT_CODE','=',$deptCode)->update([
+            'DEPT_NAME'=>$deptName , 'DEPT_NAME_SHORT'=>$deptNameShort ,'SCHOOL'=>$deptSchocl
+        ]);
+
+        return redirect()->route('show.departments');
+  }
+
+  public function addDepartmentInfo(){
+      //rule check kortae hobe
+      return view('admin.addDepartment');
+  }
+
+  public function addCourseInfo(){
+      //rule check korte hobe
+
+      return view('admin.addCourseInfo');
+  }
+
+  public function editCourseInformation(Request $request){
+      $courseId=$request->input('courseId');
+      $courseCode=$request->input('courseCode');
+      $courseName=$request->input('courseName');
+      $courseCredit=$request->input('courseCredit');
+      $courseLevel=$request->input('courseLevel');
+      $semesterName=$request->input('semesterName');
+      $departmentCode=$request->input('departmentCode');
+
+      DB::table('department')->where('COURSE_ID','=',$courseId)->update([
+          'COURSE_CODE' => $courseCode, 'COURSE_NAME' => $courseName, 'COURSE_CREDIT'=> $courseCredit, 'COURSE_LEVEL'=> $courseLevel
+          ,'SEMESTER_NAME'=> $semesterName , 'DEPT_CODE'=>$departmentCode
+      ]);
+
+      return redirect()->route('show.courses');
+  }
+
+
+  public function addOfferedCourse(){
+
+      return view('admin.addOfferedCourse');
+  }
 
 }

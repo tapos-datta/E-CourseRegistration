@@ -2,14 +2,13 @@
 /**
  * Created by PhpStorm.
  * User: Tapos
- * Date: 2/2/2017
- * Time: 4:48 PM
+ * Date: 2/6/2017
+ * Time: 10:06 PM
  */
-$year=Session::get('showCurriculumYear');
-$departmentList=Session::get('departmentList');
-$viewSemester=Session::get('viewSemester');
-$deptCode=Session::get('viewDeptCode');
-$courseListInSemester=Session::get('courseListOfSemester');
+
+
+$courseLists = Session::get('ListsOfCourse');
+
 
 ?>
         <!DOCTYPE html>
@@ -21,7 +20,7 @@ $courseListInSemester=Session::get('courseListOfSemester');
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Home </title>
+    <title>Show Departments</title>
 
     <!-- Bootstrap -->
     <link href="{{ URL::to('vendors/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -48,6 +47,9 @@ $courseListInSemester=Session::get('courseListOfSemester');
         table.jambo_table thead{
             background-color: #1b809e;
         }
+        .alignment{
+            text-align: center;
+        }
     </style>
 
 </head>
@@ -67,67 +69,20 @@ $courseListInSemester=Session::get('courseListOfSemester');
                 <!-- /menu profile quick info -->
 
                 <br />
+                <br />
+                <br />
 
                 <!-- sidebar menu -->
-                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-                    <div class="menu_section">
-                        <br>
-                        <br>
-
-                        <ul class="nav side-menu">
-                            <li><a href="{{route('user_home')}}"><i class="fa fa-home"></i> Home </a>
-
-                            </li>
-                            <li><a href="{{route('user_profile')}}"> <i class="fa fa-user"></i> Profile </a>
-
-                            </li>
-                            <li><a><i class="fa fa-inbox"></i> Notification </a>
-
-                            </li>
-                            <li><a href="{{route('user_settings')}}"><i class="fa fa-wrench"></i> Setting </a>
-
-                            </li>
-                            <li><a href="{{route('user_logout')}}"><i class="fa fa-sign-out"></i> Log Out </a>
-
-                            </li>
-
-
-                        </ul>
-                    </div>
-
-
-                </div>
-                <!-- /sidebar menu -->
+            @include('admin.sidebar')
+            <!-- /sidebar menu -->
 
 
             </div>
         </div>
 
         <!-- top navigation -->
-        <div class="top_nav">
-            <div class="nav_menu">
-                <nav>
-                    <div class="nav toggle">
-                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-                    </div>
-
-                    <ul class="nav navbar-nav navbar-right">
-                        <li class="">
-                            <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                <img src="images/img.jpg" alt="">John Doe
-                                <span class=" fa fa-angle-down"></span>
-                            </a>
-                            <ul class="dropdown-menu dropdown-usermenu pull-right">
-                                <li><a href="javascript:;"> Profile</a></li>
-
-                                <li><a href="{{route('user_logout')}}"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-        <!-- /top navigation -->
+    @include('admin.topNavigation')
+    <!-- /top navigation -->
 
         <!-- page content -->
         <div class="right_col" role="main">
@@ -136,18 +91,11 @@ $courseListInSemester=Session::get('courseListOfSemester');
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div>
                             <ul class="breadcrumb">
-                                <li><a href="{{route('user_settings')}}">Curriculum({{$year}})</a></li>
-                                <li><a href="{!! route('show.curriculum', array('year'=> $year)) !!}"> Department({{$deptCode}})</a></li>
-                                <li><a href="{!! route('show.curriculum.dept',array('year'=>$year,'code' => $deptCode)) !!}">
-                                        Semester(@if($viewSemester==1){{1}}@else{{round($viewSemester/2)}}@endif/@if($viewSemester%2==0){{2}})@else{{1}})
-                                        @endif </a></li>
-
+                                <li><a href="{{route('user_settings')}}">Settings</a></li>
                                 <li><a></a></li>
                             </ul>
                         </div>
                     </div>
-
-
                 </div>
 
                 <div class="clearfix"></div>
@@ -156,63 +104,55 @@ $courseListInSemester=Session::get('courseListOfSemester');
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_panel">
                             <div class="x_title">
-                                <h2>Add Courses<small>In {{$viewSemester}} Semester of Curriculum {{$year}}</small></h2>
+                                <h2>List of Courses</h2>
 
                                 <div class="clearfix"></div>
                             </div>
-                            {!! Form::open(array('url'=>'\add_course_curriculum','method'=>'post', 'class' => 'form-horizontal'))!!}
-                            <input type="hidden" name="curriculumYear" value="{{$year}}" />
-                            <input type="hidden" name="departmentCode" value="{{$deptCode}}" />
-                            <input type="hidden" name="semesterNo" value="{{$viewSemester}}" />
                             <div class="x_content">
                                 <div class="form-group">
-                                    <label style="text-align: left" class="control-label col-md-12 col-sm-12 col-xs-12">Select Courses :
-                                    </label>
                                     <div class="clearfix"></div>
                                     <div class="x_content">
 
                                         <table  id='datatable-checkbox' class="table table-striped jambo_table table-bordered">
                                             <thead>
                                             <tr class="headings">
-                                                <th class="column-title"># Select</th>
-                                                <th class="column-title">Course Code</th>
-                                                <th class="column-title">Course Name</th>
-                                                <th class="column-title">Course Credit</th>
-                                                <th class="column-title">Course Level</th>
-                                                <th class="column-title">Semester Name</th>
-                                                <th class="column-title">Department Code </th>
-
+                                                <th class="column-title alignment">Course Code</th>
+                                                <th class="column-title alignment">Course Name</th>
+                                                <th class="column-title alignment">Course Credit</th>
+                                                <th class="column-title alignment">Course label</th>
+                                                <th class="column-title alignment">Semester</th>
+                                                <th class="column-title alignment">Department Code</th>
+                                                <th class="column-title alignment">#</th>
+                                                <th class="column-title alignment">#</th>
                                             </tr>
                                             </thead>
 
                                             <tbody>
-                                            @foreach($courseListInSemester as $courses)
-                                                <tr class="odd pointer">
-                                                    <td class="a-center">
-                                                        <input type="checkbox" class="flat" name="check_list[]" value="{{$courses->COURSE_ID}}">
-                                                    </td>
-                                                    <td class=" ">{{$courses->COURSE_CODE}}</td>
-                                                    <td class=" ">{{$courses->COURSE_NAME}}</td>
-                                                    <td class=" ">{{$courses->COURSE_CREDIT}}</td>
-                                                    <td class=" ">{{$courses->COURSE_LEVEL}}</td>
-                                                    <td class=" ">{{$courses->SEMESTER_NAME}}</td>
-                                                    <td class="a-right a-right ">{{$courses->DEPT_CODE}}</td>
+                                            @foreach($courseLists as $course)
+                                                <tr>
+                                                    <td class=" alignment">{{$course->COURSE_CODE}}</td>
+                                                    <td class="alignment ">{{$course->COURSE_NAME}}</td>
+                                                    <td class="alignment ">{{$course->COURSE_CREDIT}}</td>
+                                                    <td class=" alignment">{{$course->COURSE_LEVEL}}</td>
+                                                    <td class=" alignment">{{$course->SEMESTER_NAME}}</td>
+                                                    <td class=" alignment">{{$course->DEPT_CODE}}</td>
+
+                                                    {!! Form::open(array('url'=>'/edit_course_info','method'=>'POST', 'class' => 'form-horizontal' ))!!}
+                                                    <input type="hidden" value="{{$course->COURSE_ID}}" name="courseCode">
+                                                    <td class=" alignment"><button type="submit" class="btn btn-info" name="submit"> Edit</button></td>
+                                                    {!! Form::close() !!}
+
+                                                    {!! Form::open(array('url'=>'/delete_course','method'=>'post','class' => 'form-horizontal'))!!}
+                                                    <input type="hidden" value="{{$course->COURSE_ID}}" name="courseCode">
+                                                    <td class=" alignment"><button type="submit" class="btn btn-danger" name="submit"> Delete</button></td>
+                                                    {!! Form::close()!!}
+
                                                 </tr>
                                             @endforeach
                                             </tbody>
                                         </table>
 
                                     </div>
-
-                                    <div class="form-group">
-                                        <div align="right" class="col-md-2 col-sm-2 col-xs-12 col-md-offset-10 col-sm-offset-10">
-                                            <br>
-
-                                            {{ Form::submit('SUBMIT',array('id'=>'submitButton', 'class'=>'btn btn-success')) }}
-                                        </div>
-                                    </div>
-
-                                    {!! Form::close() !!}
 
                                 </div>
                             </div>
@@ -244,7 +184,7 @@ Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib
 <script src="{{URL::to('vendors/nprogress/nprogress.js')}}"></script>
 <!-- iCheck -->
 <script src="{{URL::to('vendors/iCheck/icheck.min.js')}}"></script>
-<!--Datatable --!>
+<!--Datatable -->
 <script src="{{URL::to('vendors/datatables.net/js/jquery.dataTables.min.js')}}"></script>
 <script src="{{URL::to('vendors/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
 <script src="{{URL::to('vendors/datatables.net-buttons/js/dataTables.buttons.min.js')}}"></script>
@@ -330,7 +270,7 @@ Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib
         $datatable.dataTable({
             'order': [[ 1, 'asc' ]],
             'columnDefs': [
-                { orderable: false, targets: [0] }
+                { orderable: false, targets: [0,4,5] }
             ]
         });
         $datatable.on('draw.dt', function() {

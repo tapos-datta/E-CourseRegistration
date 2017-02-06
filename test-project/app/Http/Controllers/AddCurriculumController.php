@@ -23,8 +23,29 @@ class AddCurriculumController extends Controller
 
             $tempDataFromCourselistSemester=DB::table('courses')
             ->where('DEPT_CODE',$code)->where('SEMESTER_NAME',$semester)->get();
+            $previouslyAdded=DB::table('course_list')->select('COURSE_ID')->where('DEPT_CODE',$code)->where('SEMESTER_NAME',$semester)->get();
+            $item=array();
+
+            foreach($tempDataFromCourselistSemester as $temp){
+                $flag=0;
+                foreach($previouslyAdded as $previous){
+                    if($temp->COURSE_ID==$previous->COURSE_ID){
+                        $flag=1;
+                        break;
+                    }
+                }
+                if($flag==0){
+                    $item[]=$temp;
+                }
+            }
+
+//            foreach($item as $i)
+//            {
+//                echo $i->COURSE_ID." ".$i->COURSE_CODE;
+//            }
+
             Session::put('viewSemester',$semester);
-            Session::put('courseListOfSemester',$tempDataFromCourselistSemester);
+            Session::put('courseListOfSemester',$item);
             return view('admin.addCourses');
 
         }

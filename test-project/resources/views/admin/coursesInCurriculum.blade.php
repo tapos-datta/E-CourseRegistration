@@ -7,7 +7,8 @@
  */
 $year=Session::get('showCurriculumYear');
 $viewDeptCode=Session::get('viewDeptCode');
-$viewCourseList=Session::get('viewCourseList');
+$viewCourseList=Session::get('courseList');
+
 
 ?>
 
@@ -49,6 +50,16 @@ $viewCourseList=Session::get('viewCourseList');
             cursor: pointer;
             border-radius: 12px;
         }
+
+         table.jambo_table thead{
+             background-color: #1b809e;
+         }
+        .alignment{
+            text-align: center;
+        }
+
+
+
     </style>
 
 </head>
@@ -58,76 +69,20 @@ $viewCourseList=Session::get('viewCourseList');
     <div class="main_container">
         <div class="col-md-3 left_col">
             <div class="left_col scroll-view">
-                <div class="navbar nav_title" style="border: 0;">
-
-                </div>
 
                 <div class="clearfix"></div>
 
-
-                <!-- /menu profile quick info -->
-
                 <br />
-
+                <br />
+                <br />
                 <!-- sidebar menu -->
-                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-                    <div class="menu_section">
-                        <br>
-                        <br>
-
-                        <ul class="nav side-menu">
-                            <li><a href="{{route('user_home')}}"><i class="fa fa-home"></i> Home </a>
-
-                            </li>
-                            <li><a href="{{route('user_profile')}}"> <i class="fa fa-user"></i> Profile </a>
-
-                            </li>
-                            <li><a><i class="fa fa-inbox"></i> Notification </a>
-
-                            </li>
-                            <li><a href="{{route('user_settings')}}"><i class="fa fa-wrench"></i> Setting </a>
-
-                            </li>
-                            <li><a href="{{route('user_logout')}}"><i class="fa fa-sign-out"></i> Log Out </a>
-
-                            </li>
-
-
-                        </ul>
-                    </div>
-
-
-                </div>
+                @include('admin.sidebar')
                 <!-- /sidebar menu -->
-
-
             </div>
         </div>
 
         <!-- top navigation -->
-        <div class="top_nav">
-            <div class="nav_menu">
-                <nav>
-                    <div class="nav toggle">
-                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-                    </div>
-
-                    <ul class="nav navbar-nav navbar-right">
-                        <li class="">
-                            <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                <img src="images/img.jpg" alt="">John Doe
-                                <span class=" fa fa-angle-down"></span>
-                            </a>
-                            <ul class="dropdown-menu dropdown-usermenu pull-right">
-                                <li><a href="javascript:;"> Profile</a></li>
-
-                                <li><a href="{{route('user_logout')}}"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
+            @include('admin.topNavigation')
         <!-- /top navigation -->
 
         <!-- page content -->
@@ -135,6 +90,7 @@ $viewCourseList=Session::get('viewCourseList');
             <div class="">
                 <div class="page-title">
                     <div class="col-md-12 col-sm-12 col-xs-12">
+                        <!--Breadcrumb -->
                         <div class="title_left">
                             <ul class="breadcrumb">
                                 <li><a href="{{route('user_settings')}}">Curriculum({{$year}})</a></li>
@@ -142,6 +98,7 @@ $viewCourseList=Session::get('viewCourseList');
                                 <li></li>
                             </ul>
                         </div>
+                        <!-- End Breadcrumb -->
                     </div>
 
 
@@ -149,27 +106,53 @@ $viewCourseList=Session::get('viewCourseList');
 
                 <div class="clearfix"></div>
 
+
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_panel">
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li><a href="javascript:toggleDiv('div11');"><i onclick="toggleClass(this)" class="glyphicon glyphicon-plus"></i></a>
+                                </li>
+                            </ul>
                             <div class="x_title">
                                 <h4>1st Year 1st Semester</h4>
+
+                                <div class="clearfix"></div>
+
+                            </div>
+                            <div id="div11" class="x_content toggle">
                                 <div align="right">
                                     <a href="{{route('addCourseToCurriculum',array('year'=>$year,'code'=>$viewDeptCode,'semester'=>'1'))}}" id="addButton">+ Add course</a>
                                 </div>
-                                <div class="clearfix"></div>
-
-                            </div>
-                            <div class="x_content">
                                 <table class="data table jambo_table table-striped no-margin">
                                     <tbody>
+                                    <thead>
+                                    <tr class="headings">
+                                        <th class="column-title alignment">Course Code</th>
+                                        <th class="column-title alignment">Course Name</th>
+                                        <th class="column-title alignment">Course Credit</th>
+                                        <th class="column-title alignment">Department Code </th>
+                                        <th class="column-title alignment">#</th>
 
-                                        <tr>
-                                            <td>+</td>
-                                            <td><a>hello </a></td>
-                                            <td><button >Edit</button></td>
-                                            <td><button> Delete</button></td>
-                                        </tr>
+                                    </tr>
+                                    </thead>
+                                       @foreach($viewCourseList as $courses)
+                                            @if($courses->SEMESTER_NAME==1)
+                                            {!! Form::open(array('route'=>'delete_course_curriculum','method'=>'post', 'class' => 'form-horizontal'))!!}
+
+                                            <input type="hidden" value="{{$year}}" name="curriculumYear">
+                                            <input type="hidden" value="{{$viewDeptCode}}" name="deptCode">
+                                            <input type="hidden" name="course_id" value="{{$courses->COURSE_ID}}">
+                                            <tr>
+                                                <td class=" alignment">{{$courses->COURSE_CODE}}</td>
+                                                <td class=" alignment">{{$courses->COURSE_NAME}}</td>
+                                                 <td class="alignment ">{{$courses->COURSE_CREDIT}}</td>
+                                                 <td class="a-right a-right  alignment ">{{$courses->DEPT_CODE}}</td>
+                                                <td class="alignment"><button type="submit" class="btn btn-danger" name="submit"> Delete</button></td>
+                                            </tr>
+                                            {!! Form::close() !!}
+                                            @endif
+                                            @endforeach
                                     </tbody>
 
                                 </table>
@@ -180,22 +163,50 @@ $viewCourseList=Session::get('viewCourseList');
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_panel">
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li><a href="javascript:toggleDiv('div12');" ><i onclick="toggleClass(this)" class="glyphicon glyphicon-plus"></i></a>
+
+                                </li>
+                            </ul>
                             <div class="x_title">
                                 <h4>1st Year 2nd Semester</h4>
-                                <div align="right">
-                                    <button id="addButton">+ Add course</button>
-                                </div>
 
                                 <div class="clearfix"></div>
                             </div>
-                            <div class="x_content">
+                            <div id="div12" class="x_content toggle">
+                                <div align="right">
+                                    <a href="{{route('addCourseToCurriculum',array('year'=>$year,'code'=>$viewDeptCode,'semester'=>'2'))}}" id="addButton">+ Add course</a>
+                                </div>
+
                                 <table class="data table jambo_table table-striped no-margin">
                                     <tbody>
+                                    <thead>
+                                    <tr class="headings">
+                                        <th class="column-title alignment">Course Code</th>
+                                        <th class="column-title alignment">Course Name</th>
+                                        <th class="column-title alignment">Course Credit</th>
+                                        <th class="column-title alignment">Department Code </th>
+                                        <th class="column-title alignment">#</th>
 
-                                    <tr>
-                                        <td>+</td>
-                                        <td><a>hello </a></td>
                                     </tr>
+                                    </thead>
+
+                                    @foreach($viewCourseList as $courses)
+                                        @if($courses->SEMESTER_NAME==2)
+                                            {!! Form::open(array('route'=>'delete_course_curriculum','method'=>'post', 'class' => 'form-horizontal'))!!}
+
+                                            <input type="hidden" value="{{$year}}" name="curriculumYear">
+                                            <input type="hidden" value="{{$viewDeptCode}}" name="deptCode">
+                                            <tr>
+                                                <td class=" alignment">{{$courses->COURSE_CODE}}</td>
+                                                <td class=" alignment">{{$courses->COURSE_NAME}}</td>
+                                                <td class="alignment ">{{$courses->COURSE_CREDIT}}</td>
+                                                <td class="a-right a-right  alignment ">{{$courses->DEPT_CODE}}</td>
+                                                <td class="alignment"><button type="submit" class="btn btn-danger" name="course_id" value="{{$courses->COURSE_ID}}"> Delete</button></td>
+                                            </tr>
+                                            {!! Form::close() !!}
+                                        @endif
+                                    @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -205,21 +216,48 @@ $viewCourseList=Session::get('viewCourseList');
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_panel">
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li><a href="javascript:toggleDiv('div21');"><i onclick="toggleClass(this)" class="glyphicon glyphicon-plus"></i></a>
+
+                                </li>
+                            </ul>
                             <div class="x_title">
                                 <h4>2nd Year 1st Semester</h4>
-                                <div align="right">
-                                    <button id="addButton">+ Add course</button>
-                                </div>
+
                                 <div class="clearfix"></div>
                             </div>
-                            <div class="x_content">
+                            <div id="div21" class="x_content toggle">
+                                <div align="right">
+                                    <a href="{{route('addCourseToCurriculum',array('year'=>$year,'code'=>$viewDeptCode,'semester'=>'3'))}}" id="addButton">+ Add course</a>
+                                </div>
                                 <table class="data table jambo_table table-striped no-margin">
                                     <tbody>
+                                    <thead>
+                                    <tr class="headings">
+                                        <th class="column-title alignment">Course Code</th>
+                                        <th class="column-title alignment">Course Name</th>
+                                        <th class="column-title alignment">Course Credit</th>
+                                        <th class="column-title alignment">Department Code </th>
+                                        <th class="column-title alignment">#</th>
 
-                                    <tr>
-                                        <td>+</td>
-                                        <td><a>hello </a></td>
                                     </tr>
+                                    </thead>
+                                    @foreach($viewCourseList as $courses)
+                                        @if($courses->SEMESTER_NAME==3)
+                                            {!! Form::open(array('route'=>'delete_course_curriculum','method'=>'post', 'class' => 'form-horizontal'))!!}
+
+                                            <input type="hidden" value="{{$year}}" name="curriculumYear">
+                                            <input type="hidden" value="{{$viewDeptCode}}" name="deptCode">
+                                            <tr>
+                                                <td class=" alignment">{{$courses->COURSE_CODE}}</td>
+                                                <td class=" alignment">{{$courses->COURSE_NAME}}</td>
+                                                <td class="alignment ">{{$courses->COURSE_CREDIT}}</td>
+                                                <td class="a-right a-right  alignment ">{{$courses->DEPT_CODE}}</td>
+                                                <td class="alignment"><button type="submit" class="btn btn-danger" name="course_id" value="{{$courses->COURSE_ID}}"> Delete</button></td>
+                                            </tr>
+                                            {!! Form::close() !!}
+                                        @endif
+                                    @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -229,21 +267,47 @@ $viewCourseList=Session::get('viewCourseList');
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_panel">
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li><a href="javascript:toggleDiv('div22');" ><i onclick="toggleClass(this)" class="glyphicon glyphicon-plus"></i></a>
+
+                                </li>
+                            </ul>
                             <div class="x_title">
                                 <h4>2nd Year 2nd Semester</h4>
-                                <div align="right">
-                                    <button id="addButton">+ Add course</button>
-                                </div>
+
                                 <div class="clearfix"></div>
                             </div>
-                            <div class="x_content">
+                            <div id="div22" class="x_content toggle">
+                                <div align="right">
+                                    <a href="{{route('addCourseToCurriculum',array('year'=>$year,'code'=>$viewDeptCode,'semester'=>'4'))}}" id="addButton">+ Add course</a>
+                                </div>
                                 <table class="data table jambo_table table-striped no-margin">
                                     <tbody>
-
-                                    <tr>
-                                        <td>+</td>
-                                        <td><a>hello </a></td>
+                                    <thead>
+                                    <tr class="headings">
+                                        <th class="column-title alignment">Course Code</th>
+                                        <th class="column-title alignment">Course Name</th>
+                                        <th class="column-title alignment">Course Credit</th>
+                                        <th class="column-title alignment">Department Code </th>
+                                        <th class="column-title alignment">#</th>
                                     </tr>
+                                    </thead>
+                                    @foreach($viewCourseList as $courses)
+                                        @if($courses->SEMESTER_NAME==4)
+                                            {!! Form::open(array('route'=>'delete_course_curriculum','method'=>'post', 'class' => 'form-horizontal'))!!}
+
+                                            <input type="hidden" value="{{$year}}" name="curriculumYear">
+                                            <input type="hidden" value="{{$viewDeptCode}}" name="deptCode">
+                                            <tr>
+                                                <td class=" alignment">{{$courses->COURSE_CODE}}</td>
+                                                <td class=" alignment">{{$courses->COURSE_NAME}}</td>
+                                                <td class="alignment ">{{$courses->COURSE_CREDIT}}</td>
+                                                <td class="a-right a-right  alignment ">{{$courses->DEPT_CODE}}</td>
+                                                <td class="alignment"><button type="submit" class="btn btn-danger" name="course_id" value="{{$courses->COURSE_ID}}"> Delete</button></td>
+                                            </tr>
+                                            {!! Form::close() !!}
+                                        @endif
+                                    @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -253,21 +317,48 @@ $viewCourseList=Session::get('viewCourseList');
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_panel">
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li><a href="javascript:toggleDiv('div31');" ><i onclick="toggleClass(this)" class="glyphicon glyphicon-plus"></i></a>
+
+                                </li>
+                            </ul>
                             <div class="x_title">
                                 <h4>3rd Year 1st Semester</h4>
-                                <div align="right">
-                                    <button id="addButton">+ Add course</button>
-                                </div>
+
                                 <div class="clearfix"></div>
                             </div>
-                            <div class="x_content">
+                            <div id="div31" class="x_content toggle">
+                                <div align="right">
+                                    <a href="{{route('addCourseToCurriculum',array('year'=>$year,'code'=>$viewDeptCode,'semester'=>'5'))}}" id="addButton">+ Add course</a>
+                                </div>
                                 <table class="data table jambo_table table-striped no-margin">
                                     <tbody>
+                                    <thead>
+                                    <tr class="headings">
+                                        <th class="column-title alignment">Course Code</th>
+                                        <th class="column-title alignment">Course Name</th>
+                                        <th class="column-title alignment">Course Credit</th>
+                                        <th class="column-title alignment">Department Code </th>
+                                        <th class="column-title alignment">#</th>
 
-                                    <tr>
-                                        <td>+</td>
-                                        <td><a>hello </a></td>
                                     </tr>
+                                    </thead>
+                                    @foreach($viewCourseList as $courses)
+                                        @if($courses->SEMESTER_NAME==5)
+                                            {!! Form::open(array('route'=>'delete_course_curriculum','method'=>'post', 'class' => 'form-horizontal'))!!}
+
+                                            <input type="hidden" value="{{$year}}" name="curriculumYear">
+                                            <input type="hidden" value="{{$viewDeptCode}}" name="deptCode">
+                                            <tr>
+                                                <td class=" alignment">{{$courses->COURSE_CODE}}</td>
+                                                <td class=" alignment">{{$courses->COURSE_NAME}}</td>
+                                                <td class="alignment ">{{$courses->COURSE_CREDIT}}</td>
+                                                <td class="a-right a-right  alignment ">{{$courses->DEPT_CODE}}</td>
+                                                <td class="alignment"><button type="submit" class="btn btn-danger" name="course_id" value="{{$courses->COURSE_ID}}"> Delete</button></td>
+                                            </tr>
+                                            {!! Form::close() !!}
+                                        @endif
+                                    @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -277,21 +368,48 @@ $viewCourseList=Session::get('viewCourseList');
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_panel">
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li><a href="javascript:toggleDiv('div32');" ><i onclick="toggleClass(this)" class="glyphicon glyphicon-plus"></i></a>
+
+                                </li>
+                            </ul>
                             <div class="x_title">
                                 <h4>3rd Year 2nd Semester</h4>
-                                <div align="right">
-                                    <button id="addButton">+ Add course</button>
-                                </div>
+
                                 <div class="clearfix"></div>
                             </div>
-                            <div class="x_content">
+                            <div id="div32" class="x_content toggle">
+                                <div align="right">
+                                    <a href="{{route('addCourseToCurriculum',array('year'=>$year,'code'=>$viewDeptCode,'semester'=>'6'))}}" id="addButton">+ Add course</a>
+                                </div>
                                 <table class="data table jambo_table table-striped no-margin">
                                     <tbody>
+                                    <thead>
+                                    <tr class="headings">
+                                        <th class="column-title alignment">Course Code</th>
+                                        <th class="column-title alignment">Course Name</th>
+                                        <th class="column-title alignment">Course Credit</th>
+                                        <th class="column-title alignment">Department Code </th>
+                                        <th class="column-title alignment">#</th>
 
-                                    <tr>
-                                        <td>+</td>
-                                        <td><a>hello </a></td>
                                     </tr>
+                                    </thead>
+                                    @foreach($viewCourseList as $courses)
+                                        @if($courses->SEMESTER_NAME==6)
+                                            {!! Form::open(array('route'=>'delete_course_curriculum','method'=>'post', 'class' => 'form-horizontal'))!!}
+
+                                            <input type="hidden" value="{{$year}}" name="curriculumYear">
+                                            <input type="hidden" value="{{$viewDeptCode}}" name="deptCode">
+                                            <tr>
+                                                <td class=" alignment">{{$courses->COURSE_CODE}}</td>
+                                                <td class=" alignment">{{$courses->COURSE_NAME}}</td>
+                                                <td class="alignment ">{{$courses->COURSE_CREDIT}}</td>
+                                                <td class="a-right a-right  alignment ">{{$courses->DEPT_CODE}}</td>
+                                                <td class="alignment"><button type="submit" class="btn btn-danger" name="course_id" value="{{$courses->COURSE_ID}}"> Delete</button></td>
+                                            </tr>
+                                            {!! Form::close() !!}
+                                        @endif
+                                    @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -301,21 +419,48 @@ $viewCourseList=Session::get('viewCourseList');
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_panel">
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li><a href="javascript:toggleDiv('div41');"><i onclick="toggleClass(this)" class="glyphicon glyphicon-plus"></i></a>
+
+                                </li>
+                            </ul>
                             <div class="x_title">
                                 <h4>4th Year 1st Semester</h4>
-                                <div align="right">
-                                    <button id="addButton">+ Add course</button>
-                                </div>
+
                                 <div class="clearfix"></div>
                             </div>
-                            <div class="x_content">
+                            <div id="div41" class="x_content toggle">
+                                <div align="right">
+                                    <a href="{{route('addCourseToCurriculum',array('year'=>$year,'code'=>$viewDeptCode,'semester'=>'7'))}}" id="addButton">+ Add course</a>
+                                </div>
                                 <table class="data table jambo_table table-striped no-margin">
                                     <tbody>
+                                    <thead>
+                                    <tr class="headings">
+                                        <th class="column-title alignment">Course Code</th>
+                                        <th class="column-title alignment">Course Name</th>
+                                        <th class="column-title alignment">Course Credit</th>
+                                        <th class="column-title alignment">Department Code </th>
+                                        <th class="column-title alignment">#</th>
 
-                                    <tr>
-                                        <td>+</td>
-                                        <td><a>hello </a></td>
                                     </tr>
+                                    </thead>
+                                    @foreach($viewCourseList as $courses)
+                                        @if($courses->SEMESTER_NAME==7)
+                                            {!! Form::open(array('route'=>'delete_course_curriculum','method'=>'post', 'class' => 'form-horizontal'))!!}
+
+                                            <input type="hidden" value="{{$year}}" name="curriculumYear">
+                                            <input type="hidden" value="{{$viewDeptCode}}" name="deptCode">
+                                            <tr>
+                                                <td class=" alignment">{{$courses->COURSE_CODE}}</td>
+                                                <td class=" alignment">{{$courses->COURSE_NAME}}</td>
+                                                <td class="alignment ">{{$courses->COURSE_CREDIT}}</td>
+                                                <td class="a-right a-right  alignment ">{{$courses->DEPT_CODE}}</td>
+                                                <td class="alignment"><button type="submit" class="btn btn-danger" name="course_id" value="{{$courses->COURSE_ID}}"> Delete</button></td>
+                                            </tr>
+                                            {!! Form::close() !!}
+                                        @endif
+                                    @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -325,21 +470,48 @@ $viewCourseList=Session::get('viewCourseList');
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_panel">
+                            <ul class="nav navbar-right panel_toolbox">
+                                <li><a href="javascript:toggleDiv('div42');"><i onclick="toggleClass(this)" class="glyphicon glyphicon-plus"></i></a>
+
+                                </li>
+                            </ul>
                             <div class="x_title">
                                 <h4>4th Year 2nd Semester</h4>
-                                <div align="right">
-                                    <button id="addButton">+ Add course</button>
-                                </div>
+
                                 <div class="clearfix"></div>
                             </div>
-                            <div class="x_content">
+                            <div id="div42" class="x_content toggle">
+                                <div align="right">
+                                    <a href="{{route('addCourseToCurriculum',array('year'=>$year,'code'=>$viewDeptCode,'semester'=>'8'))}}" id="addButton">+ Add course</a>
+                                </div>
                                 <table class="data table jambo_table table-striped no-margin">
                                     <tbody>
+                                    <thead>
+                                    <tr class="headings">
+                                        <th class="column-title alignment">Course Code</th>
+                                        <th class="column-title alignment">Course Name</th>
+                                        <th class="column-title alignment">Course Credit</th>
+                                        <th class="column-title alignment">Department Code </th>
+                                        <th class="column-title alignment">#</th>
 
-                                    <tr>
-                                        <td>+</td>
-                                        <td><a>hello </a></td>
                                     </tr>
+                                    </thead>
+                                    @foreach($viewCourseList as $courses)
+                                        @if($courses->SEMESTER_NAME==8)
+                                            {!! Form::open(array('route'=>'delete_course_curriculum','method'=>'post', 'class' => 'form-horizontal'))!!}
+
+                                            <input type="hidden" value="{{$year}}" name="curriculumYear">
+                                            <input type="hidden" value="{{$viewDeptCode}}" name="deptCode">
+                                            <tr>
+                                                <td class=" alignment">{{$courses->COURSE_CODE}}</td>
+                                                <td class=" alignment">{{$courses->COURSE_NAME}}</td>
+                                                <td class="alignment ">{{$courses->COURSE_CREDIT}}</td>
+                                                <td class="a-right a-right  alignment ">{{$courses->DEPT_CODE}}</td>
+                                                <td class="alignment"><button type="submit" class="btn btn-danger" name="course_id" value="{{$courses->COURSE_ID}}"> Delete</button></td>
+                                            </tr>
+                                            {!! Form::close() !!}
+                                        @endif
+                                    @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -372,6 +544,14 @@ Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib
 
 <!-- Custom Theme Scripts -->
 <script src="{{URL::to('vendors/build/js/custom.min.js')}}"></script>
+
+<script src="{{URL::to('js/custom.js')}}"></script>
+
+<script>
+
+</script>
+
+
 </body>
 </html>
 
