@@ -69,20 +69,27 @@ $viewCourseList=Session::get('courseList');
     <div class="main_container">
         <div class="col-md-3 left_col">
             <div class="left_col scroll-view">
+                <div class="navbar nav_title" style="border: 0;">
+
+                </div>
 
                 <div class="clearfix"></div>
 
+
+                <!-- /menu profile quick info -->
+
                 <br />
-                <br />
-                <br />
+
                 <!-- sidebar menu -->
                 @include('admin.sidebar')
                 <!-- /sidebar menu -->
+
+
             </div>
         </div>
 
         <!-- top navigation -->
-            @include('admin.topNavigation')
+        @include('admin.topNavigation')
         <!-- /top navigation -->
 
         <!-- page content -->
@@ -125,7 +132,7 @@ $viewCourseList=Session::get('courseList');
                                     <a href="{{route('addCourseToCurriculum',array('year'=>$year,'code'=>$viewDeptCode,'semester'=>'1'))}}" id="addButton">+ Add course</a>
                                 </div>
                                 <table class="data table jambo_table table-striped no-margin">
-                                    <tbody>
+
                                     <thead>
                                     <tr class="headings">
                                         <th class="column-title alignment">Course Code</th>
@@ -136,8 +143,9 @@ $viewCourseList=Session::get('courseList');
 
                                     </tr>
                                     </thead>
-                                       @foreach($viewCourseList as $courses)
-                                            @if($courses->SEMESTER_NAME==1)
+                                    <tbody>
+                                    @foreach($viewCourseList as $courses)
+                                        @if($courses->SEMESTER_NAME==1)
                                             {!! Form::open(array('route'=>'delete_course_curriculum','method'=>'post', 'class' => 'form-horizontal'))!!}
 
                                             <input type="hidden" value="{{$year}}" name="curriculumYear">
@@ -146,13 +154,13 @@ $viewCourseList=Session::get('courseList');
                                             <tr>
                                                 <td class=" alignment">{{$courses->COURSE_CODE}}</td>
                                                 <td class=" alignment">{{$courses->COURSE_NAME}}</td>
-                                                 <td class="alignment ">{{$courses->COURSE_CREDIT}}</td>
-                                                 <td class="a-right a-right  alignment ">{{$courses->DEPT_CODE}}</td>
+                                                <td class="alignment ">{{$courses->COURSE_CREDIT}}</td>
+                                                <td class="a-right a-right  alignment ">{{$courses->DEPT_CODE}}</td>
                                                 <td class="alignment"><button type="submit" class="btn btn-danger" name="submit"> Delete</button></td>
                                             </tr>
                                             {!! Form::close() !!}
-                                            @endif
-                                            @endforeach
+                                        @endif
+                                    @endforeach
                                     </tbody>
 
                                 </table>
@@ -179,7 +187,7 @@ $viewCourseList=Session::get('courseList');
                                 </div>
 
                                 <table class="data table jambo_table table-striped no-margin">
-                                    <tbody>
+
                                     <thead>
                                     <tr class="headings">
                                         <th class="column-title alignment">Course Code</th>
@@ -190,6 +198,7 @@ $viewCourseList=Session::get('courseList');
 
                                     </tr>
                                     </thead>
+                                    <tbody>
 
                                     @foreach($viewCourseList as $courses)
                                         @if($courses->SEMESTER_NAME==2)
@@ -231,7 +240,7 @@ $viewCourseList=Session::get('courseList');
                                     <a href="{{route('addCourseToCurriculum',array('year'=>$year,'code'=>$viewDeptCode,'semester'=>'3'))}}" id="addButton">+ Add course</a>
                                 </div>
                                 <table class="data table jambo_table table-striped no-margin">
-                                    <tbody>
+
                                     <thead>
                                     <tr class="headings">
                                         <th class="column-title alignment">Course Code</th>
@@ -242,6 +251,7 @@ $viewCourseList=Session::get('courseList');
 
                                     </tr>
                                     </thead>
+                                    <tbody>
                                     @foreach($viewCourseList as $courses)
                                         @if($courses->SEMESTER_NAME==3)
                                             {!! Form::open(array('route'=>'delete_course_curriculum','method'=>'post', 'class' => 'form-horizontal'))!!}
@@ -282,7 +292,7 @@ $viewCourseList=Session::get('courseList');
                                     <a href="{{route('addCourseToCurriculum',array('year'=>$year,'code'=>$viewDeptCode,'semester'=>'4'))}}" id="addButton">+ Add course</a>
                                 </div>
                                 <table class="data table jambo_table table-striped no-margin">
-                                    <tbody>
+
                                     <thead>
                                     <tr class="headings">
                                         <th class="column-title alignment">Course Code</th>
@@ -292,6 +302,7 @@ $viewCourseList=Session::get('courseList');
                                         <th class="column-title alignment">#</th>
                                     </tr>
                                     </thead>
+                                    <tbody>
                                     @foreach($viewCourseList as $courses)
                                         @if($courses->SEMESTER_NAME==4)
                                             {!! Form::open(array('route'=>'delete_course_curriculum','method'=>'post', 'class' => 'form-horizontal'))!!}
@@ -332,7 +343,7 @@ $viewCourseList=Session::get('courseList');
                                     <a href="{{route('addCourseToCurriculum',array('year'=>$year,'code'=>$viewDeptCode,'semester'=>'5'))}}" id="addButton">+ Add course</a>
                                 </div>
                                 <table class="data table jambo_table table-striped no-margin">
-                                    <tbody>
+
                                     <thead>
                                     <tr class="headings">
                                         <th class="column-title alignment">Course Code</th>
@@ -343,6 +354,7 @@ $viewCourseList=Session::get('courseList');
 
                                     </tr>
                                     </thead>
+                                    <tbody>
                                     @foreach($viewCourseList as $courses)
                                         @if($courses->SEMESTER_NAME==5)
                                             {!! Form::open(array('route'=>'delete_course_curriculum','method'=>'post', 'class' => 'form-horizontal'))!!}
@@ -383,7 +395,7 @@ $viewCourseList=Session::get('courseList');
                                     <a href="{{route('addCourseToCurriculum',array('year'=>$year,'code'=>$viewDeptCode,'semester'=>'6'))}}" id="addButton">+ Add course</a>
                                 </div>
                                 <table class="data table jambo_table table-striped no-margin">
-                                    <tbody>
+
                                     <thead>
                                     <tr class="headings">
                                         <th class="column-title alignment">Course Code</th>
@@ -394,6 +406,7 @@ $viewCourseList=Session::get('courseList');
 
                                     </tr>
                                     </thead>
+                                    <tbody>
                                     @foreach($viewCourseList as $courses)
                                         @if($courses->SEMESTER_NAME==6)
                                             {!! Form::open(array('route'=>'delete_course_curriculum','method'=>'post', 'class' => 'form-horizontal'))!!}
@@ -434,7 +447,7 @@ $viewCourseList=Session::get('courseList');
                                     <a href="{{route('addCourseToCurriculum',array('year'=>$year,'code'=>$viewDeptCode,'semester'=>'7'))}}" id="addButton">+ Add course</a>
                                 </div>
                                 <table class="data table jambo_table table-striped no-margin">
-                                    <tbody>
+
                                     <thead>
                                     <tr class="headings">
                                         <th class="column-title alignment">Course Code</th>
@@ -445,6 +458,7 @@ $viewCourseList=Session::get('courseList');
 
                                     </tr>
                                     </thead>
+                                    <tbody>
                                     @foreach($viewCourseList as $courses)
                                         @if($courses->SEMESTER_NAME==7)
                                             {!! Form::open(array('route'=>'delete_course_curriculum','method'=>'post', 'class' => 'form-horizontal'))!!}
@@ -485,7 +499,7 @@ $viewCourseList=Session::get('courseList');
                                     <a href="{{route('addCourseToCurriculum',array('year'=>$year,'code'=>$viewDeptCode,'semester'=>'8'))}}" id="addButton">+ Add course</a>
                                 </div>
                                 <table class="data table jambo_table table-striped no-margin">
-                                    <tbody>
+
                                     <thead>
                                     <tr class="headings">
                                         <th class="column-title alignment">Course Code</th>
@@ -496,6 +510,7 @@ $viewCourseList=Session::get('courseList');
 
                                     </tr>
                                     </thead>
+                                    <tbody>
                                     @foreach($viewCourseList as $courses)
                                         @if($courses->SEMESTER_NAME==8)
                                             {!! Form::open(array('route'=>'delete_course_curriculum','method'=>'post', 'class' => 'form-horizontal'))!!}
@@ -521,6 +536,7 @@ $viewCourseList=Session::get('courseList');
             </div>
         </div>
         <!-- /page content -->
+
 
         <!-- footer content -->
         <footer>{{--

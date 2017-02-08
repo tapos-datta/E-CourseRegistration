@@ -311,14 +311,14 @@ $image_path= URL::to('images/default_image.png');
                                                                 <br />
                                                                 <table class="data table jambo_table table-striped no-margin">
                                                                     <tbody>
-                                                                    {{--@foreach($offeredList as $offered)--}}
+                                                                    @foreach($offeredList as $offered)
                                                                     <tr>
 
-                                                                        <td ><a class="textSize" href="">Exam Session (Jan-Jun) Of 2012</a></td>
-                                                                        <td align="right"><button type="submit" class="btn btn-danger" name="submit"> Delete</button></td>
+                                                                        <td ><a class="textSize" href="{{route('exam.session_data',array('session_month'=>$offered->SESSION_MONTH,'year'=>$offered->EXAM_YEAR))}}">Exam Session ({{$offered->SESSION_MONTH}}) Of {{$offered->EXAM_YEAR}}</a></td>
 
+                                                                        <td align="right"><button type="submit" class="btn btn-danger" name="submit"> Delete</button></td>
                                                                     </tr>
-                                                                    {{--@endforeach--}}
+                                                                    @endforeach
                                                                     </tbody>
                                                                 </table>
                                                             </div>

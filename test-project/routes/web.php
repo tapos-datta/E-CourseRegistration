@@ -155,5 +155,23 @@ Route::post('/edited_course_info',['uses'=>'OperationController@editCourseInform
 
 Route::get('/add_offered_courses',[ 'as'=>'add.offered_course','uses'=>'OperationController@addOfferedCourse']);
 
+Route::post('/exam_session_add',['uses'=>'OfferedCourseController@addOfferedCourses']);
 
+Route::get('/exam_session_data/{session_month}/year={year}',['as'=>'exam.session_data', 'uses'=>'OfferedCourseController@showExamSessionData']);
+
+Route::get('/notification',['as'=>'user_notification','uses'=>'NotificationController@index']);
+
+Route::get('/courses_registration_',['as'=>'registration.process','uses'=>'NotificationController@applyForRegistration']);
+
+Route::get('/add_major_courses',['as'=>'add.current.MajorCourse','uses'=>'NotificationController@majorCourseAdd']);
+
+Route::get('/add_non_major_courses',['as'=>'add.current.minorCourse','uses'=>'NotificationController@minorCourseAdd']);
+
+Route::get('/add_drop/advance_courses',['as'=>'add.current.dropAdvanceCourse','uses'=>'NotificationController@dropAdvncCourseAdd']);
+
+Route::post('/course_add_to_form',['uses'=>'NotificationController@courseAddToFrom']);
+
+Route::post('/course_add_to_form_1',['uses'=>'NotificationController@minorCourseAddToFrom']);
+
+Route::post('/course_add_to_form_2',['uses'=>'NotificationController@dropAdvanceCourseAddToFrom']);
 

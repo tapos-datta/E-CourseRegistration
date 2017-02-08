@@ -19,7 +19,7 @@
             <li><a href="{{route('user_profile')}}"> <i class="fa fa-user"></i> Profile </a>
 
             </li>
-            <li><a><i class="fa fa-inbox"></i> Notification </a>
+            <li><a href="{{route('user_notification')}}"><i class="fa fa-inbox"></i> Notification </a>
 
             </li>
             <li><a href="{{route('user_settings')}}"><i class="fa fa-wrench"></i> Setting </a>

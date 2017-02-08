@@ -29,12 +29,13 @@ class LogInController extends Controller
           $email=Input::get('email');
           $password=Input::get('password');
 
-          $data=DB::table('user')-> where('email',$email)->where('password',$password)->first();
+          $data=DB::table('user')->select('ROLE','USER_ID')->where('email',$email)->where('password',$password)->first();
 
 
         if(sizeof($data)==1){
 
             Session::put('success', $data->USER_ID);
+            Session::put('role',$data->ROLE);
 
             return redirect()->route('check', ['id' => $data->USER_ID]);
         }
