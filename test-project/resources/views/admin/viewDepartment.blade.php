@@ -28,6 +28,10 @@ $departmentLists = Session::get('ListsOfDepartment');
     <link href="{{URL::to('vendors/nprogress/nprogress.css') }}" rel="stylesheet">
     <!-- iCheck -->
     <link href="{{URL::to('vendors/iCheck/skins/flat/green.css') }}" rel="stylesheet">
+    <!-- jQuery custom content scroller -->
+    <link href="{{ URL::to('vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css')}}" rel="stylesheet"/>
+
+
     <!--Datatables -->
     <link href="{{URL::to('vendors/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{URL::to('vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css') }}" rel="stylesheet">
@@ -55,7 +59,7 @@ $departmentLists = Session::get('ListsOfDepartment');
 <body class="nav-md">
 <div class="container body">
     <div class="main_container">
-        <div class="col-md-3 left_col">
+        <div class="col-md-3 left_col menu_fixed">
             <div class="left_col scroll-view">
                 <div class="navbar nav_title" style="border: 0;">
 
@@ -191,6 +195,8 @@ Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib
 <script src="{{URL::to('vendors/datatables.net-responsive/js/dataTables.responsive.min.js')}}"></script>
 <script src="{{URL::to('vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js')}}"></script>
 <script src="{{URL::to('vendors/datatables.net-scroller/js/datatables.scroller.min.js')}}"></script>
+<!-- jQuery custom content scroller -->
+<script src="{{URL::to('vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js')}}"></script>
 
 
 <!-- Custom Theme Scripts -->

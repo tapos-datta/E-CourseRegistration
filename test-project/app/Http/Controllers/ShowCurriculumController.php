@@ -122,6 +122,85 @@ class ShowCurriculumController extends Controller
 
     }
 
+    public function showBatches(){
+        $check=Session::get('success');
+        $role=Session::get('role');
+        if($check!=null and $role=='admin') {
+          $batch_info=DB::table('batch_info')->get();
+            Session::put('batchInfo',$batch_info);
+
+            return view('admin.showBatchInfo');
+        }
+        else{
+            return view('admin.404Error');
+        }
+
+    }
+
+    public function AddBatch(){
+        $check=Session::get('success');
+        $role=Session::get('role');
+        if($check!=null and $role=='admin') {
+
+            return view('admin.addBatchInfo');
+        }
+        else{
+            return view('admin.404Error');
+        }
+    }
+
+    public function addBatchInfo(Request $request){
+        $check=Session::get('success');
+        $role=Session::get('role');
+        if($check!=null and $role=='admin') {
+
+            $batchID=$request->input('admissionSession');
+            $batchSession=$request->input('admissionSession');
+            $currentSession=$request->input('currentSession');
+            $currentSemester=$request->input('semesterName');
+
+            $level=$request->input('batchLevel');
+
+            $check=DB::table('batch_info')->get();
+
+            if(sizeof($check)>=1){
+
+                DB::table('batch_info')->where('ADMIT_SESSION','=',$batchID)->update([
+                    'CURRENT_SESSION'=>$currentSession,'SEMESTER_NAME'=>$currentSemester,'LEVEL'=>$level
+                ]);
+            }
+            else {
+
+                DB::table('batch_info')->insert([
+                    'BATCH_ID' => $batchID, 'ADMIT_SESSION' => $batchSession, 'CURRENT_SESSION' => $currentSession, 'SEMESTER_NAME' => $currentSemester, 'LEVEL' => $level
+                ]);
+            }
+
+            return redirect()->route('show.batches');
+        }
+        else{
+            return view('admin.404Error');
+        }
+    }
+
+    public function editBatch(Request $request){
+        $check=Session::get('success');
+        $role=Session::get('role');
+        if($check!=null and $role=='admin') {
+
+            $batchID=$request->input('batchNo');
+            $editBatch=DB::table('batch_info')->where('BATCH_ID','=',$batchID)->first();
+
+            Session::put('aBatchInfo',$editBatch);
+
+
+            return view('admin.editBatchInfo');
+        }
+        else{
+            return view('admin.404Error');
+        }
+    }
+
 
 
 

@@ -2,16 +2,14 @@
 /**
  * Created by PhpStorm.
  * User: Tapos
- * Date: 2/8/2017
- * Time: 1:59 PM
+ * Date: 2/24/2017
+ * Time: 10:44 AM
  */
 
 
-$minorCourses=Session::get('MinorCourseList');
-$offeredCourse=Session::get('listOfOfferedCourses');
-$studentOfBatch=Session::get('studentOfBatch');
-$studentOfDepartment=Session::get('studentOfDepartment');
-$studentOfCurrentSemester=Session::get('studentOfCurrentSemester');
+
+$batch_info = Session::get('batchInfo');
+
 
 ?>
         <!DOCTYPE html>
@@ -23,7 +21,7 @@ $studentOfCurrentSemester=Session::get('studentOfCurrentSemester');
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Home </title>
+    <title>Show Batches</title>
 
     <!-- Bootstrap -->
     <link href="{{ URL::to('vendors/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -31,8 +29,6 @@ $studentOfCurrentSemester=Session::get('studentOfCurrentSemester');
     <link href="{{URL::to('vendors/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
     <!-- NProgress -->
     <link href="{{URL::to('vendors/nprogress/nprogress.css') }}" rel="stylesheet">
-    <!-- jQuery custom content scroller -->
-    <link href="{{ URL::to('vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css')}}" rel="stylesheet"/>
     <!-- iCheck -->
     <link href="{{URL::to('vendors/iCheck/skins/flat/green.css') }}" rel="stylesheet">
     <!--Datatables -->
@@ -41,6 +37,9 @@ $studentOfCurrentSemester=Session::get('studentOfCurrentSemester');
     <link href="{{URL::to('vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{URL::to('vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{URL::to('vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css') }}" rel="stylesheet">
+    <!-- jQuery custom content scroller -->
+    <link href="{{ URL::to('vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css')}}" rel="stylesheet"/>
+
 
     <!-- Custom Theme Style -->
     <link href="{{URL::to('vendors/build/css/custom.min.css')}}" rel="stylesheet">
@@ -70,7 +69,11 @@ $studentOfCurrentSemester=Session::get('studentOfCurrentSemester');
 
                 <div class="clearfix"></div>
 
+
                 <!-- /menu profile quick info -->
+
+                <br />
+                <br />
                 <br />
 
                 <!-- sidebar menu -->
@@ -92,13 +95,11 @@ $studentOfCurrentSemester=Session::get('studentOfCurrentSemester');
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div>
                             <ul class="breadcrumb">
-                                <li><a href="{{route('user_notification')}}">Notification</a></li>
-                                <li><a href="{{route('registration.process')}}"> Registration</a></li>
+                                <li><a href="{{route('user_settings')}}">Settings</a></li>
                                 <li><a></a></li>
                             </ul>
                         </div>
                     </div>
-
                 </div>
 
                 <div class="clearfix"></div>
@@ -107,74 +108,53 @@ $studentOfCurrentSemester=Session::get('studentOfCurrentSemester');
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_panel">
                             <div class="x_title">
-                                <h2>Non-Major Courses<small>Add to register form</small></h2>
+                                <h2>List of Batches</h2>
 
                                 <div class="clearfix"></div>
                             </div>
-                            {!! Form::open(array('url'=>'/course_add_to_form_1','method'=>'post', 'class' => 'form-horizontal'))!!}
-
                             <div class="x_content">
                                 <div class="form-group">
                                     <div class="clearfix"></div>
                                     <div class="x_content">
 
-                                        <table id='datatable-checkbox' class="table table-striped jambo_table table-bordered">
+                                        <table  id='datatable-checkbox' class="table table-striped jambo_table table-bordered">
                                             <thead>
                                             <tr class="headings">
-                                                <th class="column-title alignment"> Select </th>
-                                                <th class="column-title alignment">Course Code</th>
-                                                <th class="column-title alignment">Course Credit</th>
-                                                <th class="column-title alignment">Course Type</th>
-
+                                                <th class="column-title alignment">Batch Id</th>
+                                                <th class="column-title alignment">Admission Year</th>
+                                                <th class="column-title alignment">Current Year</th>
+                                                <th class="column-title alignment">Current Semester</th>
+                                                <th class="column-title alignment">Current Level</th>
+                                                <th class="column-title alignment">#</th>
+                                                <th class="column-title alignment">#</th>
                                             </tr>
                                             </thead>
 
                                             <tbody>
-                                            @foreach($offeredCourse as $offered)
-                                                @if($offered->SEMESTER_NAME==$studentOfCurrentSemester && $offered->CATEGORY=='NON-MAJOR')
-                                                    @if($minorCourses!=null)
-                                                        <?php $flag=0;?>
-                                                        @foreach($minorCourses as $minor)
-                                                            @if($minor==$offered->COURSE_ID)
-                                                                <?php $flag=1;?>
-                                                            @endif
-                                                        @endforeach
-                                                        @if($flag==0)
-                                                            <tr class="odd pointer">
-                                                                <td class="a-center">
-                                                                    <input type="checkbox" class="flat alignment" name="check_list[]" value="{{$offered->COURSE_ID}}">
-                                                                </td>
-                                                                <td class="alignment ">{{$offered->COURSE_CODE}}</td>
-                                                                <td class=" alignment">{{$offered->COURSE_CREDIT}}</td>
-                                                                <td class=" alignment">{{$offered->TYPE}}</td>
-                                                            </tr>
-                                                        @endif
-                                                    @else
-                                                        <tr class="odd pointer">
-                                                            <td class="a-center">
-                                                                <input type="checkbox" class="flat alignment" name="check_list[]" value="{{$offered->COURSE_ID}}">
-                                                            </td>
-                                                            <td class="alignment ">{{$offered->COURSE_CODE}}</td>
-                                                            <td class=" alignment">{{$offered->COURSE_CREDIT}}</td>
-                                                            <td class=" alignment">{{$offered->TYPE}}</td>
-                                                        </tr>
-                                                    @endif
-                                                @endif
+                                            @foreach($batch_info  as $batch)
+                                                <tr>
+                                                    <td class=" alignment">{{$batch->BATCH_ID}}</td>
+                                                    <td class="alignment ">{{$batch->ADMIT_SESSION}}</td>
+                                                    <td class="alignment ">{{$batch->CURRENT_SESSION}}</td>
+                                                    <td class=" alignment">{{$batch->SEMESTER_NAME}}</td>
+                                                    <td class=" alignment">{{$batch->LEVEL}}</td>
+
+                                                    {!! Form::open(array('url'=>'/edit_batch_info','method'=>'POST', 'class' => 'form-horizontal' ))!!}
+                                                    <input type="hidden" value="{{$batch->BATCH_ID}}" name="batchNo">
+                                                    <td class=" alignment"><button type="submit" class="btn btn-info" name="submit"> Edit</button></td>
+                                                    {!! Form::close() !!}
+
+                                                    {!! Form::open(array('url'=>'/delete_course','method'=>'post','class' => 'form-horizontal'))!!}
+                                                    <input type="hidden" value="{{$batch->BATCH_ID}}" name="batchNo">
+                                                    <td class=" alignment"><button type="submit" class="btn btn-danger" name="submit"> Delete</button></td>
+                                                    {!! Form::close()!!}
+
+                                                </tr>
                                             @endforeach
                                             </tbody>
                                         </table>
 
                                     </div>
-
-                                    <div class="form-group">
-                                        <div align="right" class="col-md-2 col-sm-2 col-xs-12 col-md-offset-10 col-sm-offset-10">
-                                            <br>
-
-                                            {{ Form::submit('SUBMIT',array('id'=>'submitButton', 'class'=>'btn btn-success')) }}
-                                        </div>
-                                    </div>
-
-                                    {!! Form::close() !!}
 
                                 </div>
                             </div>
@@ -204,11 +184,9 @@ Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib
 <script src="{{URL::to('vendors/fastclick/lib/fastclick.js')}}"></script>
 <!-- NProgress -->
 <script src="{{URL::to('vendors/nprogress/nprogress.js')}}"></script>
-<!-- jQuery custom content scroller -->
-<script src="{{URL::to('vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js')}}"></script>
 <!-- iCheck -->
 <script src="{{URL::to('vendors/iCheck/icheck.min.js')}}"></script>
-<!--Datatable --!>
+<!--Datatable -->
 <script src="{{URL::to('vendors/datatables.net/js/jquery.dataTables.min.js')}}"></script>
 <script src="{{URL::to('vendors/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
 <script src="{{URL::to('vendors/datatables.net-buttons/js/dataTables.buttons.min.js')}}"></script>
@@ -221,6 +199,8 @@ Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib
 <script src="{{URL::to('vendors/datatables.net-responsive/js/dataTables.responsive.min.js')}}"></script>
 <script src="{{URL::to('vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js')}}"></script>
 <script src="{{URL::to('vendors/datatables.net-scroller/js/datatables.scroller.min.js')}}"></script>
+<!-- jQuery custom content scroller -->
+<script src="{{URL::to('vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js')}}"></script>
 
 
 <!-- Custom Theme Scripts -->
@@ -294,7 +274,7 @@ Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib
         $datatable.dataTable({
             'order': [[ 1, 'asc' ]],
             'columnDefs': [
-                { orderable: false, targets: [0] }
+                { orderable: false, targets: [0,4,5] }
             ]
         });
         $datatable.on('draw.dt', function() {

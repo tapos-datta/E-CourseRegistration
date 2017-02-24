@@ -29,6 +29,9 @@
 body{
     background-color: #7AECFF;
 }
+.screen-style-head{
+    float: left; margin-left: 5%;
+}
 .first_{
     width:5%;
 }
@@ -71,10 +74,10 @@ td.visible-sm {
 
 
 @media screen {
-    .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12 {
+    .Col-sm-1, .Col-sm-2, .Col-sm-3, .Col-sm-4, .Col-sm-5, .Col-sm-6, .Col-sm-7, .Col-sm-8, .Col-sm-9, .Col-sm-10, .Col-sm-11, .Col-sm-12 {
         float: left;
     }
-    .col-sm-12 {
+    .Col-sm-12 {
         width: 100%;
     }
     .col-sm-11 {

@@ -26,6 +26,8 @@
     <link href="{{URL::to('vendors/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
     <!-- NProgress -->
     <link href="{{URL::to('vendors/nprogress/nprogress.css') }}" rel="stylesheet">
+    <!-- jQuery custom content scroller -->
+    <link href="{{ URL::to('vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css')}}" rel="stylesheet"/>
 
     <!-- Custom Theme Style -->
     <link href="{{URL::to('vendors/build/css/custom.min.css')}}" rel="stylesheet">
@@ -37,7 +39,7 @@
 <body class="nav-md">
 <div class="container body">
     <div class="main_container">
-        <div class="col-md-3 left_col">
+        <div class="col-md-3 left_col menu_fixed">
             <div class="left_col scroll-view">
                 <div class="navbar nav_title" style="border: 0;">
 
@@ -175,6 +177,8 @@ Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib
 <script src="{{URL::to('vendors/fastclick/lib/fastclick.js')}}"></script>
 <!-- NProgress -->
 <script src="{{URL::to('vendors/nprogress/nprogress.js')}}"></script>
+<!-- jQuery custom content scroller -->
+<script src="{{URL::to('vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js')}}"></script>
 
 <!-- Custom Theme Scripts -->
 <script src="{{URL::to('vendors/build/js/custom.min.js')}}"></script>

@@ -2,10 +2,10 @@
 /**
  * Created by PhpStorm.
  * User: Tapos
- * Date: 2/6/2017
- * Time: 9:49 PM
+ * Date: 2/24/2017
+ * Time: 11:01 AM
  */
-$departmentCodeLists=session()->get('departmentCodeList');
+
 ?>
         <!DOCTYPE html>
 <html lang="en">
@@ -16,7 +16,7 @@ $departmentCodeLists=session()->get('departmentCodeList');
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Add Course Info</title>
+    <title>Add new Batch</title>
 
     <!-- Bootstrap -->
     <link href="{{ URL::to('vendors/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -26,15 +26,14 @@ $departmentCodeLists=session()->get('departmentCodeList');
     <link href="{{URL::to('vendors/nprogress/nprogress.css') }}" rel="stylesheet">
     <!-- iCheck -->
     <link href="{{URL::to('vendors/iCheck/skins/flat/green.css') }}" rel="stylesheet">
-    <!-- jQuery custom content scroller -->
-    <link href="{{ URL::to('vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css')}}" rel="stylesheet"/>
     <!--Datatables -->
     <link href="{{URL::to('vendors/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{URL::to('vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{URL::to('vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{URL::to('vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{URL::to('vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css') }}" rel="stylesheet">
-
+    <!-- jQuery custom content scroller -->
+    <link href="{{ URL::to('vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css')}}" rel="stylesheet"/>
     <!-- Custom Theme Style -->
     <link href="{{URL::to('vendors/build/css/custom.min.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="{{ URL::to('CSS/w3.css') }}">
@@ -45,9 +44,7 @@ $departmentCodeLists=session()->get('departmentCodeList');
         table.jambo_table thead{
             background-color: #1b809e;
         }
-        .alignment{
-            text-align: center;
-        }
+
     </style>
 
 </head>
@@ -83,10 +80,6 @@ $departmentCodeLists=session()->get('departmentCodeList');
     <!-- /top navigation -->
 
         <!-- page content -->
-
-
-
-        <!-- tasdfhskj -->
         <div class="right_col" role="main">
             <div class="">
                 <div class="page-title">
@@ -102,102 +95,76 @@ $departmentCodeLists=session()->get('departmentCodeList');
 
                 <div class="clearfix"></div>
                 <div class="row">
-                    {!!  Form::open(array('url'=>'/add_course','method'=>'post', 'class' => 'form-horizontal')) !!}
+
+                    {!!  Form::open(array('url'=>'/add_batch_info', 'method' => 'POST', 'class' => 'form-horizontal')) !!}
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
-
-
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_panel">
                             <div class="x_title">
-                                <h2>Course <small>Add to Database</small></h2>
+                                <h2>Add <small>a new Batch</small></h2>
 
                                 <div class="clearfix"></div>
+
                             </div>
                             <div class="x_content">
                                 <br />
 
-                                <div class="form-group">
-                                    <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Offered Department</label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <select name="offeredDepartmentCode" class="form-control col-md-7 col-xs-12">
-                                            @foreach($departmentCodeLists as $code)
-                                                <option value="{{  $code->DEPT_CODE }}">{{$code->DEPT_NAME_SHORT."-".$code->DEPT_CODE}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Accepted Department Code</label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <select name="departmentCode" class="form-control col-md-7 col-xs-12">
-                                            @foreach($departmentCodeLists as $code)
-                                                <option value="{{  $code->DEPT_CODE }}">{{$code->DEPT_NAME_SHORT."-".$code->DEPT_CODE}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-
 
                                 <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Course Code <span class="required"></span>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Admission Session<span class="required"></span>
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        {{ Form::text('courseCode','',array('class'=>'form-control col-md-7 col-xs-12','required'=>'required','id'=>'')) }}
-                                        {{--<input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">--}}
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Course Name <span class="required"></span>
-                                    </label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        {{--{{ Form::text('courseName','',array('class'=>'form-control col-md-7 col-xs-12','required'=>'required','id'=>'')) }}--}}
-                                        <input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Course Credit <span class="required"></span>
-                                    </label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <select name="courseCredit" class="form-control col-md-7 col-xs-12">
-                                            @for($k=0.5;$k<=4.0;$k=$k+0.5)
-                                                <option value="{{ $k }}">{{$k}}</option>
+                                        <select name="admissionSession" class="form-control col-md-7 col-xs-12">
+                                            @for($i=2011;$i<=2099;$i++)
+                                                <option value="{{$i}}" >{{$i}}</option>
                                             @endfor
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Course Level <span class="required"></span>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Current Session <span class="required"></span>
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <select name="courseLevel" class="form-control col-md-7 col-xs-12">
-                                            @for($k=1;$k<=4;$k++)
-                                                <option value="{{ $k }}">{{$k}}</option>
+                                        <select name="currentSession" class="form-control col-md-7 col-xs-12">
+                                            @for($i=2011;$i<=2099;$i++)
+                                            <option value="{{$i}}" >{{$i}}</option>
                                             @endfor
                                         </select>
                                     </div>
                                 </div>
-
                                 <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Semester Name <span class="required"></span>
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <select name="semesterName" class="form-control col-md-7 col-xs-12">
-                                            @for($k=1;$k<=8;$k++)
-                                                <option value="{{ $k }}">{{$k}}</option>
-                                            @endfor
+                                            <option value="1" selected="selected" >1/1</option>
+                                            <option value="2" >1/2</option>
+                                            <option value="3" >2/1</option>
+                                            <option value="4" >2/2</option>
+                                            <option value="4" >3/1</option>
+                                            <option value="4" >3/2</option>
+                                            <option value="4" >4/1</option>
+                                            <option value="4" >4/2</option>
                                         </select>
                                     </div>
                                 </div>
-
-
-
-
+                                <div class="form-group">
+                                    <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Level</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select name="batchLevel" class="form-control col-md-7 col-xs-12">
+                                            <option value="1" selected="selected" >1</option>
+                                            <option value="2" >2</option>
+                                            <option value="3" >3</option>
+                                            <option value="4" >4</option>
+                                        </select>
+                                    </div>
+                                </div>
                                 <div class="ln_solid"></div>
                                 <div class="form-group">
                                     <div align="right" class="col-md-3 col-sm-3 col-xs-12 col-md-offset-6">
 
-
-                                        {{ Form::submit('Submit',array('id'=>'submitButton', 'class'=>'btn btn-success')) }}
+                                        {{--<button type="submit" class="btn btn-success">Submit</button>--}}
+                                        {{ Form::submit('SUBMIT',array('id'=>'submitButton', 'class'=>'btn btn-success')) }}
                                     </div>
                                 </div>
 
@@ -239,6 +206,7 @@ $departmentCodeLists=session()->get('departmentCodeList');
 <script src="{{URL::to('vendors/build/js/custom.min.js')}}"></script>
 <!-- jQuery custom content scroller -->
 <script src="{{URL::to('vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js')}}"></script>
+
 
 </body>
 </html>

@@ -24,16 +24,19 @@
     <link href="{{URL::to('vendors/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
     <!-- NProgress -->
     <link href="{{URL::to('vendors/nprogress/nprogress.css') }}" rel="stylesheet">
+      <!-- jQuery custom content scroller -->
+      <link href="{{ URL::to('vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css')}}" rel="stylesheet"/>
 
     <!-- Custom Theme Style -->
     <link href="{{URL::to('vendors/build/css/custom.min.css')}}" rel="stylesheet">
       <link rel="stylesheet" href="{{ URL::to('CSS/w3.css') }}">
+
   </head>
 
   <body class="nav-md">
     <div class="container body">
       <div class="main_container">
-        <div class="col-md-3 left_col">
+        <div class="col-md-3 left_col menu_fixed">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
 
@@ -45,36 +48,11 @@
             <!-- /menu profile quick info -->
 
             <br />
+              <br />
+              <br />
 
             <!-- sidebar menu -->
-            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-              <div class="menu_section">
-                <br>
-                <br>
-
-                <ul class="nav side-menu">
-                  <li><a href="{{route('user_home')}}"><i class="fa fa-home"></i> Home </a>
-
-                  </li>
-                  <li><a href="{{route('user_profile')}}"> <i class="fa fa-user"></i> Profile </a>
-
-                  </li>
-                  <li><a><i class="fa fa-inbox"></i> Notification </a>
-
-                  </li>
-                  <li><a href="{{route('user_settings')}}"><i class="fa fa-wrench"></i> Setting </a>
-
-                  </li>
-                  <li><a href="{{route('user_logout')}}"><i class="fa fa-sign-out"></i> Log Out </a>
-
-                  </li>
-
-
-                </ul>
-              </div>
-
-
-            </div>
+           @include('admin.sidebar')
             <!-- /sidebar menu -->
 
 
@@ -171,6 +149,9 @@ Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib
     <script src="{{URL::to('vendors/fastclick/lib/fastclick.js')}}"></script>
     <!-- NProgress -->
     <script src="{{URL::to('vendors/nprogress/nprogress.js')}}"></script>
+
+    <!-- jQuery custom content scroller -->
+    <script src="{{URL::to('vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js')}}"></script>
 
     <!-- Custom Theme Scripts -->
     <script src="{{URL::to('vendors/build/js/custom.min.js')}}"></script>

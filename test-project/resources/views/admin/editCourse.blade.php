@@ -36,7 +36,8 @@ $departmentCodeLists =Session::get('departmentCodeList');
     <link href="{{URL::to('vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{URL::to('vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{URL::to('vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css') }}" rel="stylesheet">
-
+    <!-- jQuery custom content scroller -->
+    <link href="{{ URL::to('vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css')}}" rel="stylesheet"/>
     <!-- Custom Theme Style -->
     <link href="{{URL::to('vendors/build/css/custom.min.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="{{ URL::to('CSS/w3.css') }}">
@@ -57,7 +58,7 @@ $departmentCodeLists =Session::get('departmentCodeList');
 <body class="nav-md">
 <div class="container body">
     <div class="main_container">
-        <div class="col-md-3 left_col">
+        <div class="col-md-3 left_col menu_fixed">
             <div class="left_col scroll-view">
                 <div class="navbar nav_title" style="border: 0;">
 
@@ -233,7 +234,7 @@ $departmentCodeLists =Session::get('departmentCodeList');
 <script src="{{URL::to('vendors/nprogress/nprogress.js')}}"></script>
 <!-- iCheck -->
 <script src="{{URL::to('vendors/iCheck/icheck.min.js')}}"></script>
-<!--Datatable --!>
+<!--Datatable -->
 <script src="{{URL::to('vendors/datatables.net/js/jquery.dataTables.min.js')}}"></script>
 <script src="{{URL::to('vendors/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
 <script src="{{URL::to('vendors/datatables.net-buttons/js/dataTables.buttons.min.js')}}"></script>
@@ -246,7 +247,8 @@ $departmentCodeLists =Session::get('departmentCodeList');
 <script src="{{URL::to('vendors/datatables.net-responsive/js/dataTables.responsive.min.js')}}"></script>
 <script src="{{URL::to('vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js')}}"></script>
 <script src="{{URL::to('vendors/datatables.net-scroller/js/datatables.scroller.min.js')}}"></script>
-
+  <!-- jQuery custom content scroller -->
+<script src="{{URL::to('vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js')}}"></script>
 
 <!-- Custom Theme Scripts -->
 <script src="{{URL::to('vendors/build/js/custom.min.js')}}"></script>

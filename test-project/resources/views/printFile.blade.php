@@ -11,54 +11,54 @@
 <html>
 <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="{{ URL::to('CSS/Stylesheet.css') }}" media="print">
+    <style type="text/css" media="print">
+        .center1{
+            align-content: center;
+        }
+
+    </style>
 </head>
 <body>
-    <h1>my name is bangisthan .</h1>
-    <div class="row">
+    <div style="margin-top: 0px !important;margin-left: 0px!important;">
+        <div style="height: 8.75in;background-color: #954120;">
+            <div class="row">
 
-        <div class="col-sm-1">
-            <p> </p>
-        </div>
-        <div class="col-sm-10">
-            <div  class="logo" style="margin-top: 3.5%">
+                <div class="col-sm-12">
+                    <div  class="logo" style="margin-top: 3.5%">
 
+                        <img src="{{ URL::to('images/sust.png') }}" alt="" style="width:2.5em;height:2.5em">
+                    </div>
+                    <div style="float: left; margin-right: 1.5%">
+                        <h2 style="font-size: 1.625em"> শাহজালাল বিজ্ঞান ও প্রযুক্তি বিশ্ববিদ্যালয়, সিলেট </h2>
 
-            </div>
-            <div style="float: left; margin-right: 1.5%">
-                <h2 style="font-size: 1.625em"> শাহজালাল বিজ্ঞান ও প্রযুক্তি বিশ্ববিদ্যালয়, সিলেট </h2>
+                        <table  cellspacing="0" >
+                            <tbody>
+                            <tr>
+                                <td style="width:7.813em">রেজিস্ট্রেশন নম্বর</td>
+                                <td style=>2012331056</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <p align="center">2012-13 শিক্ষাবর্ষ 1/1 সেমিস্টার পরীক্ষা-2017</p>
+                        <p  class="center1">কোর্স ও পরীক্ষা রেজিস্ট্রেশনের আবেদন</p>
 
-                <table cellspacing="0" style="margin-left: 12.5%" >
-                    <tbody>
-                    <tr>
+                    </div>
+                    <div  style="float: left; margin-left: 0.5%; margin-top: 3.5%;">
+                        <div style="width: 7em; height: 7em; border: 1px solid black;">
 
-                        <td style="width:7.813em">রেজিস্ট্রেশন নম্বর</td>
-                        <td style="width:1.563em;border:1px solid black;">&nbsp;</td>
-                        <td style="width:1.563em;border:1px solid black;">&nbsp;</td>
-                        <td style="width:1.563em;border:1px solid black;">&nbsp;</td>
-                        <td style="width:1.563em;border:1px solid black;">&nbsp;</td>
-                        <td style="width:1.563em;border:1px solid black;">&nbsp;</td>
-                        <td style="width:1.563em;border:1px solid black;">&nbsp;</td>
-                        <td style="width:1.563em;border:1px solid black;">&nbsp;</td>
-                        <td style="width:1.563em;border:1px solid black;">&nbsp;</td>
-                        <td style="width:1.563em;border:1px solid black;">&nbsp;</td>
-                        <td style="width:1.563em;border:1px solid black;">&nbsp;</td>
-                    </tr>
-                    </tbody>
-                </table>
-                <p  style="white-space: pre">...............................শিক্ষাবর্ষ..............................................সেমিস্টার পরীক্ষা-২০১......... </p>
-                <p  align="center" style="white-space: pre;line-height: 20%">      কোর্স ও পরীক্ষা রেজিস্ট্রেশনের আবেদন</p>
-
-            </div>
-            <div  style="float: left; margin-left: 0.5%; margin-top: 3.5%;">
-                <div style="width: 7em; height: 7em; border: 1px solid black;">
+                        </div>
+                    </div>
 
                 </div>
+
             </div>
 
         </div>
-        <div class="col-sm-1" style="background-color: #d9534f;">
-            <p> </p>
+        <div style="height: 5.88in;background-color:#0000cc;">
+
         </div>
+
     </div>
 </body>
 </html>

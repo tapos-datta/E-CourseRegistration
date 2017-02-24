@@ -21,7 +21,6 @@ class LogInController extends Controller
 
     public function login()
       {
-          echo "i am a boy.";
           //getting all post data
 //          $data= DB::table('user')->get();
 //          return $data;
@@ -36,6 +35,22 @@ class LogInController extends Controller
 
             Session::put('success', $data->USER_ID);
             Session::put('role',$data->ROLE);
+
+            $user_info=DB::table('profile')->where('USER_ID','=',$data->USER_ID)->first();
+            Session::put('userInformation',$user_info);
+
+            if($data->ROLE=='admin'){
+                $batchInfo=DB::table('batch_info')->get();
+                $departmentInfo=DB::table('department')->get();
+                $userData=DB::table('user')->get();
+                $profileData=DB::table('profile')->get();
+
+                Session::put('AllUserInformation',$userData);
+                Session::put('AllProfileInformation',$profileData);
+                Session::put('DepartmentInfo',$departmentInfo);
+                Session::put('BatchInfo',$batchInfo);
+
+            }
 
             return redirect()->route('check', ['id' => $data->USER_ID]);
         }

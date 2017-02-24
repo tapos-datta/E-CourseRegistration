@@ -157,7 +157,7 @@ Route::get('/add_offered_courses',[ 'as'=>'add.offered_course','uses'=>'Operatio
 
 Route::post('/exam_session_add',['uses'=>'OfferedCourseController@addOfferedCourses']);
 
-Route::get('/exam_session_data/{session_month}/year={year}',['as'=>'exam.session_data', 'uses'=>'OfferedCourseController@showExamSessionData']);
+Route::get('/exam_session_data/{examId}/{session_month}/year={year}',['as'=>'exam.session_data', 'uses'=>'OfferedCourseController@showExamSessionData']);
 
 Route::get('/notification',['as'=>'user_notification','uses'=>'NotificationController@index']);
 
@@ -174,4 +174,48 @@ Route::post('/course_add_to_form',['uses'=>'NotificationController@courseAddToFr
 Route::post('/course_add_to_form_1',['uses'=>'NotificationController@minorCourseAddToFrom']);
 
 Route::post('/course_add_to_form_2',['uses'=>'NotificationController@dropAdvanceCourseAddToFrom']);
+
+Route::get('/course_add_to_form',function(){
+
+    return redirect()->route('registration.process');
+
+});
+
+Route::get('/course_add_to_form_1',function(){
+
+    return redirect()->route('registration.process');
+
+});
+
+Route::get('/course_add_to_form_2',function(){
+
+    return redirect()->route('registration.process');
+
+});
+
+Route::post('/delete_offered_courses',['as'=>'delete.exam.schedule','uses'=>'OfferedCourseController@deleteSchedule']);
+
+Route::get('/new_schedule',['as'=>'create.new.schedule','uses'=>'OfferedCourseController@addNewSchedule']);
+
+Route::post('/add_new_schedule_to_list',['uses'=>'OfferedCourseController@addNewScheduleToList']);
+
+Route::post('/submit_registration_form',['uses'=>'NotificationController@completeRegistration']);
+
+Route::get('/admin_profile_',['as'=>'admin_profile','uses'=>'AdminUserController@index']);
+
+Route::get('/add_a_new_user',['as'=>'add.new.user','uses'=>'AdminUserController@addUser']);
+
+Route::post('/adding_new_user',['as'=>'add.new_person.data','uses'=>'AdminUserController@addUserData']);
+
+Route::post('/add_batch_info',['uses'=>'ShowCurriculumController@addBatchInfo']);
+
+Route::get('/view_batch_list',['as'=>'show.batches','uses'=>'ShowCurriculumController@showBatches']);
+
+Route::get('/Add_new_batch',['as'=>'add.batch','uses'=>'ShowCurriculumController@AddBatch']);
+
+Route::post('/edit_batch_info',['uses'=>'ShowCurriculumController@editBatch']);
+
+Route::get('/edit_user_profile/{userId}',['as'=>'edit.user.profile','uses'=>'UserController@editProfile']);
+
+
 

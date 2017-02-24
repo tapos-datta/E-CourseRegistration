@@ -23,12 +23,11 @@
         body, html {
             background-position: right;
             background-size: cover;
-            background-image:URL("{{ URL::to('images/background.png') }}");
+            background-image:URL("{{ URL::to('images/books.png') }}");
             background-size: 100% 200%;
             background-repeat: no-repeat;
 
         }
-
 
         .w3-navbar li a {
             padding: 16px;
@@ -58,45 +57,37 @@
             <a href="#contact"><i class="fa fa-envelope"></i> CONTACT</a>
         </li>
         <!-- Hide right-floated links on small screens and replace them with a menu icon -->
-        <li>
-            <a href="javascript:void(0)" class="w3-right w3-hide-large w3-hide-medium" onclick="w3_open()">
-                <i class="fa fa-bars w3-padding-right w3-padding-left"></i>
-            </a>
-        </li>
+        {{--<li>--}}
+            {{--<a href="javascript:void(0)" class="w3-right w3-hide-large w3-hide-medium" onclick="w3_open()">--}}
+                {{--<i class="fa fa-bars w3-padding-right w3-padding-left"></i>--}}
+            {{--</a>--}}
+        {{--</li>--}}
     </ul>
 </div>
 
 <div class="login-page">
-    <br>
-    <br>
-    <div class="form w3-white">
-        {{--<form class="register-form">
-            <input type="text" placeholder="name"/>
-            <input type="password" placeholder="password"/>
-            <input type="text" placeholder="email address"/>
-            <button>create</button>
-            <p class="message">Already registered? <a href="#">Sign In</a></p>
-        </form>--}}
+        <br>
+        <br>
+        <div class="form w3-white">
 
-        {!!   Form::open(array('url'=>'login','method' => 'post', 'class' => 'login-form')) !!}
-        {{ csrf_field() }}
 
-        {{ Form::text('email','',array('id'=>'','placeholder' => 'Email')) }}
-            {{Form::password('password',array('placeholder'=>'password'))}}
-           {{-- <input type="password" placeholder="password"/> --}}
-             {{Form::submit('Login',array('id'=>'submitButton'))}}
+            {!!  Form::open(array('url'=>'login','method' => 'post', 'class' => 'login-form')) !!}
+            {{ csrf_field() }}
 
-            <p class="message">Not registered? <a href="#">Create an account</a></p>
-           {{ Form:: close() }}
-    </div>
-</div>
-<div>
+            {{ Form::text('email','',array('id'=>'','placeholder' => 'Email')) }}
+                {{Form::password('password',array('placeholder'=>'password'))}}
+               {{-- <input type="password" placeholder="password"/> --}}
+                 {{Form::submit('Login',array('id'=>'submitButton'))}}
+               {{ Form:: close() }}
+        </div>
     <br>
     <br>
     <br>
 </div>
 
 
+<!-- Custom Theme Scripts -->
+<script src="{{URL::to('vendors/build/js/custom.min.js')}}"></script>
 
 
 </body>

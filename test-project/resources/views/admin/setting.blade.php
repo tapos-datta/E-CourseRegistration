@@ -45,7 +45,8 @@ $image_path= URL::to('images/default_image.png');
     <link href="{{URL::to('vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{URL::to('vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{URL::to('vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css') }}" rel="stylesheet">
-
+    <!-- jQuery custom content scroller -->
+    <link href="{{ URL::to('vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css')}}" rel="stylesheet"/>
     <!-- Custom Theme Style -->
     <link href="{{URL::to('vendors/build/css/custom.min.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="{{ URL::to('CSS/w3.css') }}">
@@ -89,7 +90,7 @@ $image_path= URL::to('images/default_image.png');
 <body class="nav-md">
 <div class="container body">
     <div class="main_container">
-        <div class="col-md-3 left_col">
+        <div class="col-md-3 left_col menu_fixed">
             <div class="left_col scroll-view">
                 <div class="navbar nav_title" style="border: 0;">
 
@@ -152,6 +153,8 @@ $image_path= URL::to('images/default_image.png');
                                             </li>
 
                                             <li role="presentation" class="@if($checkStatus==6){{'active'}}@endif w3-light-green"><a href="#tab_content6" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Course</a>
+                                            </li>
+                                            <li role="presentation" class="@if($checkStatus==7){{'active'}}@endif w3-light-green"><a href="#tab_content7" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Batch Info</a>
                                             </li>
                                         </ul>
                                         <div id="myTabContent" class="tab-content">
@@ -290,9 +293,7 @@ $image_path= URL::to('images/default_image.png');
 
                                             </div>
                                             <div role="tabpanel" class="tab-pane fade @if($checkStatus==4){{'active in'}}@endif" id="tab_content4" aria-labelledby="profile-tab">
-                                                <!-- add department name -->
-
-
+                                                <!-- add Exam Schedule -->
 
                                                 <div class="row">
 
@@ -301,7 +302,8 @@ $image_path= URL::to('images/default_image.png');
                                                             <div class="x_title">
                                                                 <h3>List Of Exam Session</h3>
                                                                 <div align="right">
-                                                                    <a href="{{route('add.offered_course')}}" id="addButton">+ New List </a>
+
+                                                                    <a href="{{route('create.new.schedule')}}" id="addButton">+ New Schedule </a>
                                                                 </div>
 
                                                                 <div class="clearfix"></div>
@@ -312,12 +314,16 @@ $image_path= URL::to('images/default_image.png');
                                                                 <table class="data table jambo_table table-striped no-margin">
                                                                     <tbody>
                                                                     @foreach($offeredList as $offered)
-                                                                    <tr>
+                                                                        <tr>
 
-                                                                        <td ><a class="textSize" href="{{route('exam.session_data',array('session_month'=>$offered->SESSION_MONTH,'year'=>$offered->EXAM_YEAR))}}">Exam Session ({{$offered->SESSION_MONTH}}) Of {{$offered->EXAM_YEAR}}</a></td>
-
-                                                                        <td align="right"><button type="submit" class="btn btn-danger" name="submit"> Delete</button></td>
-                                                                    </tr>
+                                                                            <td ><a class="textSize" href="{{route('exam.session_data',array('examId'=>$offered->EXAM_ID,'session_month'=>$offered->SESSION_MONTH,'year'=>$offered->EXAM_YEAR))}}">Exam Session ({{$offered->SESSION_MONTH}}) Of {{$offered->EXAM_YEAR}}</a></td>
+                                                                            {!! Form::open(array('route'=>'delete.exam.schedule','method'=>'post', 'class' => 'form-horizontal')) !!}
+                                                                            <input type="hidden" name="examYear" value="{{$offered->EXAM_YEAR}}">
+                                                                            <input type="hidden" name="session_month" value="{{$offered->SESSION_MONTH}}">
+                                                                            <input type="hidden" name="examId" value="{{$offered->EXAM_ID}}">
+                                                                            <td align="right"><button type="submit" class="btn btn-danger"  name="submit"> Delete</button></td>
+                                                                            {!! Form::close()!!}
+                                                                        </tr>
                                                                     @endforeach
                                                                     </tbody>
                                                                 </table>
@@ -397,6 +403,39 @@ $image_path= URL::to('images/default_image.png');
                                                 <!-- End of adding course !-->
                                             </div>
 
+                                            <div role="tabpanel" class="tab-pane fade @if($checkStatus==7){{'active in'}}@endif " id="tab_content7" aria-labelledby="profile-tab">
+                                                <!-- add batch info to database-->
+                                                <div class="row">
+
+                                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                                        <div class="x_panel">
+                                                            <div class="x_title">
+                                                                {{--<h3><a ">List Of Departments</a></h3>--}}
+
+                                                                <div class="clearfix"></div>
+                                                            </div>
+
+                                                            <div class="x_content">
+                                                                <br />
+                                                                <table class="data table jambo_table table-striped no-margin">
+                                                                    <tbody>
+
+                                                                    <tr>
+
+                                                                        <td align="center"><a href="{{route('show.batches')}}"><h3>View Batch List</h3></a></td>
+                                                                    <tr>
+                                                                        <td align="center"><a href="{{route('add.batch')}}"><h3>Add New Batch</h3></a></td>
+                                                                    </tr>
+                                                                    </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- End of adding course !-->
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -430,6 +469,7 @@ $image_path= URL::to('images/default_image.png');
 <!-- NProgress -->
 <script src="{{URL::to('vendors/nprogress/nprogress.js')}}"></script>
 <!-- iCheck -->
+
 <script src="{{URL::to('vendors/iCheck/icheck.min.js')}}"></script>
 <!--Datatable --!>
 <script src="{{URL::to('vendors/datatables.net/js/jquery.dataTables.min.js')}}"></script>
@@ -448,6 +488,8 @@ $image_path= URL::to('images/default_image.png');
 
 <!-- Custom Theme Scripts -->
 <script src="{{URL::to('vendors/build/js/custom.min.js')}}"></script>
+<!-- jQuery custom content scroller -->
+<script src="{{URL::to('vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js')}}"></script>
 
 
 
@@ -530,6 +572,20 @@ $image_path= URL::to('images/default_image.png');
 
         TableManageButtons.init();
     });
+
+    function confirmChange() {
+
+        var answer = confirm("Would you like to Remove ?");
+
+        if (answer == true) {
+            //do something
+            return false;
+
+        } else {
+            //do something
+            return false;
+        }
+    }
 
 
 

@@ -28,6 +28,8 @@ $registrationGoingOn=Session::get('registrationGoingOn');
     <link href="{{URL::to('vendors/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
     <!-- NProgress -->
     <link href="{{URL::to('vendors/nprogress/nprogress.css') }}" rel="stylesheet">
+    <!-- jQuery custom content scroller -->
+    <link href="{{ URL::to('vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css')}}" rel="stylesheet"/>
     <!-- iCheck -->
     <link href="{{URL::to('vendors/iCheck/skins/flat/green.css') }}" rel="stylesheet">
     <!--Datatables -->
@@ -57,7 +59,7 @@ $registrationGoingOn=Session::get('registrationGoingOn');
 <body class="nav-md">
 <div class="container body">
     <div class="main_container">
-        <div class="col-md-3 left_col">
+        <div class="col-md-3 left_col menu_fixed">
             <div class="left_col scroll-view">
                 <div class="navbar nav_title" style="border: 0;">
 
@@ -110,7 +112,7 @@ $registrationGoingOn=Session::get('registrationGoingOn');
                             </div>
                             <div class="x_content">
                                 @if($registrationGoingOn!=null)
-                                    <h3>Course registration process is going on. Apply for course registration if you want<?php $i=1?></h3>
+                                    <h3>Course registration is going on. Apply for course registration if you want<?php $i=1?></h3>
                                     @foreach($registrationGoingOn as $reg)
                                        <p class="fontSize">{{$i}}. {{$reg->SESSION_MONTH}} session of year {{$reg->EXAM_YEAR}} <br \></p>
                                     <?php $i++;?>
@@ -151,6 +153,8 @@ $registrationGoingOn=Session::get('registrationGoingOn');
 
 <!-- Custom Theme Scripts -->
 <script src="{{URL::to('vendors/build/js/custom.min.js')}}"></script>
+<!-- jQuery custom content scroller -->
+<script src="{{URL::to('vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js')}}"></script>
 
 </body>
 </html>

@@ -5,18 +5,38 @@
  * Date: 2/7/2017
  * Time: 8:28 PM
  */
+$userInfo=Session::get('userInformation');
+$user_session=Session::get('studentOfAdmitSession');
+$user_current_session=Session::get('studentOfCurrentSession');
+$current_semester=Session::get('studentOfCurrentSemester');
 $majorCourses=Session::get('MajorCourseList');
 $minorCourses=Session::get('MinorCourseList');
 $dropOrAdvanceCourses=Session::get('DropAdvancedCourseList');
 $offeredCourse=Session::get('listOfOfferedCourses');
+$registrationGoingOn=Session::get('registrationGoingOn');
 $majorTheory=0;
 $minorTheory=0;
 $majorLab=0;
 $minorLab=0;
-        $majorList=array();
-        $minorList=array();
-        $dropAdList=array();
+$dropAdTheory=0;
+$dropAdLab=0;
+$majorList=array();
+$minorList=array();
+$dropAdList=array();
+        $y=floor($current_semester/2);
+        if($y==0)
+        {
+            $y=1;
+        }
+        $s=$current_semester%2;
+        if($s==0)
+            $y=2;
 
+                $examYear=0;
+        foreach ($registrationGoingOn as $reg){
+            $examYear=$reg->EXAM_YEAR;
+            break;
+        }
 ?>
 
         <!DOCTYPE html>
@@ -44,6 +64,8 @@ $minorLab=0;
     <link rel="stylesheet" href="{{ URL::to('CSS/w3.css') }}">
     <!-- Breadcrumb -->
     <link rel="stylesheet" href="{{ URL::to('CSS/Breadcrumb.css') }}">
+    <!-- jQuery custom content scroller -->
+    <link href="{{ URL::to('vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css')}}" rel="stylesheet"/>
 
     <style>
         #addButton {
@@ -77,7 +99,7 @@ $minorLab=0;
 <body class="nav-md">
 <div class="container body">
     <div class="main_container">
-        <div class="col-md-3 left_col">
+        <div class="col-md-3 left_col menu_fixed">
             <div class="left_col scroll-view">
                 <div class="navbar nav_title" style="border: 0;">
 
@@ -119,7 +141,7 @@ $minorLab=0;
 
                 <div class="clearfix"></div>
                 <br/>
-                {!!  Form::open(array('url'=>'', 'method' => 'POST', 'class' => 'form-horizontal')) !!}
+
                 <div class="row">
 
                     <div class="col-md-12 col-sm-12 col-xs-12">
@@ -157,8 +179,7 @@ $minorLab=0;
                                            @foreach($offeredCourse as $offered)
                                               @if($major==$offered->COURSE_ID)
                                                <tr>
-                                                   <?php $majorList->push($offered->COURSE_ID);?>
-
+                                                   <?php array_push($majorList,$offered->COURSE_ID);?>
                                                    <td class="alignment ">{{$offered->COURSE_CODE}}</td>
                                                    <td class=" alignment">{{$offered->COURSE_CREDIT}}</td>
                                                    <td class=" alignment">{{$offered->TYPE}}</td>
@@ -167,6 +188,7 @@ $minorLab=0;
                                                    @elseif($offered->TYPE=='LAB')
                                                        <?php $majorLab=$majorLab+ $offered->COURSE_CREDIT;?>
                                                    @endif
+
                                                    <td class=" alignment"><button class="btn btn-danger">Delete</button></td>
                                                </tr>
                                                @endif
@@ -217,7 +239,7 @@ $minorLab=0;
                                             @foreach($offeredCourse as $offered)
                                                 @if($minor==$offered->COURSE_ID)
                                                     <tr>
-                                                        <?php $minorList->push($offered->COURSE_ID);?>
+                                                        <?php array_push($minorList,$offered->COURSE_ID);?>
                                                         <td class="alignment ">{{$offered->COURSE_CODE}}</td>
                                                         <td class=" alignment">{{$offered->COURSE_CREDIT}}</td>
                                                         <td class=" alignment">{{$offered->TYPE}}</td>
@@ -279,10 +301,15 @@ $minorLab=0;
                                             @foreach($offeredCourse as $offered)
                                                 @if($dropAd==$offered->COURSE_ID)
                                                     <tr>
-                                                        <?php $dropAdList->push($offered->COURSE_ID);?>
+                                                        <?php array_push($dopAdList,$offered->COURSE_ID);?>
                                                         <td class="alignment ">{{$offered->COURSE_CODE}}</td>
                                                         <td class=" alignment">{{$offered->COURSE_CREDIT}}</td>
                                                         <td class=" alignment">{{$offered->TYPE}}</td>
+                                                            @if($offered->TYPE=='THEORY')
+                                                                <?php $dropAdTheory=$dropAdTheory+$offered->COURSE_CREDIT;?>
+                                                            @elseif($offered->TYPE=='LAB')
+                                                                <?php $DropAdLab=$dropAdLab+ $offered->COURSE_CREDIT;?>
+                                                            @endif
                                                         <td class=" alignment"><button class="btn btn-danger">Delete</button></td>
                                                     </tr>
                                                 @endif
@@ -295,6 +322,9 @@ $minorLab=0;
                                     </tbody>
 
                                 </table>
+                                <div align="right">
+                                    <h4>Total Credit = {{$dropAdTheory+$dropAdLab}}</h4>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -308,82 +338,118 @@ $minorLab=0;
                             {{--</li>--}}
                             {{--</ul>--}}
                             <div class="x_title">
-                                <h4>DROP/ADVANCE COURSES</h4>
+                                <h3>Basic Information</h3>
 
                                 <div class="clearfix"></div>
-
                             </div>
+                            {!!  Form::open(array('url'=>'/submit_registration_form', 'method' => 'POST', 'class' => 'form-horizontal','target'=>'_blank')) !!}
+                            <input type="hidden" name="majorCourseListNumber" value="{{sizeof($majorList)}}">
+                            <input type="hidden" name="minorCourseListNumber" value="{{sizeof($minorList)}}">
+                            <input type="hidden" name="dropAdCourseListNumber" value="{{sizeof($dropAdList)}}">
+                            <?php $i=1;?>
+                            @foreach($majorList as  $major)
+                            <input type="hidden" name="majorCourseList<?php echo $i++;?>" value="{{$major}}">
+                            @endforeach
+                            <?php $i=1;?>
+                            @foreach($minorList as  $minor)
+                            <input type="hidden" name="minorCourseList{{$i}}" value="{{$minor}}">
+                                <?php $i++;?>
+                            @endforeach
+                            <?php $i=1;?>
+                            @foreach($dropAdList as  $dropAd)
+                            <input type="hidden" name="dropAdCourseList{{$i}}" value="{{$dropAd}}">
+                                <?php $i++;?>
+                            @endforeach
+
+                            <input type="hidden" name="majorCredit" value="{{$majorTheory+$majorLab}}">
+                            <input type="hidden" name="minorCredit" value="{{$minorTheory+$minorLab}}">
+                            <input type="hidden" name="dropAdCredit" value="{{$dropAdTheory+$dropAdLab}}">
+                            <input type="hidden" name="examYear" value="{{$examYear}}">
+                            <input type="hidden" name="semesterNo" value="{{$current_semester}}">
+
                             <div  class="x_content toggle">
                                 <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Course Code <span class="required"></span>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" >Applicant Name <span class="required"></span>
                                     </label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <div class="col-md-3 col-sm-3 col-xs-6">
+                                        <input type="text" readonly name="studentName" value="{{$userInfo->FIRST_NAME}} {{$userInfo->LAST_NAME}}" class="form-control col-md-5 col-xs-12">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" >Father's Name <span class="required"></span>
+                                    </label>
+                                    <div class="col-md-3 col-sm-3 col-xs-6">
+                                        <input type="text" readonly name="fatherName" value="{{$userInfo->FATHER_NAME}}" class="form-control col-md-5 col-xs-12">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Mother's name <span class="required"></span>
+                                    </label>
+                                    <div class="col-md-3 col-sm-3 col-xs-6">
+                                        <input type="text" readonly name="motherName" value="{{$userInfo->MOTHER_NAME}}" class="form-control col-md-5 col-xs-12">
 
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Course Name <span class="required"></span>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" >Session<span class="required"></span>
                                     </label>
+                                    <div class="col-md-3 col-sm-3 col-xs-6">
 
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Course Credit <span class="required"></span>
-                                    </label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Course Level <span class="required"></span>
-                                    </label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-
+                                            <input type="text" readonly name="c_session" value="{{$user_session}}-{{$user_session+1}}" class="form-control col-md-5 col-xs-12">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Semester Name <span class="required"></span>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Year<span class="required"></span>
                                     </label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <div class="col-md-3 col-sm-3 col-xs-6">
+
+                                        <input type="text" readonly name="year" value="{{$y}}" class="form-control col-md-5 col-xs-12">
 
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Department Code</label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Semester</label>
+                                    <div class="col-md-3 col-sm-3 col-xs-6">
 
+                                        <input type="text" readonly name="semesterName" value="{{$s}}" class="form-control col-md-5 col-xs-12">
 
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Registration No</label>
+                                    <div class="col-md-3 col-sm-3 col-xs-6">
+                                        <input type="text" readonly name="reg_no" value="{{$userInfo->REGISTRATION_NO}}" class="form-control col-md-5 col-xs-12">
 
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Exam</label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <div class="col-md-3 col-sm-3 col-xs-6">
                                         <div class="radio">
                                             <label>
-                                                <input type="radio" class="flat"  name="iCheck"> Checked
+                                                <input type="radio" class="flat" checked readonly name="iCheck"> Bachelor
                                             </label>
                                         </div>
                                         <div class="radio">
                                             <label>
-                                                <input type="radio" class="flat" name="iCheck"> Unchecked
+                                                <input type="radio" class="flat" name="iCheck"> Masters'
                                             </label>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="ln_solid"></div>
                                 <div class="form-group">
-                                    <div align="right" class="col-md-3 col-sm-3 col-xs-12 col-md-offset-6">
-
+                                    <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Present Address</label>
+                                    <div class="col-md-3 col-sm-3 col-xs-6">
+                                        <input type="text"  name="address" class="form-control col-md-5 col-xs-12">
 
                                     </div>
                                 </div>
                                 <div class="ln_solid"></div>
                                 <div class="form-group">
-                                    <div align="right" class="col-md-3 col-sm-3 col-xs-12 col-md-offset-6">
-
-                                        {{--<button type="submit" class="btn btn-success">Submit</button>--}}
-                                        {{ Form::submit('SUBMIT',array('id'=>'submitButton', 'class'=>'btn btn-success')) }}
+                                    <div align="right" >
+                                        <button type="submit" class="btn btn-success">Submit</button>
+                                        {{--{{ Form::submit('SUBMIT',array('id'=>'submitButton', 'class'=>'btn btn-success right-right')) }}--}}
                                     </div>
                                 </div>
 
@@ -421,6 +487,8 @@ Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib
 <script src="{{URL::to('vendors/fastclick/lib/fastclick.js')}}"></script>
 <!-- NProgress -->
 <script src="{{URL::to('vendors/nprogress/nprogress.js')}}"></script>
+<!-- jQuery custom content scroller -->
+<script src="{{URL::to('vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js')}}"></script>
 
 <!-- Custom Theme Scripts -->
 <script src="{{URL::to('vendors/build/js/custom.min.js')}}"></script>
@@ -438,3 +506,6 @@ Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib
 </body>
 </html>
 
+<?php
+
+        ?>

@@ -23,12 +23,14 @@ class NotificationController extends Controller
         if($check!=null && $role=='student') {
 
             $user1=DB::table('user')->select('BATCH_ID','DEPT_CODE')->where('USER_ID','=',$check)->first();
-            $batchInfo=DB::table('batch_info')->select('SEMESTER_NAME','LEVEL')->where('BATCH_ID','=',$user1->BATCH_ID)->first();
+            $batchInfo=DB::table('batch_info')->select('SEMESTER_NAME','LEVEL','ADMIT_SESSION','CURRENT_SESSION')->where('BATCH_ID','=',$user1->BATCH_ID)->first();
 
-            $registrationGoingOn=DB::table('offered_courses')->where('DEPT_CODE','=',$user1->DEPT_CODE)->get();
+            $registrationGoingOn=DB::table('schedule_of_exam')->where('DEPT_CODE','=',$user1->DEPT_CODE)->get();
 
             Session::put('studentOfBatch',$user1->BATCH_ID);
             Session::put('studentOfDepartment',$user1->DEPT_CODE);
+            Session::put('studentOfAdmitSession',$batchInfo->ADMIT_SESSION);
+            Session::put('studentOfCurrentSession',$batchInfo->CURRENT_SESSION);
             Session::put('studentOfCurrentSemester',$batchInfo->SEMESTER_NAME);
             Session::put('studentOfCurrentLevel',$batchInfo->LEVEL);
             if(sizeof($registrationGoingOn)>=1){
@@ -37,7 +39,13 @@ class NotificationController extends Controller
             return view('admin.notificationUser1');
         }
         if($check!=null && $role=='admin'){
-            return view('admin.404Error');
+
+            $registeredList=DB::table('registration_process')->get();
+            $syllabus_info=DB::table('syllabus')->get();
+            Session::put('ListOfRegisteredStudent',$registeredList);
+            Session::put('informationOfSyllabus',$syllabus_info);
+
+            return view('admin.notificationHead');
         }
     }
 
@@ -55,8 +63,7 @@ class NotificationController extends Controller
             Session::put('deptShort',$deptName);
 
             foreach ($valid as $offered){
-                $tempCourseList=DB::table('course_list')->select('COURSE_ID')->where('SEMESTER_NAME','=',$offered->SEMESTER_NAME)->
-                    where('SYLLABUS_YEAR','=',$offered->SYLLABUS_YEAR)->where('DEPT_CODE','=',$deptCode)->get();
+                $tempCourseList=DB::table('offered_courses')->select('COURSE_ID')->where('EXAM_ID','=',$offered->EXAM_ID)->get();
 
                 foreach ($tempCourseList as $temp){
                       $courseDetails=DB::table('courses')->where('COURSE_ID','=',$temp->COURSE_ID)->first();
@@ -243,7 +250,7 @@ class NotificationController extends Controller
                 Session::put('DropAdvancedCourseList', $new);
             }
             else{
-                Session::put('DropAdvancedCourseList', $current);
+                Session::put('DropAdvancedCourseList',$current);
             }
 
 
@@ -252,6 +259,72 @@ class NotificationController extends Controller
         else
         {
             return view('admin.404Error');
+        }
+
+    }
+
+    public function completeRegistration(Request $request){
+        $check=Session::get('success');
+        $role=Session::get('role');
+        $isRegistered=Session::get('isRegistered');
+        $majorList=array();
+        $minorList=array();
+        $dropAdList=array();
+        $valid=Session::get('registrationGoingOn');
+        if($check!=null && $role=='student'&& $isRegistered==null){
+            $userInfo=DB::table('profile')->where('USER_ID','=',$check)->first();
+            $user=DB::table('user')->where('USER_ID','=',$check)->first();
+            $batchinfo=DB::table('batch_info')->where('BATCH_ID','=',$user->BATCH_ID)->first();
+            $majorCourseListNumber = $request->input('majorCourseListNumber');
+            $minorCourseListNumber = $request->input('minorCourseListNumber');
+            $dropAdCourseListNumber = $request->input('dropAdCourseListNumber');
+            $studentName = $request->input('studentName');
+            $fatherName = $request->input('fatherName');
+            $motherName= $request->input('motherName');
+            $c_session = $request->input('c_session');
+            $examYear = $request->input('examYear');
+            $year = $request->input('year');
+            $semesterNO= $request->input('semesterNo');
+            $semesterName = $request->input('semesterName');
+            $reg_no = $request->input('reg_no');
+            $examName = $request->input('iCheck');
+            $address = $request->input('address');
+            $majorCredit=$request->input('majorCredit');
+            $minorCredit=$request->input('minorCredit');
+            $dropAdCredit=$request->input('dropAdCredit');
+            $syllabusYear=substr($reg_no,0,4);
+
+
+            for($i=1;$i<=$majorCourseListNumber;$i++){
+                $temp=$request->input('majorCourseList'.$i);
+                DB::table('registered_list')->insert([
+                 'REG_NO'=>$reg_no,'COURSE_ID'=>$temp,'REG_SEMESTER'=>$batchinfo->SEMESTER_NAME,'SYLLABUS_YEAR'=>$syllabusYear
+                ]);
+                 array_push($majorList,$temp);
+            }
+
+            for($i=1;$i<=$minorCourseListNumber;$i++){
+                $temp=$request->input('minorCourseList'.$i);
+                DB::table('registered_list')->insert([
+                    'REG_NO'=>$reg_no,'COURSE_ID'=>$temp,'REG_SEMESTER'=>$batchinfo->SEMESTER_NAME,'SYLLABUS_YEAR'=>$syllabusYear
+                ]);
+                array_push($minorList,$temp);
+            }
+            for($i=1;$i<=$dropAdCourseListNumber;$i++){
+                $temp=$request->input('dropAdCourseList'.$i);
+                DB::table('registered_list')->insert([
+                    'REG_NO'=>$reg_no,'COURSE_ID'=>$temp,'REG_SEMESTER'=>$batchinfo->SEMESTER_NAME,'SYLLABUS_YEAR'=>$syllabusYear
+                ]);
+                array_push($dropAdList,$temp);
+            }
+
+           DB::table('registration_process')->insert([
+                'REG_NO'=>$reg_no, 'EXAM_YEAR'=>$examYear, 'NAME'=>$studentName,'REQUEST'=>'0', 'TOTAL_CREDIT'=>($majorCredit+$minorCredit+$dropAdCredit),
+               'SEMESTER_NAME'=>$semesterNO,'SYLLABUS_YEAR'=>$syllabusYear
+            ]);
+
+            return view('admin.showPrintableform');
+
         }
 
     }

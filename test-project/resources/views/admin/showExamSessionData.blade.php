@@ -6,10 +6,12 @@
  * Time: 10:32 AM
  */
 
-$departmentLists = Session::get('ListOfDepartments');
-$offeredData=Session::get('offeredDataForExam');
+$nameOfdept = Session::get('nameOfDepartment');
+$offeredData=Session::get('listOfOfferedCourses');
 $year=Session::get('offeredExamYear');
-$session=Session::get('offeredSessionMonth');
+
+
+
 
 
 ?>
@@ -38,6 +40,8 @@ $session=Session::get('offeredSessionMonth');
     <link href="{{URL::to('vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{URL::to('vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{URL::to('vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css') }}" rel="stylesheet">
+    <!-- jQuery custom content scroller -->
+    <link href="{{ URL::to('vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css')}}" rel="stylesheet"/>
 
     <!-- Custom Theme Style -->
     <link href="{{URL::to('vendors/build/css/custom.min.css')}}" rel="stylesheet">
@@ -52,6 +56,19 @@ $session=Session::get('offeredSessionMonth');
         .alignment{
             text-align: center;
         }
+        #addButton {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 5px 5px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 12px;
+        }
     </style>
 
 </head>
@@ -59,7 +76,7 @@ $session=Session::get('offeredSessionMonth');
 <body class="nav-md">
 <div class="container body">
     <div class="main_container">
-        <div class="col-md-3 left_col">
+        <div class="col-md-3 left_col menu_fixed">
             <div class="left_col scroll-view">
                 <div class="navbar nav_title" style="border: 0;">
 
@@ -100,7 +117,11 @@ $session=Session::get('offeredSessionMonth');
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_panel">
                             <div class="x_title">
-                                <h2>Offered courses in exam year {{$year}} sessoin({{$session}})</h2>
+                                <h2>Offered courses of {{$nameOfdept->DEPT_NAME_SHORT}} in exam year {{$year}}</h2>
+                                <div align="right">
+                                    <a href="{{route('add.offered_course')}}" id="addButton">+ New Schedule </a>
+
+                                </div>
                                 <div class="clearfix"></div>
                             </div>
                             <div class="x_content">
@@ -110,53 +131,44 @@ $session=Session::get('offeredSessionMonth');
                                         <table  id='datatable-checkbox' class="table table-striped jambo_table table-bordered">
                                             <thead>
                                             <tr class="headings">
-                                                <th class="column-title alignment">Curriculum Year</th>
-                                                <th class="column-title alignment">Department Code</th>
+                                                <th class="column-title alignment">Course Code</th>
+                                                <th class="column-title alignment">Course Credit</th>
                                                 <th class="column-title alignment">Semester Name</th>
-                                                <th class="column-title alignment">#</th>
+                                                <th class="column-title alignment">Course Type</th>
                                             </tr>
                                             </thead>
 
                                             <tbody>
+
                                             @foreach($offeredData as $offer)
                                                 <tr>
-                                                    <td class=" alignment">{{$offer->SYLLABUS_YEAR}}</td>
-                                                    @foreach($departmentLists as $dept)
-                                                        @if($dept->DEPT_CODE==$offer->DEPT_CODE)
-                                                             <td class="alignment ">{{$dept->DEPT_NAME_SHORT}}</td>
-                                                        @endif
-                                                    @endforeach
+                                                    <td class=" alignment">{{$offer->COURSE_CODE}}</td>
+                                                    <td class="alignment ">{{$offer->COURSE_CREDIT}}</td>
 
                                                     @if($offer->SEMESTER_NAME==1)
-                                                            <td class="alignment ">1/1</td>
+                                                        <td class="alignment ">1/1</td>
                                                     @elseif($offer->SEMESTER_NAME==2)
-                                                            <td class="alignment ">1/2</td>
+                                                        <td class="alignment ">1/2</td>
                                                     @elseif($offer->SEMESTER_NAME==3)
-                                                            <td class="alignment ">2/1</td>
+                                                        <td class="alignment ">2/1</td>
                                                     @elseif($offer->SEMESTER_NAME==4)
-                                                            <td class="alignment ">2/2</td>
+                                                        <td class="alignment ">2/2</td>
                                                     @elseif($offer->SEMESTER_NAME==5)
-                                                           <td class="alignment ">3/1</td>
+                                                        <td class="alignment ">3/1</td>
                                                     @elseif($offer->SEMESTER_NAME==6)
-                                                            <td class="alignment ">3/2</td>
+                                                        <td class="alignment ">3/2</td>
                                                     @elseif($offer->SEMESTER_NAME==7)
-                                                            <td class="alignment ">4/1</td>
+                                                        <td class="alignment ">4/1</td>
                                                     @elseif($offer->SEMESTER_NAME==8)
-                                                            <td class="alignment ">4/2</td>
+                                                        <td class="alignment ">4/2</td>
                                                     @endif
 
-                                                    {{--{!! Form::open(array('url'=>'','method'=>'POST', 'class' => 'form-horizontal' ))!!}--}}
-                                                    {{--<input type="hidden" value="{{$offer->OFFERED_ID}}" name="offeredId">--}}
-                                                    {{--<td class=" alignment"><button type="submit" class="btn btn-info" name="submit"> Edit</button></td>--}}
-                                                    {{--{!! Form::close() !!}--}}
+                                                    <td class=" alignment">{{$offer->TYPE}}</td>
 
-                                                    {!! Form::open(array('url'=>'','method'=>'post','class' => 'form-horizontal'))!!}
-                                                    <input type="hidden" value="{{$offer->OFFERED_ID}}" name="offerdId">
-                                                    <td class=" alignment"><button type="submit" class="btn btn-danger" name="submit"> Delete</button></td>
-                                                    {!! Form::close()!!}
 
                                                 </tr>
                                             @endforeach
+
                                             </tbody>
                                         </table>
 
@@ -206,6 +218,8 @@ Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib
 <script src="{{URL::to('vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js')}}"></script>
 <script src="{{URL::to('vendors/datatables.net-scroller/js/datatables.scroller.min.js')}}"></script>
 
+<!-- jQuery custom content scroller -->
+<script src="{{URL::to('vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js')}}"></script>
 
 <!-- Custom Theme Scripts -->
 <script src="{{URL::to('vendors/build/js/custom.min.js')}}"></script>
@@ -278,7 +292,7 @@ Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib
         $datatable.dataTable({
             'order': [[ 1, 'asc' ]],
             'columnDefs': [
-                { orderable: false, targets: [0,2,3] }
+                { orderable: false, targets: [0,1,3] }
             ]
         });
         $datatable.on('draw.dt', function() {

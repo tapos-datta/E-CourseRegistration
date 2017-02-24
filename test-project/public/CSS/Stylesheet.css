@@ -1,16 +1,28 @@
+P{
+    font-size: 12px;
+}
+@page{
+    size:10in 26in;
+    background-color: #7AECFF;
 
-
-
+}
 .row1 {
 
     height: auto;
+    margin: auto;
+    padding: auto;
 }
+
+
 
 .container {
     width: 80%;
-    margin-left: auto;
-    margin-right: auto;
+    margin-left: 0 !important;
+    margin-right: 0 !important;:
 
+}
+#table_col{
+    border:1px solid black;
 }
 
 .logo{
@@ -19,12 +31,16 @@
     margin-right: 5.5%;
 
 }
+#rules > p{
+    margin-top: 0;
+    margin-bottom: 0;
+}
 .row{
     clear: both;
 
 }
 .table_bank{
-    width: 18.6em;
+    width: 18em;
     height: 10em;
     border: 1px solid black;
     margin-left: 35%;

@@ -5,8 +5,14 @@
  * Date: 2/7/2017
  * Time: 1:57 AM
  */
-$departmentCodeLists=Session::get('departmentCodeList');
+
 $curriculumYearList=Session::get('curriculumYearList');
+
+$nameOfdept = Session::get('nameOfDepartment');
+$offeredData=Session::get('offeredDataForExam');
+$year=Session::get('offeredExamYear');
+$session=Session::get('offeredSessionMonth');
+$examId=Session::get('examYearId');
 
 
 ?>
@@ -89,6 +95,7 @@ $curriculumYearList=Session::get('curriculumYearList');
                         <div>
                             <ul class="breadcrumb">
                                 <li><a href="{{route('user_settings')}}">Settings</a></li>
+                                <li><a href="{{route('exam.session_data',array('examId'=>$examId,'session_month'=>$session,'year'=>$year))}}">Offered list of {{$nameOfdept->DEPT_NAME_SHORT}}({{$year}})</a></li>
                                 <li></li>
                             </ul>
                         </div>
@@ -102,35 +109,22 @@ $curriculumYearList=Session::get('curriculumYearList');
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_panel">
                             <div class="x_title">
-                                <h2>Create <small>A New Exam Session</small></h2>
+                                <h2>Add <small>A Semester to offered list</small></h2>
 
                                 <div class="clearfix"></div>
                             </div>
                             <div class="x_content">
                                 <br />
-
+                                <input type="hidden" name="examId" value="{{$examId}}">
 
                                 <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Exam Year<span class="required"></span>
-                                    </label>
+                                    <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Department Code</label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <select name="examYear" class="form-control col-md-7 col-xs-12">
-                                            @for($k=2010;$k<=2099;$k++)
-                                                <option value="{{ $k }}">{{$k}}</option>
-                                            @endfor
-                                        </select>
+                                        <input type="text" readonly name="departmentCode" value="{{$nameOfdept->DEPT_CODE}}" class="form-control col-md-7 col-xs-12">
+
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Exam Session <span class="required"></span>
-                                    </label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <select name="examSession" class="form-control col-md-7 col-xs-12">
-                                                <option value="JAN-JUN">JAN-JUN</option>
-                                                <option value="JUL-DEC">JUL-DEC</option>
-                                        </select>
-                                    </div>
-                                </div>
+
                                 <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Semester<span class="required"></span>
                                     </label>
@@ -158,19 +152,6 @@ $curriculumYearList=Session::get('curriculumYearList');
                                         </select>
                                     </div>
                                 </div>
-
-                                <div class="form-group">
-                                    <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">Department Code</label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <select name="departmentCode" class="form-control col-md-7 col-xs-12">
-                                            @foreach($departmentCodeLists as $code)
-                                                <option value="{{  $code->DEPT_CODE }}">{{$code->DEPT_NAME_SHORT."-".$code->DEPT_CODE}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-
-
 
                                 <div class="ln_solid"></div>
                                 <div class="form-group">
