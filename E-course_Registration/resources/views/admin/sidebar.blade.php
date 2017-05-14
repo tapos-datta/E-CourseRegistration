@@ -25,15 +25,22 @@ $role=Session::get('role');
 
             </li>
             @if($role=='admin')
-            <li><a href="{{route('admin_profile')}}"> <i class="fa fa-users"></i>Users</a>
-            </li>
+                <li><a href="{{route('admin_profile')}}"> <i class="fa fa-users"></i>Users</a>
+                </li>
             @endif
-            <li><a href="{{route('user_notification')}}"><i class="fa fa-bell"></i> Notification </a>
+            @if($role!='admin')
+                <li><a href="{{route('user_notification')}}"><i class="fa fa-bell"></i> Notification </a>
+                </li>
+            @endif
+            @if($role!='student')
+                <li><a href="{{route('user_settings')}}"><i class="fa fa-wrench"></i> Settings </a>
+                </li>
+            @endif
+            @if($role=='student')
+                <li><a href="{{route('user_settings')}}"><i class="fa fa-book"></i> Academics </a>
+                </li>
+            @endif
 
-            </li>
-            <li><a href="{{route('user_settings')}}"><i class="fa fa-wrench"></i> Settings </a>
-
-            </li>
             <li><a href="{{route('user_logout')}}"><i class="fa fa-sign-out"></i> Log Out </a>
 
             </li>

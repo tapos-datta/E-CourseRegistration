@@ -213,6 +213,12 @@ Route::post('/delete_offered_semester',['uses'=>'OfferedCourseController@DeleteA
 
 Route::get('/edit_exam_session_data/{dept}/{session_month}/{year}',['as'=>'edit.exam.session_data','uses'=>'OfferedCourseController@editSchedule']);
 
+Route::get('/add_new_curriculum',['as'=>'add.new.curriculum','uses'=>'AddCurriculumController@newCurriculum']);
+
+Route::get('/edit_curriculum_{year}',['as'=>'edit.curriculum','uses'=>'AddCurriculumController@editCurriculum']);
+
+Route::post('/edit_curriculum',['uses'=>'AddCurriculumController@updateCurriculum']);
+
 
 
 

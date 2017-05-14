@@ -30,7 +30,7 @@ $image_path= URL::to('images/default_image.png');
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Settings</title>
+    <title>@if($role!='student')Settings @else Academics @endif</title>
 
     <!-- Bootstrap -->
     <link href="{{ URL::to('vendors/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -88,6 +88,10 @@ $image_path= URL::to('images/default_image.png');
         .deadline{
             color: orangered;
         }
+        .edit{
+            margin-left: 60%;
+        }
+
     </style>
 </head>
 
@@ -127,7 +131,7 @@ $image_path= URL::to('images/default_image.png');
                             <h5> Not Successfully updated </h5>
                              <?php $checkStatus=0;?>
                         @endif
-                        <h3>Settings</h3>
+                        <h3>@if($role!='student')Settings @else Academics @endif</h3>
                     </div>
 
 
@@ -146,12 +150,8 @@ $image_path= URL::to('images/default_image.png');
 
                                     <div class="" role="tabpanel" data-example-id="togglable-tabs">
                                         <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
-                                            <li role="presentation" class="@if($checkStatus==0 || $checkStatus==1){{'active'}} <?php $checkStatus=0;?> @endif w3-custom-blue"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Curriculum</a>
+                                            <li role="presentation" class="@if($checkStatus==0 || $checkStatus==1 || $checkStatus==2){{'active'}} <?php $checkStatus=0;?> @endif w3-custom-blue"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Curriculum</a>
                                             </li>
-                                            @if($role=='admin')
-                                            <li role="presentation" class="@if($checkStatus==2){{'active'}}@endif  w3-custom-blue"><a href="#tab_content2" role="tab" id="profile-tab"  data-toggle="tab" aria-expanded="false">Add syllabus</a>
-                                            </li>
-                                            @endif
                                             @if($role=='head' || $role=='admin')
                                             <li role="presentation" class="@if($checkStatus==3){{'active'}}@endif w3-custom-blue"><a href="#tab_content4" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Offered Courses</a>
                                             </li>
@@ -171,6 +171,12 @@ $image_path= URL::to('images/default_image.png');
                                                 <!-- start view syllabus -->
                                                 <div class="x_title">
                                                     <h2>Lists of Curriculum <small></small></h2>
+                                                    @if($role=='admin')
+                                                    <div align="right">
+                                                        <a href="{{route('add.new.curriculum')}}" id="addButton">+ New Curriculum </a>
+
+                                                    </div>
+                                                    @endif
 
                                                     <div class="clearfix"></div>
                                                 </div>
@@ -179,7 +185,17 @@ $image_path= URL::to('images/default_image.png');
                                                     @foreach($curriculumYearList as $curriculum)
                                                     <tr>
                                                         <td></td>
-                                                        <td><a href="{!! route('show.curriculum', array('year'=> $curriculum->SYLLABUS_YEAR )) !!}">Curriculum Year of {{$curriculum->SYLLABUS_YEAR}}</a></td>
+                                                        <td><a href="{!! route('show.curriculum', array('year'=> $curriculum->SYLLABUS_YEAR)) !!}">Curriculum Year of {{$curriculum->SYLLABUS_YEAR}}</a></td>
+                                                        <td></td>
+                                                        @if($role!='student')
+                                                        <td>
+                                                            <ul class="edit">
+                                                                <a href="{{route('edit.curriculum',array('year'=>$curriculum->SYLLABUS_YEAR))}}">
+                                                                    <li class="fa fa-edit"></li>
+                                                                </a>
+                                                            </ul>
+                                                        </td>
+                                                        @endif
                                                     </tr>
                                                     </tbody>
                                                     @endforeach
@@ -188,78 +204,7 @@ $image_path= URL::to('images/default_image.png');
                                             <!-- end view sylabus -->
 
                                             </div>
-                                            <div role="tabpanel" class="tab-pane fade @if($checkStatus==2){{'active in'}}@endif" id="tab_content2" aria-labelledby="profile-tab">
 
-                                                <!--Add syllabus-->
-                                                <div class="row">
-                                                    {!!  Form::open(array('url'=>'/add_curriculum','method'=>'post', 'class' => 'form-horizontal ')) !!}
-                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                    <div class="col-md-12 col-sm-12 col-xs-12">
-                                                        <div class="x_panel">
-                                                            <div class="x_title">
-                                                                <h2>New Curriculum<small>Add to Database</small></h2>
-
-
-                                                                <div class="clearfix"></div>
-                                                            </div>
-                                                            <div class="x_content">
-                                                                <br />
-
-
-                                                                <div class="form-group">
-                                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Curriculum Year <span class="required"></span>
-                                                                    </label>
-                                                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                        <select name="curriculumYear" class="form-control col-md-7 col-xs-12">
-                                                                            @for($k=2012;$k<=2099;$k++)
-                                                                            <option value="{{$k}}">{{$k}}</option>
-                                                                            @endfor
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Maximum credit limit on registration <span class="required"></span>
-                                                                    </label>
-                                                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                        <select name="maxCredit" class="form-control col-md-7 col-xs-12">
-                                                                            @for($k=10;$k<=50;$k++)
-                                                                                <option value="{{$k}}">{{$k}}</option>
-                                                                            @endfor
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Minimum credit limit on registration  <span class="required"></span>
-                                                                    </label>
-                                                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                        <select name="minCredit" class="form-control col-md-7 col-xs-12">
-                                                                            @for($k=10;$k<=50;$k++)
-                                                                                <option value="{{$k}}">{{$k}}</option>
-                                                                            @endfor
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                                <br >
-                                                                <div class="ln_solid"></div>
-                                                                <div class="form-group">
-                                                                    <div align="right" class="col-md-2 col-sm-2 col-xs-12 col-md-offset-10 col-sm-offset-10">
-
-                                                                        {{--<button type="submit" class="btn btn-success">Submit</button>--}}
-                                                                        {{ Form::submit('SUBMIT',array('id'=>'submitButton', 'class'=>'btn btn-success')) }}
-                                                                    </div>
-                                                                </div>
-
-                                                                {!! Form::close() !!}
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-
-                                                <!-- End Add syllabus -->
-
-
-                                            </div>
                                             <div role="tabpanel" class="tab-pane fade @if($checkStatus==4){{'active in'}}@endif" id="tab_content4" aria-labelledby="profile-tab">
                                                 <!-- add Offered Schedule -->
 

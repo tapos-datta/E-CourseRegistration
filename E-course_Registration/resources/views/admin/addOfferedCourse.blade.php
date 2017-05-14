@@ -172,7 +172,7 @@ $sessionMonth=Session::get('offeredSessoinMonth');
                                     <div align="right" class="col-md-3 col-sm-3 col-xs-12 col-md-offset-6">
 
                                         {{--<button type="submit" class="btn btn-success">Submit</button>--}}
-                                        {{ Form::submit('SUBMIT',array('id'=>'submitButton', 'class'=>'btn btn-success')) }}
+                                        {{ Form::submit('Submit',array('id'=>'submitButton', 'class'=>'btn btn-success')) }}
                                     </div>
                                 </div>
 

@@ -2,14 +2,10 @@
 /**
  * Created by PhpStorm.
  * User: Tapos
- * Date: 5/4/2017
- * Time: 2:30 AM
+ * Date: 2/6/2017
+ * Time: 9:49 PM
  */
-
-$curriculumYearList=Session::get('curriculumYearList');
-$userDept=Session::get('userInformation');
-
-
+$departmentCodeLists=session()->get('departmentCodeList');
 ?>
         <!DOCTYPE html>
 <html lang="en">
@@ -20,7 +16,7 @@ $userDept=Session::get('userInformation');
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Offered new </title>
+    <title>Add Curriculum</title>
 
     <!-- Bootstrap -->
     <link href="{{ URL::to('vendors/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -30,19 +26,18 @@ $userDept=Session::get('userInformation');
     <link href="{{URL::to('vendors/nprogress/nprogress.css') }}" rel="stylesheet">
     <!-- iCheck -->
     <link href="{{URL::to('vendors/iCheck/skins/flat/green.css') }}" rel="stylesheet">
+    <!-- jQuery custom content scroller -->
+    <link href="{{ URL::to('vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css')}}" rel="stylesheet"/>
     <!--Datatables -->
     <link href="{{URL::to('vendors/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{URL::to('vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{URL::to('vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{URL::to('vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{URL::to('vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css') }}" rel="stylesheet">
-    <!-- jQuery custom content scroller -->
-    <link href="{{ URL::to('vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css')}}" rel="stylesheet"/>
+
     <!-- Custom Theme Style -->
     <link href="{{URL::to('vendors/build/css/custom.min.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="{{ URL::to('CSS/w3.css') }}">
-    <!-- Date-picker -->
-    <link rel="stylesheet" href="{{ URL::to('CSS/date-picker.css') }}">
     <!-- Breadcrumb -->
     <link rel="stylesheet" href="{{ URL::to('CSS/Breadcrumb.css') }}">
 
@@ -50,7 +45,9 @@ $userDept=Session::get('userInformation');
         table.jambo_table thead{
             background-color: #1b809e;
         }
-
+        .alignment{
+            text-align: center;
+        }
     </style>
 
 </head>
@@ -82,6 +79,10 @@ $userDept=Session::get('userInformation');
     <!-- /top navigation -->
 
         <!-- page content -->
+
+
+
+        <!-- tasdfhskj -->
         <div class="right_col" role="main">
             <div class="">
                 <div class="page-title">
@@ -97,52 +98,65 @@ $userDept=Session::get('userInformation');
 
                 <div class="clearfix"></div>
                 <div class="row">
-                    {!!  Form::open(array('url'=>'/edited_schedule_to_list','method'=>'post', 'class' => 'form-horizontal ','name'=>'form')) !!}
+                    {!!  Form::open(array('url'=>'/add_curriculum','method'=>'post', 'class' => 'form-horizontal ')) !!}
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_panel">
                             <div class="x_title">
-                                <h2>Edit <small> a schedule </small></h2>
+                                <h2>Curriculum <small>add to Database</small></h2>
 
                                 <div class="clearfix"></div>
                             </div>
                             <div class="x_content">
                                 <br />
-                                <input type="hidden" value="{{$editableData->DEPT_CODE}}" name="departmentCode">
+                                <div class="col-md-offset-2 col-md-6">
 
-                                <div class="form-group">
-                                    <label class="control-label  col-md-offset-2 col-md-3 col-sm-3 col-xs-12" for="first-name">Holding Exam Year<span class="required"></span>
-                                    </label>
-                                    <div class="col-md-2 col-sm-2 col-xs-12">
-                                        <input type="text" readonly name="examYear" class="form-control col-md-7 col-xs-12" value="{{$editableData->EXAM_YEAR}}">
+                                    <div class="form-group">
+                                        <label for="middle-name" class="control-label col-md-6 col-sm-6 col-xs-12">Curriculum year</label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <select name="curriculumYear" class="form-control col-md-6 col-xs-12">
+                                                @for($k=2012;$k<=2099;$k++)
+                                                    <option value="{{$k}}">{{$k}}</option>
+                                                @endfor
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label  col-md-offset-2 col-md-3 col-sm-3 col-xs-12" for="first-name">Exam Session <span class="required"></span>
-                                    </label>
-                                    <div class="col-md-2 col-sm-2 col-xs-12">
-                                        <input type="text" readonly name="examSession" class="form-control col-md-7 col-xs-12" value="{{$editableData->SESSION_MONTH}}">
+                                    <div class="form-group">
+                                        <label for="middle-name" class="control-label col-md-6 col-sm-6 col-xs-12">Maximum credit limit on registration </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <select name="maxCredit" class="form-control col-md-7 col-xs-12">
+                                                @for($k=10;$k<=50;$k++)
+                                                    <option value="{{$k}}">{{$k}}</option>
+                                                @endfor
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="form-group">
-                                    <label class="control-label  col-md-offset-2 col-md-3 col-sm-3 col-xs-12" for="first-name">Registration Deadline<span class="required"></span>
-                                    </label>
-                                    <div class="col-md-2 col-sm-2 col-xs-12">
-                                        <input class="form-control" id="date" name="date" placeholder="{{$editableData->DEAD_LINE}}" type="text"/>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-6 col-sm-6 col-xs-12" for="first-name">Minimum credit limit on registration  <span class="required"></span>
+                                        </label>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            {{--{{ Form::text('courseName','',array('class'=>'form-control col-md-7 col-xs-12','required'=>'required','id'=>'')) }}--}}
+                                            <select name="minCredit" class="form-control col-md-7 col-xs-12">
+                                                @for($k=10;$k<=50;$k++)
+                                                    <option value="{{$k}}">{{$k}}</option>
+                                                @endfor
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="ln_solid"></div>
-                                <div class="form-group">
-                                    <div align="center">
 
-                                        {{--<button type="submit" class="btn btn-success">Submit</button>--}}
-                                        {{ Form::submit('Update',array('id'=>'submitButton', 'class'=>'btn btn-success')) }}
+
+                                    <div class="form-group">
+                                        <div align="right" class="col-md-3 col-sm-3 col-xs-12 col-md-offset-6">
+
+                                            {{ Form::submit('Submit',array('class'=>'btn btn-success')) }}
+                                        </div>
                                     </div>
-                                </div>
 
-                                {!! Form::close() !!}
+                                    {!! Form::close() !!}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -175,32 +189,13 @@ $userDept=Session::get('userInformation');
 <script src="{{URL::to('vendors/nprogress/nprogress.js')}}"></script>
 <!-- iCheck -->
 <script src="{{URL::to('vendors/iCheck/icheck.min.js')}}"></script>
-<!--Date picker -->
-<script src="{{URL::to('js/date-picker.js')}}"></script>
-<!-- jQuery custom content scroller -->
-<script src="{{URL::to('vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js')}}"></script>
 
 <!-- Custom Theme Scripts -->
 <script src="{{URL::to('vendors/build/js/custom.min.js')}}"></script>
-
-
-<script>
-
-    $(document).ready(function(){
-        var date_input=$('input[name="date"]'); //our date input has the name "date"
-        var container=$('.form').length>0 ? $('.form').parent() : "body";
-        date_input.datepicker({
-            format: 'yyyy-mm-dd',
-            container: container,
-            todayHighlight: true,
-            autoclose: true,
-        })
-    })
-
-</script>
+<!-- jQuery custom content scroller -->
+<script src="{{URL::to('vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js')}}"></script>
 
 </body>
 </html>
-
 
 

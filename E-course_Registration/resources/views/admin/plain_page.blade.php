@@ -125,6 +125,7 @@ $role=Session::get('role');
                                               </a>
                                           </div>
                                       </div>
+                                      @if($role!='admin')
                                       <div class="col-md-4 col-sm-4 col-xs-4 image">
                                           <div align="left">
                                               <img src="{{URL::to('images/bell-icon.png')}}" title="Notification" style="width: 50%;height: 50%; margin-top: 5%; margin-left: 25%" >
@@ -135,7 +136,8 @@ $role=Session::get('role');
                                               </a>
                                           </div>
                                       </div>
-
+                                      @endif
+                                      @if($role!='student')
                                       <div class="col-md-4 col-sm-4 col-xs-4 image">
                                           <div align="left">
                                               <img src="{{URL::to('images/settings-icon.png')}}" title="Settings" style="width: 35%;height: 35%; margin-top: 12%; margin-left: 25%;margin-bottom: 5%;" >
@@ -146,6 +148,20 @@ $role=Session::get('role');
                                               </a>
                                           </div>
                                       </div>
+                                      @endif
+                                      @if($role=='student')
+                                          <div class="col-md-4 col-sm-4 col-xs-4 image">
+                                              <div align="left">
+                                                  <img src="{{URL::to('images/book.png')}}" title="Academics" style="width: 35%;height: 35%; margin-top: 12%; margin-left: 25%;margin-bottom: 5%;" >
+                                                  <a href="{{route('user_settings')}}">
+                                                      <div class="overlay">
+
+                                                      </div>
+                                                  </a>
+                                              </div>
+                                          </div>
+                                      @endif
+
 
                                   </div>
 

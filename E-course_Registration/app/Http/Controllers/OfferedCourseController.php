@@ -218,7 +218,7 @@ class OfferedCourseController extends Controller
 
     public function editSchedule($dept,$session_month,$year){
         $role=Session::get('role');
-        if($role=='admin'){
+        if($role=='admin' || $role=='head'){
             $editableData=DB::table('schedule_of_exam')
                          ->where('DEPT_CODE','=',$dept)
                          ->where('EXAM_YEAR','=',$year)
