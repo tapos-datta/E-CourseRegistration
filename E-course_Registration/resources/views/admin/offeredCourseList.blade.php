@@ -133,7 +133,7 @@ $sessionMonth=Session::get('offeredSessoinMonth');
                                                     <td class=" alignment">{{$course->CATEGORY}}</td>
                                                     <td class=" alignment">{{$course->TYPE}}</td>
 
-                                                    {!! Form::open(array('url'=>'/delete_Offered_course','method'=>'post','class' => 'form-horizontal'))!!}
+                                                    {!! Form::open(array('route'=>'_delete_Offered_course','method'=>'post','class' => 'form-horizontal'))!!}
                                                     <input type="hidden" value="{{$course->OFFERED_COURSE_LIST_ID}}" name="listId">
                                                     <td class=" alignment"><button type="submit" class="btn btn-danger" onclick="return confirmChange();" name="submit"> Delete</button></td>
                                                     {!! Form::close()!!}

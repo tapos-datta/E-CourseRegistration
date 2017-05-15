@@ -23,7 +23,7 @@ class AdminUserController extends Controller
         if($check!=null and $role=='admin'){
 
             $departmentInfo=DB::table('department')->get();
-            $userData=DB::table('user')->get();
+            $userData=DB::table('user')->select('USER_ID','EMAIL','ROLE','DEPT_CODE','BATCH_ID')->where('STATUS','=',1)->get();
             $profileData=DB::table('profile')->get();
 
             Session::put('AllUserInformation',$userData);

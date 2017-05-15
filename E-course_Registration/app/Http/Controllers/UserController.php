@@ -155,5 +155,13 @@ class UserController extends Controller
 
         return view('admin.usersEditFile');
     }
+
+    public function rootDeleteInfo(Request $request){
+        $userId=$request->input('userId');
+        DB::table('user')->where('USER_ID',$userId)->update([
+            'STATUS'=>0
+        ]);
+        return redirect()->route('admin_profile')->with('message','Successfully removed user information of UserId '.$userId);
+    }
 }
 

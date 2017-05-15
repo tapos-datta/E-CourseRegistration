@@ -108,7 +108,7 @@ $studentOfCurrentSemester=Session::get('studentOfCurrentSemester');
 
                                 <div class="clearfix"></div>
                             </div>
-                            {!! Form::open(array('url'=>'/course_add_to_form','method'=>'post', 'class' => 'form-horizontal'))!!}
+                            {!! Form::open(array('route'=>'_course_add_to_form','method'=>'post', 'class' => 'form-horizontal'))!!}
 
                             <div class="x_content">
                                 <div class="form-group">

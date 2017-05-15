@@ -134,12 +134,12 @@ $batch_info = Session::get('batchInfo');
                                                     <td class=" alignment">{{$batch->SEMESTER_NAME}}</td>
                                                     <td class=" alignment">{{$batch->LEVEL}}</td>
 
-                                                    {!! Form::open(array('url'=>'/edit_batch_info','method'=>'POST', 'class' => 'form-horizontal' ))!!}
+                                                    {!! Form::open(array('route'=>'_edit_batch_info','method'=>'POST', 'class' => 'form-horizontal' ))!!}
                                                     <input type="hidden" value="{{$batch->BATCH_ID}}" name="batchNo">
                                                     <td class=" alignment"><button type="submit" class="btn btn-info" name="submit"> Edit</button></td>
                                                     {!! Form::close() !!}
 
-                                                    {!! Form::open(array('url'=>'/delete_batch','method'=>'post','class' => 'form-horizontal'))!!}
+                                                    {!! Form::open(array('route'=>'_delete_batch','method'=>'post','class' => 'form-horizontal'))!!}
                                                     <input type="hidden" value="{{$batch->BATCH_ID}}" name="batchNo">
                                                     <td class=" alignment"><button type="submit" class="btn btn-danger" onclick="return confirmChange();" name="submit"> Delete</button></td>
                                                     {!! Form::close()!!}

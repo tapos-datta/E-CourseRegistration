@@ -31,7 +31,7 @@ Route::get('/index', function () {
 })->name('home');
 
 
-Route:: post('/login','LogInController@login');
+Route:: post('/login',['as'=>'login','uses'=>'LogInController@login']);
 
 
 
@@ -76,11 +76,11 @@ Route::get('/user/{id}', ['uses' =>'SessionCheckController@invoke', 'as'=>'check
 Route::get('/profile', ['uses' =>'profileController@showInfo', 'as'=>'user_profile']);
 
 
-Route::post('/add_department',['uses'=>'OperationController@addDepartment']);
+Route::post('/add_department',['as'=>'_add_department','uses'=>'OperationController@addDepartment']);
 
-Route::post('/add_course',['uses'=>'OperationController@addCourse']);
+Route::post('/add_course',['as'=>'_add_course','uses'=>'OperationController@addCourse']);
 
-Route::post('/add_curriculum',['uses'=>'OperationController@addCurriculum']);
+Route::post('/add_curriculum',['as'=>'_add_curriculum','uses'=>'OperationController@addCurriculum']);
 
 Route::get('/show_curriculum/{year}',['as'=>'show.curriculum','uses'=>'ShowCurriculumController@index']);
 
@@ -92,21 +92,21 @@ Route::get('/show_curriculum={year}/department={code}',['as'=>'show.curriculum.d
 
 Route::get('/show_curriculum={year}/department={code}/add={semester}',['as'=>'addCourseToCurriculum','uses'=>'AddCurriculumController@index']);
 
-Route::post('/add_course_curriculum',['uses'=>'OperationController@addCourseList']);
+Route::post('/add_course_curriculum',['as'=>'_add_course_curriculum','uses'=>'OperationController@addCourseList']);
 
 Route::post('/delete_course_from_curriculum',['as'=>'delete_course_curriculum' ,'uses'=>'ShowCurriculumController@deleteCourseFromCurriculum']);
 
 Route::get('/list_of_departments',['as'=>'show.departments' ,'uses'=>'ShowCurriculumController@showDepartments']);
 
-Route::post('/edit_department_info',['uses'=>'showCurriculumController@editDepartments']);
+Route::post('/edit_department_info',['as'=>'_edit_department_info','uses'=>'showCurriculumController@editDepartments']);
 
-Route::post('/delete_department',['uses'=>'ShowCurriculumController@deleteDepartments']);
+Route::post('/delete_department',['as'=>'_delete_department','uses'=>'ShowCurriculumController@deleteDepartments']);
 
-Route::post('/delete_course',['uses'=>'ShowCurriculumController@deleteCourses']);
+Route::post('/delete_course',['as'=>'_delete_course','uses'=>'ShowCurriculumController@deleteCourses']);
 
-Route::post('/delete_batch',['uses'=>'ShowCurriculumController@deleteBatch']);
+Route::post('/delete_batch',['as'=>'_delete_batch','uses'=>'ShowCurriculumController@deleteBatch']);
 
-Route::post('/edited_info',['uses'=>'OperationController@editDeptInformation']);
+Route::post('/edited_info',['as'=>'_edited_info','uses'=>'OperationController@editDeptInformation']);
 
 Route::get('/add_department_info',['as'=>'add.department' ,'uses'=>'OperationController@addDepartmentInfo']);
 
@@ -114,13 +114,13 @@ Route::get('/add_course_info',['as'=>'add.course' ,'uses'=>'OperationController@
 
 Route::get('/list_of_courses',['as'=>'show.courses' ,'uses'=>'ShowCurriculumController@showCourses']);
 
-Route::post('/edit_course_info',['uses'=>'showCurriculumController@editCourses']);
+Route::post('/edit_course_info',['as'=>'_edit_course_info','uses'=>'showCurriculumController@editCourses']);
 
-Route::post('/edited_course_info',['uses'=>'OperationController@editCourseInformation']);
+Route::post('/edited_course_info',['as'=>'_edited_course_info','uses'=>'OperationController@editCourseInformation']);
 
 Route::get('/add_offered_courses/{session_month}/year={year}',[ 'as'=>'add.offered_course','uses'=>'OperationController@addOfferedCourse']);
 
-Route::post('/exam_session_add',['uses'=>'OfferedCourseController@addOfferedCourses']);
+Route::post('/exam_session_add',['as'=>'_exam_session_add','uses'=>'OfferedCourseController@addOfferedCourses']);
 
 Route::get('/exam_session_data/{session_month}/year={year}',['as'=>'exam.session_data', 'uses'=>'OfferedCourseController@showExamSessionData']);
 
@@ -134,13 +134,13 @@ Route::get('/add_non_major_courses',['as'=>'add.current.minorCourse','uses'=>'No
 
 Route::get('/add_drop/advance_courses',['as'=>'add.current.dropAdvanceCourse','uses'=>'NotificationController@dropAdvncCourseAdd']);
 
-Route::post('/course_add_to_form',['uses'=>'NotificationController@courseAddToFrom']);
+Route::post('/course_add_to_form',['as'=>'_course_add_to_form','uses'=>'NotificationController@courseAddToFrom']);
 
-Route::post('/course_add_to_form_1',['uses'=>'NotificationController@minorCourseAddToFrom']);
+Route::post('/course_add_to_form_1',['as'=>'_course_add_to_form_1','uses'=>'NotificationController@minorCourseAddToFrom']);
 
 Route::post('/course_add_to_form_2',['uses'=>'NotificationController@dropAdvanceCourseAddToFrom']);
 
-Route::post('/modified_registration_form',['uses'=>'NotificationController@dropAdvanceCourseModifiedToFrom']);
+Route::post('/modified_registration_form',['as'=>'_modified_registration_form','uses'=>'NotificationController@dropAdvanceCourseModifiedToFrom']);
 
 Route::get('/course_add_to_form',function(){
 
@@ -158,7 +158,7 @@ Route::get('/course_add_to_form_2',function(){
 
     return redirect()->route('registration.process');
 
-});
+})->name('_course_add_to_form_2');
 
 Route::get('/modified_registration_form',function(){
 
@@ -173,11 +173,11 @@ Route::post('/delete_offered_courses',['as'=>'delete.exam.schedule','uses'=>'Off
 
 Route::get('/new_schedule',['as'=>'create.new.schedule','uses'=>'OfferedCourseController@addNewSchedule']);
 
-Route::post('/add_new_schedule_to_list',['uses'=>'OfferedCourseController@addNewScheduleToList']);
+Route::post('/add_new_schedule_to_list',['as'=>'_add_new_schedule_to_list','uses'=>'OfferedCourseController@addNewScheduleToList']);
 
-Route::post('/edited_schedule_to_list',['uses'=>'OfferedCourseController@editedScheduleToList']);
+Route::post('/edited_schedule_to_list',['as'=>'_edited_schedule_to_list','uses'=>'OfferedCourseController@editedScheduleToList']);
 
-Route::post('/submit_registration_form',['uses'=>'NotificationController@completeRegistration']);
+Route::post('/submit_registration_form',['as'=>'_submit_registration_form','uses'=>'NotificationController@completeRegistration']);
 
 Route::get('/admin_profile_',['as'=>'admin_profile','uses'=>'AdminUserController@index']);
 
@@ -185,31 +185,33 @@ Route::get('/add_a_new_user',['as'=>'add.new.user','uses'=>'AdminUserController@
 
 Route::post('/adding_new_user',['as'=>'add.new_person.data','uses'=>'AdminUserController@addUserData']);
 
-Route::post('/add_batch_info',['uses'=>'ShowCurriculumController@addBatchInfo']);
+Route::post('/add_batch_info',['as'=>'_add_batch_info','uses'=>'ShowCurriculumController@addBatchInfo']);
 
 Route::get('/view_batch_list',['as'=>'show.batches','uses'=>'ShowCurriculumController@showBatches']);
 
 Route::get('/Add_new_batch',['as'=>'add.batch','uses'=>'ShowCurriculumController@AddBatch']);
 
-Route::post('/edit_batch_info',['uses'=>'ShowCurriculumController@editBatch']);
+Route::post('/edit_batch_info',['as'=>'_edit_batch_info','uses'=>'ShowCurriculumController@editBatch']);
 
 Route::get('/edit_user_profile/{userId}',['as'=>'edit.user.profile','uses'=>'UserController@editProfile']);
 
-Route::post('/update_user_info',['uses'=>'UserController@updateProfile']);
+Route::post('/update_user_info',['as'=>'_update_user_info','uses'=>'UserController@updateProfile']);
 
-Route::post('/update_user_settings',['uses'=>'UserController@updatePassword']);
+Route::post('/update_user_settings',['as'=>'_update_user_settings','uses'=>'UserController@updatePassword']);
 
 Route::post('/accepting_requests',['as'=>'approve_request','uses'=>'AcceptingController@index']);
 
 Route::get('/printable_registration_form',['as'=>'registration.print.file','uses'=>'NotificationController@loadPage']);
 
-Route::post('/root/edit_user_info',['uses'=>'UserController@rootEditInfo']);
+Route::post('/root/edit_user_info',['as'=>'_root_edit_user_info','uses'=>'UserController@rootEditInfo']);
+
+Route::post('/root_delete_user',['as'=>'_root_delete_user','uses'=>'UserController@rootDeleteInfo']);
 
 Route::get('/view_offered_courses/{offeredId}',['as'=>'view_offeredCourses','uses'=>'OfferedCourseController@viewListofOfferedCourses']);
 
-Route::post('/delete_Offered_course',['uses'=>'OfferedCourseController@DeleteACourse']);
+Route::post('/delete_Offered_course',['as'=>'_delete_Offered_course','uses'=>'OfferedCourseController@DeleteACourse']);
 
-Route::post('/delete_offered_semester',['uses'=>'OfferedCourseController@DeleteASemester']);
+Route::post('/delete_offered_semester',['as'=>'_delete_offered_semester','uses'=>'OfferedCourseController@DeleteASemester']);
 
 Route::get('/edit_exam_session_data/{dept}/{session_month}/{year}',['as'=>'edit.exam.session_data','uses'=>'OfferedCourseController@editSchedule']);
 
@@ -217,7 +219,7 @@ Route::get('/add_new_curriculum',['as'=>'add.new.curriculum','uses'=>'AddCurricu
 
 Route::get('/edit_curriculum_{year}',['as'=>'edit.curriculum','uses'=>'AddCurriculumController@editCurriculum']);
 
-Route::post('/edit_curriculum',['uses'=>'AddCurriculumController@updateCurriculum']);
+Route::post('/edit_curriculum',['as'=>'_edit_curriculum','uses'=>'AddCurriculumController@updateCurriculum']);
 
 
 

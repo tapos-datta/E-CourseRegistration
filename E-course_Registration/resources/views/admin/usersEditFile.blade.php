@@ -113,7 +113,7 @@ $departmentCodeLists =Session::get('departmentCodeList');
 
                                 <div class="clearfix"></div>
                             </div>
-                            {!! Form::open(array('url'=>'/update_user_info','method'=>'post','class' => 'form-horizontal','files'=>true))!!}
+                            {!! Form::open(array('route'=>'_update_user_info','method'=>'post','class' => 'form-horizontal','files'=>true))!!}
                             <div class="x_content  form-design col-md-4 col-md-offset-2">
 
 
@@ -244,7 +244,7 @@ $departmentCodeLists =Session::get('departmentCodeList');
                                 <h3>Change User Password</h3>
                                 <div class="clearfix"></div>
                             </div>
-                            <form name="changePassword" action="/update_user_settings" method="POST" class="form-horizontal" onsubmit="return myfunction()">
+                            <form name="changePassword" action="{{route('_update_user_settings')}}" method="POST" class="form-horizontal" onsubmit="return myfunction()">
                                 {{ csrf_field() }}
                                 <div class="x_content  form-design col-md-4 col-md-offset-2">
 

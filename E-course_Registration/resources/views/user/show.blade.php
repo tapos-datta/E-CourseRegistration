@@ -132,7 +132,7 @@ $notSuccess=Session::get('status');
             </div>
             <div class="col-sm-3 col-md-3">
                 <div align="center" class="col-sm-12 col-md-12">
-                    <form action="/login" method="POST">
+                    {!!  Form::open(array('route'=>'login', 'method' => 'POST')) !!}
                         {{ csrf_field() }}
                         @if($notSuccess=='notSuccess')<p class="text">Email or password not valid</p>@endif
 
@@ -144,8 +144,7 @@ $notSuccess=Session::get('status');
 
                         <button type="submit">login</button>
 
-                    </form>
-
+                    {!! Form::close() !!}
                 </div>
 
             </div>

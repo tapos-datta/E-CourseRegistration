@@ -162,7 +162,7 @@ $sessionMonth=Session::get('offeredSessoinMonth');
 
                                                     <td class="alignment "><a href="{{route('view_offeredCourses',array('offeredId'=>$offer->OFFERED_ID))}}"> <button type="submit" class="btn btn-info"  name="submit">View</button></a></td>
 
-                                                    {!! Form::open(array('url'=>'\delete_offered_semester','method'=>'post','class' => 'form-horizontal'))!!}
+                                                    {!! Form::open(array('route'=>'_delete_offered_semester','method'=>'post','class' => 'form-horizontal'))!!}
                                                     <input type="hidden" value="{{$offer->OFFERED_ID}}" name="listId">
                                                     <td class=" alignment"><button type="submit" class="btn btn-danger" onclick="return confirmChange();" name="submit"> Delete</button></td>
                                                     {!! Form::close()!!}

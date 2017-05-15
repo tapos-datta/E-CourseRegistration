@@ -112,7 +112,7 @@ $courseListInSemester=Session::get('courseListOfSemester');
 
                                 <div class="clearfix"></div>
                             </div>
-                            {!! Form::open(array('url'=>'\add_course_curriculum','method'=>'post', 'class' => 'form-horizontal'))!!}
+                            {!! Form::open(array('route'=>'_add_course_curriculum','method'=>'post', 'class' => 'form-horizontal'))!!}
                             <input type="hidden" name="curriculumYear" value="{{$year}}" />
                             <input type="hidden" name="departmentCode" value="{{$deptCode}}" />
                             <input type="hidden" name="semesterNo" value="{{$viewSemester}}" />

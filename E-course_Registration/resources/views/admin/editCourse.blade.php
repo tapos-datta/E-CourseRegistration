@@ -99,7 +99,7 @@ $departmentCodeLists =Session::get('departmentCodeList');
 
                 <div class="row">
 
-                    {!!  Form::open(array('url'=>'/edited_course_info', 'method' => 'POST', 'class' => 'form-horizontal')) !!}
+                    {!!  Form::open(array('route'=>'_edited_course_info', 'method' => 'POST', 'class' => 'form-horizontal')) !!}
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_panel">

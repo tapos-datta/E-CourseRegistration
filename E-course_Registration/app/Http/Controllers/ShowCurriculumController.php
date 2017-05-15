@@ -18,43 +18,57 @@ class ShowCurriculumController extends Controller
 {
     //check session for valid access
    public function index($year){
+       $role=Session::get('role');
+       if($role!=null) {
+           $data = DB::table('syllabus')->where('SYLLABUS_YEAR', $year)->first();
 
-       $data=DB::table('syllabus')->where('SYLLABUS_YEAR',$year)->first();
+           if (sizeof($data) == 1) {
 
-       if(sizeof($data)==1){
+               $departmentCodeList = DB::table('department')->select('DEPT_CODE', 'DEPT_NAME')->get();
 
-           $departmentCodeList= DB::table('department')->select('DEPT_CODE', 'DEPT_NAME')->get();
+               Session::put('showCurriculumYear', $year);
+               Session::put('departmentList', $departmentCodeList);
 
-           Session::put('showCurriculumYear',$year);
-           Session::put('departmentList',$departmentCodeList);
-
-           return view('admin.showCurriculumDepartment');
+               return view('admin.showCurriculumDepartment');
+           } else {
+               return view('admin.404Error');
+           }
+       }
+       else{
+           return view('admin.404Error');
        }
 
-       return $year;
+
 
   }
 
   public function _empty(){
-      return "ERROR";
+      return view('admin.404Error');
   }
 
   public function department($year,$code){
-      //valid check baki roiche
+      $role=Session::get('role');
 
-      $data=DB::table('syllabus')->where('SYLLABUS_YEAR',$year)->first();
+      if($role!=null){
+          $data=DB::table('syllabus')->where('SYLLABUS_YEAR',$year)->first();
 
-      $courseID=DB::table('course_list')->select('COURSE_ID')->where('SYLLABUS_YEAR',$year)->where('DEPT_CODE',$code)->orderBy('SEMESTER_NAME','asc')->get();
-      $courseList=array();
-      foreach($courseID as $id){
-          $courseDetails=DB::table('courses')->where('COURSE_ID',$id->COURSE_ID)->first();
+          $courseID=DB::table('course_list')->select('COURSE_ID')->where('SYLLABUS_YEAR',$year)->where('DEPT_CODE',$code)->orderBy('SEMESTER_NAME','asc')->get();
+          $courseList=array();
+          foreach($courseID as $id){
+              $courseDetails=DB::table('courses')->where('COURSE_ID',$id->COURSE_ID)->first();
 
-          $courseList[]=$courseDetails;
+              $courseList[]=$courseDetails;
+          }
+
+          Session::put('viewDeptCode',$code);
+          Session::put('courseList',$courseList);
+          return view('admin.coursesInCurriculum');
+      }
+      else{
+          return view('admin.404Error');
       }
 
-      Session::put('viewDeptCode',$code);
-      Session::put('courseList',$courseList);
-      return view('admin.coursesInCurriculum');
+
   }
   public function deleteCourseFromCurriculum(Request $request){
       $id=$request->input('course_id');
@@ -68,12 +82,19 @@ class ShowCurriculumController extends Controller
 
   public function showDepartments(){
 
-      //jodi admin rule hoy tobe seta dekha jabe
+       $role=Session::get('role');
 
-       $dept= DB::table('department')->get();
-      Session::put('ListsOfDepartment',$dept);
+      if($role=='admin'){
+          $dept= DB::table('department')->get();
+          Session::put('ListsOfDepartment',$dept);
 
-      return view('admin.viewDepartment');
+          return view('admin.viewDepartment');
+      }
+      else{
+          return view('admin.404Error');
+      }
+
+
   }
   public function deleteCourses(Request $request){
       $id=$request->input('courseCode');

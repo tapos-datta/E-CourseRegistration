@@ -204,7 +204,7 @@ $dropAdList=array();
                                                                <?php $majorLab=$majorLab+ $offered->COURSE_CREDIT;?>
                                                            @endif
 
-                                                           {{Form::open(array('url'=>'/modified_registration_form', 'method' => 'POST', 'class' => 'form-horizontal'))}}
+                                                           {{Form::open(array('route'=>'_modified_registration_form', 'method' => 'POST', 'class' => 'form-horizontal'))}}
                                                                <input type="hidden" name="offerdCourseId" value="{{$offered->OFFERED_COURSE_LIST_ID}}">
                                                                <input type="hidden" name="status" value="major">
                                                                <td class=" alignment">{{ Form::submit('Delete',array('id'=>'submitButton', 'class'=>'btn btn-danger right-right')) }}</td>
@@ -267,7 +267,7 @@ $dropAdList=array();
                                                         @elseif($offered->TYPE=='LAB')
                                                             <?php $minorLab=$minorLab+ $offered->COURSE_CREDIT;?>
                                                         @endif
-                                                        {{Form::open(array('url'=>'/modified_registration_form', 'method' => 'POST', 'class' => 'form-horizontal'))}}
+                                                        {{Form::open(array('route'=>'_modified_registration_form', 'method' => 'POST', 'class' => 'form-horizontal'))}}
                                                             <input type="hidden" name="offerdCourseId" value="{{$offered->OFFERED_COURSE_LIST_ID}}">
                                                             <input type="hidden" name="status" value="minor">
                                                             <td class=" alignment">{{ Form::submit('Delete',array('id'=>'submitButton', 'class'=>'btn btn-danger right-right')) }}</td>
@@ -335,7 +335,7 @@ $dropAdList=array();
                                                             @elseif($offered->TYPE=='LAB')
                                                                 <?php $dropAdLab=$dropAdLab+ $offered->COURSE_CREDIT;?>
                                                             @endif
-                                                            {{Form::open(array('url'=>'/modified_registration_form', 'method' => 'POST', 'class' => 'form-horizontal'))}}
+                                                            {{Form::open(array('route'=>'_modified_registration_form', 'method' => 'POST', 'class' => 'form-horizontal'))}}
                                                             <input type="hidden" name="offerdCourseId" value="{{$offered->OFFERED_COURSE_LIST_ID}}">
                                                             <input type="hidden" name="status" value="dropAd">
                                                         <td class=" alignment">{{ Form::submit('Delete',array('id'=>'submitButton', 'class'=>'btn btn-danger right-right')) }}</td>
@@ -371,7 +371,7 @@ $dropAdList=array();
 
                                 <div class="clearfix"></div>
                             </div>
-                            {!!  Form::open(array('url'=>'/submit_registration_form', 'method' => 'POST', 'class' => 'form-horizontal')) !!}
+                            {!!  Form::open(array('route'=>'_submit_registration_form', 'method' => 'POST', 'class' => 'form-horizontal')) !!}
                             <input type="hidden" name="majorCourseListNumber" value="{{sizeof($majorList)}}">
                             <input type="hidden" name="minorCourseListNumber" value="{{sizeof($minorList)}}">
                             <input type="hidden" name="dropAdCourseListNumber" value="{{sizeof($dropAdList)}}">

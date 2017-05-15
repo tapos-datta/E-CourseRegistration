@@ -98,7 +98,7 @@ $departmentCodeLists=session()->get('departmentCodeList');
 
                 <div class="clearfix"></div>
                 <div class="row">
-                    {!!  Form::open(array('url'=>'/add_course','method'=>'post', 'class' => 'form-horizontal')) !!}
+                    {!!  Form::open(array('route'=>'_add_course','method'=>'post', 'class' => 'form-horizontal')) !!}
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 

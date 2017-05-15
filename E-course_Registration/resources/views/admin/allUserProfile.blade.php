@@ -144,12 +144,12 @@ $message=Session::get('message');
                                                         <td class=" alignment">{{$data->ROLE}}</td>
                                                         <td class=" alignment">{{$data->DEPT_CODE}}</td>
 
-                                                        {!! Form::open(array('url'=>'/root/edit_user_info','method'=>'POST', 'class' => 'form-horizontal' ))!!}
+                                                        {!! Form::open(array('route'=>'_root_edit_user_info','method'=>'POST', 'class' => 'form-horizontal' ))!!}
                                                         <input type="hidden" value="{{$data->USER_ID}}" name="userId">
                                                         <td class=" alignment"><button type="submit" class="btn btn-info" name="submit">Edit</button></td>
                                                         {!! Form::close() !!}
 
-                                                        {!! Form::open(array('url'=>'','method'=>'post','class' => 'form-horizontal'))!!}
+                                                        {!! Form::open(array('route'=>'_root_delete_user','method'=>'post','class' => 'form-horizontal'))!!}
                                                         <input type="hidden" value="{{$data->USER_ID}}" name="userId">
                                                         <td class=" alignment"><button type="submit" class="btn btn-danger" name="submit"> Delete</button></td>
                                                         {!! Form::close()!!}

@@ -231,14 +231,6 @@ $image_path= URL::to('images/default_image.png');
 
                                                                             <td ><a class="textSize" href="{{route('exam.session_data',array('session_month'=>$offered->SESSION_MONTH,'year'=>$offered->EXAM_YEAR))}}">Exam Period ({{$offered->SESSION_MONTH}}) Of {{$offered->EXAM_YEAR}}</a></td>
                                                                             <td align="right">Deadline:<span class="deadline"> {{date('d-m-Y',strtotime($offered->DEAD_LINE))}}</span></td>
-                                                                            {{--{!! Form::open(array('route'=>'delete.exam.schedule','method'=>'post', 'class' => 'form-horizontal')) !!}--}}
-                                                                            {{--<input type="hidden" name="examYear" value="{{$offered->EXAM_YEAR}}">--}}
-                                                                            {{--<input type="hidden" name="session_month" value="{{$offered->SESSION_MONTH}}">--}}
-                                                                            {{--<input type="hidden" name="examId" value="{{$offered->EXAM_ID}}">--}}
-
-                                                                            {{--<td align="right"><button disabled type="submit" class="btn btn-primary" id="deleteButton"  name="submit" --}}{{--onclick="return confirmChange();"--}}{{--> Deadline: {{$offered->DEAD_LINE}}</button></td>--}}
-                                                                            {{--{!! Form::close()!!}--}}
-
                                                                             <td>
                                                                                 <ul>
                                                                                     <a href="{{route('edit.exam.session_data',array('dept'=>$offered->DEPT_CODE,'session_month'=>$offered->SESSION_MONTH,'year'=>$offered->EXAM_YEAR))}}">

@@ -104,7 +104,7 @@ $message=Session::get('message');
                             </div>
                             <div class="x_content  form-design col-md-4 col-md-offset-2">
 
-                                {!! Form::open(array('url'=>'/update_user_info','method'=>'post','class' => 'form-horizontal','files'=>true))!!}
+                                {!! Form::open(array('route'=>'_update_user_info','method'=>'post','class' => 'form-horizontal','files'=>true))!!}
                                 <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">FIRST NAME <span class="required"></span>
                                     </label>

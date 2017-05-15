@@ -136,12 +136,12 @@ $courseLists = Session::get('ListsOfCourse');
                                                     <td class=" alignment">{{$course->SEMESTER_NAME}}</td>
                                                     <td class=" alignment">{{$course->DEPT_CODE}}</td>
 
-                                                    {!! Form::open(array('url'=>'/edit_course_info','method'=>'POST', 'class' => 'form-horizontal' ))!!}
+                                                    {!! Form::open(array('route'=>'_edit_course_info','method'=>'POST', 'class' => 'form-horizontal' ))!!}
                                                     <input type="hidden" value="{{$course->COURSE_ID}}" name="courseCode">
                                                     <td class=" alignment"><button type="submit" class="btn btn-info" name="submit"> Edit</button></td>
                                                     {!! Form::close() !!}
 
-                                                    {!! Form::open(array('url'=>'/delete_course','method'=>'post','class' => 'form-horizontal'))!!}
+                                                    {!! Form::open(array('route'=>'_delete_course','method'=>'post','class' => 'form-horizontal'))!!}
                                                     <input type="hidden" value="{{$course->COURSE_ID}}" name="courseCode">
                                                     <td class=" alignment"><button type="submit" class="btn btn-danger" onclick="return confirmChange();" name="submit"> Delete</button></td>
                                                     {!! Form::close()!!}
