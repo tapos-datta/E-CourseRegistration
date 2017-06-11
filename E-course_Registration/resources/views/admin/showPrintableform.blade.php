@@ -116,9 +116,9 @@
 <head>
     <title></title>
     <meta charset="utf-8">
-    <link rel="stylesheet" type="text/css" href="{{ URL::to('CSS/Stylesheet.css') }}" media="print">
-    <link rel="stylesheet" type="text/css" href="{{ URL::to('CSS/registrationScreen.css') }}" media="screen">
-    <link href="{{URL::to('vendors/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{ asset('CSS/Stylesheet.css') }}" media="print">
+    <link rel="stylesheet" type="text/css" href="{{ asset('CSS/registrationScreen.css') }}" media="screen">
+    <link href="{{asset('vendors/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
 
 </head>
 <body>
@@ -130,7 +130,7 @@
     <div class="col-sm-10 Col-sm-8">
         <div  class="logo" style="margin-top: 3.5%">
 
-            <img src="{{ URL::to('images/sust.png') }}" alt="" style="width:2.5em;height:2.5em">
+            <img src="{{ asset('images/sust.png') }}" alt="" style="width:2.5em;height:2.5em">
         </div>
         <div align="center" class="heading" style="float: left; margin-left: -3%;">
             <h2 style="font-size: 1.625em"> শাহজালাল বিজ্ঞান ও প্রযুক্তি বিশ্ববিদ্যালয়, সিলেট </h2>
@@ -1011,7 +1011,7 @@
             <h4 align="center" style="margin-top: 25%;margin-left: 10%">শাহজালাল বিজ্ঞান ও প্রযুক্তি বিশ্ববিদ্যালয়,সিলেট</h4>
             <p><br><br><br><br></p>
 
-            <img src="{{ URL::to('images/sust.png') }}" alt="" style="width:5.5em;height:5.5em;margin-left: 40%">
+            <img src="{{ asset('images/sust.png') }}" alt="" style="width:5.5em;height:5.5em;margin-left: 40%">
 
             <p><br><br><br></p>
             <h2 align="center">প্রবেশপত্র </h2>

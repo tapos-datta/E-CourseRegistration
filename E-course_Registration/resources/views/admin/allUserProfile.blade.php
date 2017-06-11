@@ -23,25 +23,25 @@ $message=Session::get('message');
     <title>User profiles</title>
 
     <!-- Bootstrap -->
-    <link href="{{ URL::to('vendors/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('vendors/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
     <!-- Font Awesome -->
-    <link href="{{URL::to('vendors/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
+    <link href="{{asset('vendors/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
     <!-- NProgress -->
-    <link href="{{URL::to('vendors/nprogress/nprogress.css') }}" rel="stylesheet">
+    <link href="{{asset('vendors/nprogress/nprogress.css') }}" rel="stylesheet">
     <!-- iCheck -->
-    <link href="{{URL::to('vendors/iCheck/skins/flat/green.css') }}" rel="stylesheet">
+    <link href="{{asset('vendors/iCheck/skins/flat/green.css') }}" rel="stylesheet">
     <!--Datatables -->
-    <link href="{{URL::to('vendors/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{URL::to('vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{URL::to('vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{URL::to('vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{URL::to('vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{asset('vendors/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{asset('vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{asset('vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{asset('vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{asset('vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css') }}" rel="stylesheet">
     <!-- jQuery custom content scroller -->
-    <link href="{{ URL::to('vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css')}}" rel="stylesheet"/>
+    <link href="{{ asset('vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css')}}" rel="stylesheet"/>
 
     <!-- Custom Theme Style -->
-    <link href="{{URL::to('vendors/build/css/custom.min.css')}}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ URL::to('CSS/w3.css') }}">
+    <link href="{{asset('vendors/build/css/custom.min.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('CSS/w3.css') }}">
 
     <style>
         #addButton {
@@ -183,35 +183,35 @@ Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib
 </div>
 
 <!-- jQuery -->
-<script src="{{URL::to('vendors/jquery/dist/jquery.min.js')}}"></script>
+<script src="{{asset('vendors/jquery/dist/jquery.min.js')}}"></script>
 <!-- Bootstrap -->
-<script src="{{URL::to('vendors/bootstrap/dist/js/bootstrap.min.js')}}"></script>
+<script src="{{asset('vendors/bootstrap/dist/js/bootstrap.min.js')}}"></script>
 <!-- FastClick -->
-<script src="{{URL::to('vendors/fastclick/lib/fastclick.js')}}"></script>
+<script src="{{asset('vendors/fastclick/lib/fastclick.js')}}"></script>
 <!-- NProgress -->
-<script src="{{URL::to('vendors/nprogress/nprogress.js')}}"></script>
+<script src="{{asset('vendors/nprogress/nprogress.js')}}"></script>
 
 <!-- jQuery custom content scroller -->
-<script src="{{URL::to('vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js')}}"></script>
+<script src="{{asset('vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js')}}"></script>
 <!-- iCheck -->
-<script src="{{URL::to('vendors/iCheck/icheck.min.js')}}"></script>
+<script src="{{asset('vendors/iCheck/icheck.min.js')}}"></script>
 <!--Datatable -->
-<script src="{{URL::to('vendors/datatables.net/js/jquery.dataTables.min.js')}}"></script>
-<script src="{{URL::to('vendors/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
-<script src="{{URL::to('vendors/datatables.net-buttons/js/dataTables.buttons.min.js')}}"></script>
-<script src="{{URL::to('vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js')}}"></script>
-<script src="{{URL::to('vendors/datatables.net-buttons/js/buttons.flash.min.js')}}"></script>
-<script src="{{URL::to('vendors/datatables.net-buttons/js/buttons.html5.min.js')}}"></script>
-<script src="{{URL::to('vendors/datatables.net-buttons/js/buttons.print.min.js')}}"></script>
-<script src="{{URL::to('vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js')}}"></script>
-<script src="{{URL::to('vendors/datatables.net-keytable/js/dataTables.keyTable.min.js')}}"></script>
-<script src="{{URL::to('vendors/datatables.net-responsive/js/dataTables.responsive.min.js')}}"></script>
-<script src="{{URL::to('vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js')}}"></script>
-<script src="{{URL::to('vendors/datatables.net-scroller/js/datatables.scroller.min.js')}}"></script>
+<script src="{{asset('vendors/datatables.net/js/jquery.dataTables.min.js')}}"></script>
+<script src="{{asset('vendors/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
+<script src="{{asset('vendors/datatables.net-buttons/js/dataTables.buttons.min.js')}}"></script>
+<script src="{{asset('vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js')}}"></script>
+<script src="{{asset('vendors/datatables.net-buttons/js/buttons.flash.min.js')}}"></script>
+<script src="{{asset('vendors/datatables.net-buttons/js/buttons.html5.min.js')}}"></script>
+<script src="{{asset('vendors/datatables.net-buttons/js/buttons.print.min.js')}}"></script>
+<script src="{{asset('vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js')}}"></script>
+<script src="{{asset('vendors/datatables.net-keytable/js/dataTables.keyTable.min.js')}}"></script>
+<script src="{{asset('vendors/datatables.net-responsive/js/dataTables.responsive.min.js')}}"></script>
+<script src="{{asset('vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js')}}"></script>
+<script src="{{asset('vendors/datatables.net-scroller/js/datatables.scroller.min.js')}}"></script>
 
 
 <!-- Custom Theme Scripts -->
-<script src="{{URL::to('vendors/build/js/custom.min.js')}}"></script>
+<script src="{{asset('vendors/build/js/custom.min.js')}}"></script>
 
 <!-- Datatables -->
 <script>

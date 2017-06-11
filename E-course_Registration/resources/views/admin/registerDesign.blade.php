@@ -68,21 +68,21 @@ $dropAdList=array();
     <title>Registration Form</title>
 
     <!-- Bootstrap -->
-    <link href="{{ URL::to('vendors/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('vendors/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
     <!-- Font Awesome -->
-    <link href="{{URL::to('vendors/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
+    <link href="{{asset('vendors/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
     <!-- NProgress -->
-    <link href="{{URL::to('vendors/nprogress/nprogress.css') }}" rel="stylesheet">
+    <link href="{{asset('vendors/nprogress/nprogress.css') }}" rel="stylesheet">
     <!-- iCheck -->
-    <link href="{{URL::to('vendors/iCheck/skins/flat/green.css') }}" rel="stylesheet">
+    <link href="{{asset('vendors/iCheck/skins/flat/green.css') }}" rel="stylesheet">
 
     <!-- Custom Theme Style -->
-    <link href="{{URL::to('vendors/build/css/custom.min.css')}}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ URL::to('CSS/w3.css') }}">
+    <link href="{{asset('vendors/build/css/custom.min.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('CSS/w3.css') }}">
     <!-- Breadcrumb -->
-    <link rel="stylesheet" href="{{ URL::to('CSS/Breadcrumb.css') }}">
+    <link rel="stylesheet" href="{{ asset('CSS/Breadcrumb.css') }}">
     <!-- jQuery custom content scroller -->
-    <link href="{{ URL::to('vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css')}}" rel="stylesheet"/>
+    <link href="{{ asset('vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css')}}" rel="stylesheet"/>
 
     <style>
         #addButton {
@@ -506,23 +506,23 @@ $dropAdList=array();
 </div>
 
 <!-- jQuery -->
-<script src="{{URL::to('vendors/jquery/dist/jquery.min.js')}}"></script>
+<script src="{{asset('vendors/jquery/dist/jquery.min.js')}}"></script>
 <!-- Bootstrap -->
-<script src="{{URL::to('vendors/bootstrap/dist/js/bootstrap.min.js')}}"></script>
+<script src="{{asset('vendors/bootstrap/dist/js/bootstrap.min.js')}}"></script>
 <!-- FastClick -->
-<script src="{{URL::to('vendors/fastclick/lib/fastclick.js')}}"></script>
+<script src="{{asset('vendors/fastclick/lib/fastclick.js')}}"></script>
 <!-- NProgress -->
-<script src="{{URL::to('vendors/nprogress/nprogress.js')}}"></script>
+<script src="{{asset('vendors/nprogress/nprogress.js')}}"></script>
 <!-- jQuery custom content scroller -->
-<script src="{{URL::to('vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js')}}"></script>
+<script src="{{asset('vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js')}}"></script>
 
 <!-- Custom Theme Scripts -->
-<script src="{{URL::to('vendors/build/js/custom.min.js')}}"></script>
+<script src="{{asset('vendors/build/js/custom.min.js')}}"></script>
 
-<script src="{{URL::to('js/custom.js')}}"></script>
+<script src="{{asset('js/custom.js')}}"></script>
 
 <!-- iCheck -->
-<script src="{{URL::to('vendors/iCheck/icheck.min.js')}}"></script>
+<script src="{{asset('vendors/iCheck/icheck.min.js')}}"></script>
 
 <script>
 

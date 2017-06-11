@@ -5,10 +5,10 @@ $name=$profileData->FIRST_NAME;
 $image=$profileData->IMAGE_NAME;
 
 if($image==null || $image=='default_image.png'){
-    $image_path= URL::to('images/default_image.png');
+    $image_path= asset('images/default_image.png');
 }
 else if($image!=null){
-    $image_path= URL::to('images/users/'.$image);
+    $image_path= asset('images/users/'.$image);
 }
 ?>
 <div class="top_nav">

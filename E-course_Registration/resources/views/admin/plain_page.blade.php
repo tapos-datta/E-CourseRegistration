@@ -20,17 +20,17 @@ $role=Session::get('role');
     <title>Home </title>
 
     <!-- Bootstrap -->
-    <link href="{{ URL::to('vendors/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('vendors/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
     <!-- Font Awesome -->
-    <link href="{{URL::to('vendors/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
+    <link href="{{asset('vendors/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
     <!-- NProgress -->
-    <link href="{{URL::to('vendors/nprogress/nprogress.css') }}" rel="stylesheet">
+    <link href="{{asset('vendors/nprogress/nprogress.css') }}" rel="stylesheet">
       <!-- jQuery custom content scroller -->
-      <link href="{{ URL::to('vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css')}}" rel="stylesheet"/>
+      <link href="{{ asset('vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css')}}" rel="stylesheet"/>
 
     <!-- Custom Theme Style -->
-    <link href="{{URL::to('vendors/build/css/custom.min.css')}}" rel="stylesheet">
-      <link rel="stylesheet" href="{{ URL::to('CSS/w3.css') }}">
+    <link href="{{asset('vendors/build/css/custom.min.css')}}" rel="stylesheet">
+      <link rel="stylesheet" href="{{ asset('CSS/w3.css') }}">
       <style>
           .colorAdd{
               background-color: /*#BD8B2E*/#0288D1;
@@ -117,7 +117,7 @@ $role=Session::get('role');
                                   <div class="col-md-12 col-sm-12 col-xs-12">
                                       <div class="col-md-4 col-sm-4 col-xs-4 image ">
                                           <div align="right"  >
-                                              <img title="Profile" src="{{URL::to('images/profile-icon.png')}}" style="width: 50%;height: 50%; margin-top: 5%; margin-right: 25%;" >
+                                              <img title="Profile" src="{{asset('images/profile-icon.png')}}" style="width: 50%;height: 50%; margin-top: 5%; margin-right: 25%;" >
                                               <a href="{{route('user_profile')}}">
                                                   <div class="overlay">
 
@@ -128,7 +128,7 @@ $role=Session::get('role');
                                       @if($role!='admin')
                                       <div class="col-md-4 col-sm-4 col-xs-4 image">
                                           <div align="left">
-                                              <img src="{{URL::to('images/bell-icon.png')}}" title="Notification" style="width: 50%;height: 50%; margin-top: 5%; margin-left: 25%" >
+                                              <img src="{{asset('images/bell-icon.png')}}" title="Notification" style="width: 50%;height: 50%; margin-top: 5%; margin-left: 25%" >
                                               <a href="{{route('user_notification')}}">
                                                   <div class="overlay">
 
@@ -140,7 +140,7 @@ $role=Session::get('role');
                                       @if($role!='student')
                                       <div class="col-md-4 col-sm-4 col-xs-4 image">
                                           <div align="left">
-                                              <img src="{{URL::to('images/settings-icon.png')}}" title="Settings" style="width: 35%;height: 35%; margin-top: 12%; margin-left: 25%;margin-bottom: 5%;" >
+                                              <img src="{{asset('images/settings-icon.png')}}" title="Settings" style="width: 35%;height: 35%; margin-top: 12%; margin-left: 25%;margin-bottom: 5%;" >
                                               <a href="{{route('user_settings')}}">
                                                   <div class="overlay">
 
@@ -152,7 +152,7 @@ $role=Session::get('role');
                                       @if($role=='student')
                                           <div class="col-md-4 col-sm-4 col-xs-4 image">
                                               <div align="left">
-                                                  <img src="{{URL::to('images/book.png')}}" title="Academics" style="width: 35%;height: 35%; margin-top: 12%; margin-left: 25%;margin-bottom: 5%;" >
+                                                  <img src="{{asset('images/book.png')}}" title="Academics" style="width: 35%;height: 35%; margin-top: 12%; margin-left: 25%;margin-bottom: 5%;" >
                                                   <a href="{{route('user_settings')}}">
                                                       <div class="overlay">
 
@@ -169,7 +169,7 @@ $role=Session::get('role');
                                       @if($role=='admin')
                                       <div class="col-md-4 col-sm-4 col-xs-4 image">
                                           <div align="right">
-                                              <img src="{{URL::to('images/users-icon.png')}}" title="Users" style="width: 40%;height: 40%; margin-top: 10%; margin-right: 29%; margin-bottom: 3%;" >
+                                              <img src="{{asset('images/users-icon.png')}}" title="Users" style="width: 40%;height: 40%; margin-top: 10%; margin-right: 29%; margin-bottom: 3%;" >
                                               <a href="{{route('admin_profile')}}">
                                                   <div class="overlay">
 
@@ -180,7 +180,7 @@ $role=Session::get('role');
                                       @endif
                                       <div class="col-md-4 col-sm-4 col-xs-4 image">
                                           <div align="left">
-                                              <img src="{{URL::to('images/logout-icon.png')}}" title="Logout" style="width: 35%;height: 35%; margin-top: 10%; margin-left: 32%; margin-bottom: 5%" >
+                                              <img src="{{asset('images/logout-icon.png')}}" title="Logout" style="width: 35%;height: 35%; margin-top: 10%; margin-left: 32%; margin-bottom: 5%" >
                                               <a href="{{route('user_logout')}}">
                                                   <div class="overlay">
 
@@ -215,18 +215,18 @@ Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib
     </div>
 
     <!-- jQuery -->
-    <script src="{{URL::to('vendors/jquery/dist/jquery.min.js')}}"></script>
+    <script src="{{asset('vendors/jquery/dist/jquery.min.js')}}"></script>
     <!-- Bootstrap -->
-    <script src="{{URL::to('vendors/bootstrap/dist/js/bootstrap.min.js')}}"></script>
+    <script src="{{asset('vendors/bootstrap/dist/js/bootstrap.min.js')}}"></script>
     <!-- FastClick -->
-    <script src="{{URL::to('vendors/fastclick/lib/fastclick.js')}}"></script>
+    <script src="{{asset('vendors/fastclick/lib/fastclick.js')}}"></script>
     <!-- NProgress -->
-    <script src="{{URL::to('vendors/nprogress/nprogress.js')}}"></script>
+    <script src="{{asset('vendors/nprogress/nprogress.js')}}"></script>
 
     <!-- jQuery custom content scroller -->
-    <script src="{{URL::to('vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js')}}"></script>
+    <script src="{{asset('vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js')}}"></script>
 
     <!-- Custom Theme Scripts -->
-    <script src="{{URL::to('vendors/build/js/custom.min.js')}}"></script>
+    <script src="{{asset('vendors/build/js/custom.min.js')}}"></script>
   </body>
 </html>

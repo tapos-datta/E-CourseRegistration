@@ -11,11 +11,11 @@ $notSuccess=Session::get('status');
 <!DOCTYPE html>
 <html>
     <title>E-Course Registration</title>
-    <link rel="stylesheet" href="{{ URL::to('CSS/w3.css') }}">
-    <link rel="stylesheet" href="{{ URL::to('CSS/bootstrap.css') }}">
-    <link rel="stylesheet" href="{{ URL::to('CSS/family=Raleway.css') }}">
-    <link rel="stylesheet" href="{{ URL::to('CSS/font-awesome.main.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ URL::to('CSS/login.css') }}">
+    <link rel="stylesheet" href="{{ asset('CSS/w3.css') }}">
+    <link rel="stylesheet" href="{{ asset('CSS/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('CSS/family=Raleway.css') }}">
+    <link rel="stylesheet" href="{{ asset('CSS/font-awesome.main.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('CSS/login.css') }}">
     <style>
         /*body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}*/
         {{--body,html {--}}
@@ -23,7 +23,7 @@ $notSuccess=Session::get('status');
             {{--line-height: 1.8;--}}
             {{--background-position: center;--}}
             {{--background-size: cover;--}}
-            {{--background-image:URL("{{ URL::to('images/books.png') }}");--}}
+            {{--background-image:URL("{{ asset('images/books.png') }}");--}}
             {{--background-size: 100% 100%;--}}
             {{--background-repeat: no-repeat;--}}
         {{--}--}}
@@ -106,7 +106,7 @@ $notSuccess=Session::get('status');
 
 
         #background{
-            background-image: URL("{{ URL::to('images/background-image.png') }}");
+            background-image: URL("{{ asset('images/background-image.png') }}");
             /*background-position: center;*/
             background-size: cover;
             background-size: 100% 100%;

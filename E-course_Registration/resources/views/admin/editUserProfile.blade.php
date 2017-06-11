@@ -24,17 +24,17 @@ $message=Session::get('message');
     <title>Edit Profile</title>
 
     <!-- Bootstrap -->
-    <link href="{{ URL::to('vendors/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('vendors/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
     <!-- Font Awesome -->
-    <link href="{{URL::to('vendors/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
+    <link href="{{asset('vendors/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
     <!-- NProgress -->
-    <link href="{{URL::to('vendors/nprogress/nprogress.css') }}" rel="stylesheet">
+    <link href="{{asset('vendors/nprogress/nprogress.css') }}" rel="stylesheet">
     <!-- jQuery custom content scroller -->
-    <link href="{{ URL::to('vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css')}}" rel="stylesheet"/>
+    <link href="{{ asset('vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css')}}" rel="stylesheet"/>
 
     <!-- Custom Theme Style -->
-    <link href="{{URL::to('vendors/build/css/custom.min.css')}}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ URL::to('CSS/w3.css') }}">
+    <link href="{{asset('vendors/build/css/custom.min.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('CSS/w3.css') }}">
     <style>
         .image_position{
             width:5%;
@@ -98,7 +98,7 @@ $message=Session::get('message');
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="x_panel">
                             <div class="x_title">
-                                <img src="{{URL::to('images/user_icon_1.jpg')}}" class="image_position">
+                                <img src="{{asset('images/user_icon_1.jpg')}}" class="image_position">
 
                                 <div class="clearfix"></div>
                             </div>
@@ -271,19 +271,19 @@ Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib
 </div>
 
 <!-- jQuery -->
-<script src="{{URL::to('vendors/jquery/dist/jquery.min.js')}}"></script>
+<script src="{{asset('vendors/jquery/dist/jquery.min.js')}}"></script>
 <!-- Bootstrap -->
-<script src="{{URL::to('vendors/bootstrap/dist/js/bootstrap.min.js')}}"></script>
+<script src="{{asset('vendors/bootstrap/dist/js/bootstrap.min.js')}}"></script>
 <!-- FastClick -->
-<script src="{{URL::to('vendors/fastclick/lib/fastclick.js')}}"></script>
+<script src="{{asset('vendors/fastclick/lib/fastclick.js')}}"></script>
 <!-- NProgress -->
-<script src="{{URL::to('vendors/nprogress/nprogress.js')}}"></script>
+<script src="{{asset('vendors/nprogress/nprogress.js')}}"></script>
 
 <!-- jQuery custom content scroller -->
-<script src="{{URL::to('vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js')}}"></script>
+<script src="{{asset('vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js')}}"></script>
 
 <!-- Custom Theme Scripts -->
-<script src="{{URL::to('vendors/build/js/custom.min.js')}}"></script>
+<script src="{{asset('vendors/build/js/custom.min.js')}}"></script>
 
 <script>
     function myfunction() {
